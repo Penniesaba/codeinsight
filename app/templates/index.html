@@ -14,8 +14,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">开始分析</h5>
+                    <a href="{{ url_for('main.history') }}" class="btn btn-outline-info btn-sm">
+                        <i class="bi bi-clock-history"></i> 历史记录
+                    </a>
                 </div>
                 <div class="card-body">
                     <form action="{{ url_for('main.analyze') }}" method="post">

@@ -11,6 +11,7 @@ import os
 import uuid
 import logging
 import json
+import glob
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, send_from_directory
 import threading
@@ -26,6 +27,19 @@ from app.utils.report import generate_report, load_report
 
 # 设置日志记录器
 logger = logging.getLogger(__name__)
+
+# 添加日期格式化过滤器
+@main_bp.app_template_filter('datetime_format')
+def datetime_format(value, format='%Y-%m-%d %H:%M:%S'):
+    """格式化日期时间"""
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        try:
+            value = datetime.fromisoformat(value)
+        except ValueError:
+            return value
+    return value.strftime(format)
 
 @main_bp.route('/', methods=['GET'])
 def index():
@@ -346,6 +360,81 @@ def export_report(task_id):
     else:
         flash('不支持的导出格式', 'danger')
         return redirect(url_for('main.report', task_id=task_id))
+
+@main_bp.route('/history', methods=['GET'])
+def history():
+    """
+    历史分析记录
+    显示所有历史分析任务
+    """
+    logger.debug("访问历史记录页面")
+    
+    # 分页参数
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    
+    # 获取历史记录
+    history_list, pagination = get_history_records(page, per_page)
+    
+    # 渲染历史记录页面
+    return render_template(
+        'history.html', 
+        history_list=history_list, 
+        page=page, 
+        pagination=pagination
+    )
+
+def get_history_records(page=1, per_page=10):
+    """
+    获取历史分析记录
+    
+    参数:
+        page: 当前页码
+        per_page: 每页显示数量
+        
+    返回:
+        history_list: 历史记录列表
+        pagination: 分页信息
+    """
+    # 获取所有任务目录
+    repo_cache_dir = current_app.config['REPO_CACHE_DIR']
+    task_dirs = glob.glob(os.path.join(repo_cache_dir, '*'))
+    
+    # 读取任务信息
+    history_list = []
+    for task_dir in task_dirs:
+        task_info_path = os.path.join(task_dir, 'task_info.json')
+        if os.path.exists(task_info_path):
+            try:
+                with open(task_info_path, 'r', encoding='utf-8') as f:
+                    task_info = json.load(f)
+                
+                # 移除敏感信息
+                if 'repo_path' in task_info:
+                    task_info.pop('repo_path')
+                
+                history_list.append(task_info)
+            except Exception as e:
+                logger.error(f"读取任务信息失败: {str(e)}")
+    
+    # 按时间排序（最新的在前）
+    history_list.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+    
+    # 计算分页信息
+    total = len(history_list)
+    start = (page - 1) * per_page
+    end = start + per_page
+    records = history_list[start:end]
+    
+    # 构建分页对象
+    pagination = {
+        'page': page,
+        'per_page': per_page,
+        'total': total,
+        'pages': (total + per_page - 1) // per_page
+    }
+    
+    return records, pagination
 
 def _get_status_message(status):
     """
