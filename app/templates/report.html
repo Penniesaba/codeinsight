@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+
+{% block title %}安全分析报告 - CodeInsight{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- 报告头部 -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="mb-3">安全分析报告</h2>
+            <div class="d-flex align-items-center mb-2">
+                <div class="me-3"><strong>仓库：</strong> {{ task_info.repo_url }}</div>
+                <div><strong>语言：</strong> {{ task_info.language }}</div>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="me-3"><strong>分析时间：</strong> {{ task_info.completed_at | default('未完成') }}</div>
+            </div>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    导出报告
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('main.export_report', task_id=task_id, format='json') }}">JSON格式</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计概览 -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">漏洞总数</h5>
+                    <div class="display-4 mb-2">{{ report.summary.total_vulnerabilities }}</div>
+                    <div class="text-muted">检测到的安全问题总数</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">漏洞类型</h5>
+                    <div class="display-4 mb-2">{{ report.summary.vulnerability_types }}</div>
+                    <div class="text-muted">不同类型的安全漏洞</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">安全评分</h5>
+                    {% set score = 100 - (report.summary.severity_distribution.critical|default(0) * 10 + report.summary.severity_distribution.high|default(0) * 5 + report.summary.severity_distribution.medium|default(0) * 2) %}
+                    {% set score = [score, 0]|max %}
+                    {% set score = [score, 100]|min %}
+                    {% set score_class = 'score-high' if score >= 80 else ('score-medium' if score >= 60 else 'score-low') %}
+                    <div class="security-score {{ score_class }}">{{ score }}%</div>
+                    <div class="text-muted">基于漏洞严重程度的综合评分</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 严重程度分布 -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">漏洞严重程度分布</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="severity-bars">
+                                <!-- 严重 -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div><span class="badge bg-danger">严重</span></div>
+                                        <div>{{ report.summary.severity_distribution.critical|default(0) }}</div>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-danger" role="progressbar" 
+                                             style="width: {{ report.summary.severity_distribution.critical|default(0) / report.summary.total_vulnerabilities * 100 if report.summary.total_vulnerabilities else 0 }}%;" 
+                                             aria-valuenow="{{ report.summary.severity_distribution.critical|default(0) }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="{{ report.summary.total_vulnerabilities }}"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 高危 -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div><span class="badge bg-warning text-dark">高危</span></div>
+                                        <div>{{ report.summary.severity_distribution.high|default(0) }}</div>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" 
+                                             style="width: {{ report.summary.severity_distribution.high|default(0) / report.summary.total_vulnerabilities * 100 if report.summary.total_vulnerabilities else 0 }}%;" 
+                                             aria-valuenow="{{ report.summary.severity_distribution.high|default(0) }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="{{ report.summary.total_vulnerabilities }}"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 中危 -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div><span class="badge bg-info">中危</span></div>
+                                        <div>{{ report.summary.severity_distribution.medium|default(0) }}</div>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-info" role="progressbar" 
+                                             style="width: {{ report.summary.severity_distribution.medium|default(0) / report.summary.total_vulnerabilities * 100 if report.summary.total_vulnerabilities else 0 }}%;" 
+                                             aria-valuenow="{{ report.summary.severity_distribution.medium|default(0) }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="{{ report.summary.total_vulnerabilities }}"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 低危 -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div><span class="badge bg-success">低危</span></div>
+                                        <div>{{ report.summary.severity_distribution.low|default(0) }}</div>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-success" role="progressbar" 
+                                             style="width: {{ report.summary.severity_distribution.low|default(0) / report.summary.total_vulnerabilities * 100 if report.summary.total_vulnerabilities else 0 }}%;" 
+                                             aria-valuenow="{{ report.summary.severity_distribution.low|default(0) }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="{{ report.summary.total_vulnerabilities }}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body bg-light py-2 px-3">
+                                    <h6 class="mb-2">风险评估</h6>
+                                    <p class="mb-0 small">
+                                        {% if report.summary.severity_distribution.critical|default(0) > 0 %}
+                                        发现<strong class="text-danger">{{ report.summary.severity_distribution.critical }}</strong>个严重级别漏洞，需要立即修复。
+                                        {% elif report.summary.severity_distribution.high|default(0) > 0 %}
+                                        发现<strong class="text-warning">{{ report.summary.severity_distribution.high }}</strong>个高危级别漏洞，建议尽快修复。
+                                        {% elif report.summary.severity_distribution.medium|default(0) > 0 %}
+                                        发现<strong class="text-info">{{ report.summary.severity_distribution.medium }}</strong>个中危级别漏洞，应在计划中修复。
+                                        {% elif report.summary.severity_distribution.low|default(0) > 0 %}
+                                        仅发现<strong class="text-success">{{ report.summary.severity_distribution.low }}</strong>个低危级别漏洞，影响较小。
+                                        {% else %}
+                                        未发现严重安全问题，代码安全状况良好。
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分析概述 -->
+    {% if report.overview %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">安全分析概述</h5>
+                </div>
+                <div class="card-body">
+                    <div class="overview-box">
+                        {{ report.overview|safe|replace('\n', '<br>')|replace('# ', '<h4>')|replace('\n## ', '</h4><h5>')|replace('\n### ', '</h5><h6>')|replace('\n- ', '</h6><ul><li>')|replace('\n  - ', '</li><li>')|replace('\n\n', '</li></ul><p>')|replace('\n', '</p><p>') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 漏洞列表 -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">漏洞列表</h5>
+                    <span class="badge bg-secondary">共 {{ report.vulnerabilities|length }} 类漏洞</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="accordion" id="vulnerabilityAccordion">
+                        {% for vuln in report.vulnerabilities %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ loop.index }}">
+                                <button class="accordion-button collapsed" type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#collapse{{ loop.index }}" 
+                                        aria-expanded="false" 
+                                        aria-controls="collapse{{ loop.index }}">
+                                    <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                                        <div>
+                                            <span class="badge bg-{{ 'danger' if vuln.severity == 'critical' else 'warning' if vuln.severity == 'high' else 'info' if vuln.severity == 'medium' else 'success' if vuln.severity == 'low' else 'secondary' }} me-2">
+                                                {{ vuln.severity|capitalize }}
+                                            </span>
+                                            {{ vuln.type }}
+                                        </div>
+                                        <div>
+                                            <span class="badge bg-secondary">{{ vuln.instances|length }} 个实例</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" 
+                                 aria-labelledby="heading{{ loop.index }}" 
+                                 data-bs-parent="#vulnerabilityAccordion">
+                                <div class="accordion-body">
+                                    <!-- 漏洞详情 -->
+                                    <div class="mb-4">
+                                        <h5>漏洞描述</h5>
+                                        <div class="mb-3">
+                                            {% if vuln.enhanced_description %}
+                                                {{ vuln.enhanced_description|safe|replace('\n', '<br>')|replace('## ', '<h6>')|replace('\n\n', '</h6><p>') }}
+                                            {% else %}
+                                                {{ vuln.description }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 通用修复建议 -->
+                                    {% if vuln.common_fixes %}
+                                    <div class="mb-4">
+                                        <h5>通用修复建议</h5>
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                {{ vuln.common_fixes|safe|replace('\n', '<br>')|replace('## ', '<h6>')|replace('\n\n', '</h6><p>') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <!-- 漏洞实例 -->
+                                    <div class="mb-3">
+                                        <h5>漏洞实例</h5>
+                                        
+                                        <!-- 实例列表 -->
+                                        <div class="list-group mb-3">
+                                            {% for instance in vuln.instances %}
+                                            <div class="list-group-item">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0">{{ instance.query_name }}</h6>
+                                                    <button class="btn btn-sm btn-outline-primary" type="button" 
+                                                            data-bs-toggle="collapse" 
+                                                            data-bs-target="#instance{{ loop.index }}-{{ loop.parent.loop.index }}" 
+                                                            aria-expanded="false">
+                                                        查看详情
+                                                    </button>
+                                                </div>
+                                                
+                                                <div class="small mb-2">
+                                                    {% for location in instance.locations %}
+                                                    <div class="text-muted">
+                                                        <i class="bi bi-file-earmark-code"></i> 
+                                                        {{ location.file }}:{{ location.start_line }}-{{ location.end_line }}
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                                
+                                                <!-- 实例详情 -->
+                                                <div class="collapse" id="instance{{ loop.index }}-{{ loop.parent.loop.index }}">
+                                                    <div class="card card-body mt-2">
+                                                        <!-- 代码片段 -->
+                                                        {% if instance.code_snippets %}
+                                                        <div class="mb-3">
+                                                            <h6>问题代码</h6>
+                                                            <div class="code-block">
+                                                                <pre class="mb-0"><code>{{ instance.code_snippets[0].code }}</code></pre>
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                        
+                                                        <!-- 修复建议 -->
+                                                        {% if instance.fix_suggestions %}
+                                                        <div>
+                                                            <h6>修复建议</h6>
+                                                            <div class="mb-2">
+                                                                {{ instance.fix_suggestions.description|safe|replace('\n', '<br>') }}
+                                                            </div>
+                                                            
+                                                            {% if instance.fix_suggestions.code_example %}
+                                                            <h6>修复示例</h6>
+                                                            <div class="code-block">
+                                                                <pre class="mb-0"><code>{{ instance.fix_suggestions.code_example }}</code></pre>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作区 -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary me-2">返回首页</a>
+            <a href="{{ url_for('main.export_report', task_id=task_id, format='json') }}" class="btn btn-primary">导出报告</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 初始化代码高亮
+    document.addEventListener('DOMContentLoaded', function() {
+        // 为代码块添加行号
+        document.querySelectorAll('.code-block pre code').forEach(function(el) {
+            const lines = el.innerHTML.split('\n');
+            let numberedLines = '';
+            
+            lines.forEach(function(line, i) {
+                if (i < lines.length - 1 || lines[lines.length - 1].trim() !== '') {
+                    numberedLines += `<span class="line">${line}</span>\n`;
+                }
+            });
+            
+            el.innerHTML = numberedLines;
+        });
+    });
+</script>
+{% endblock %} 
