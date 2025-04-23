@@ -1870,3 +1870,6 @@ PermissionError: [Errno 13] Permission denied: 'task_info.json'
 2025-04-23 14:15:40,404 - app - INFO - 调试模式: 开启
 2025-04-23 14:15:40,408 - werkzeug - WARNING -  * Debugger is active!
 2025-04-23 14:15:40,408 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:23:19,279 - app.routes - DEBUG - 访问首页
+2025-04-23 14:23:19,286 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 14:23:19] "GET / HTTP/1.1" 200 -
+2025-04-23 14:23:47,062 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 14:23:47] "GET /batch_analyze HTTP/1.1" 200 -
