@@ -464,4 +464,225 @@ def _calculate_progress(status):
         'completed': 100,
         'failed': 100
     }
-    return progress_map.get(status, 0) 
+    return progress_map.get(status, 0)
+
+@main_bp.route('/batch_analyze', methods=['GET', 'POST'])
+def batch_analyze():
+    """
+    批量分析仓库
+    支持一次分析多个仓库
+    """
+    if request.method == 'GET':
+        return render_template('batch_analyze.html')
+    
+    # 处理POST请求（提交批量分析）
+    try:
+        # 获取表单数据
+        repo_urls_text = request.form.get('repo_urls', '').strip()
+        urls_file = request.files.get('urls_file')
+        language = request.form.get('language', 'auto')
+        clone_protocol = request.form.get('clone_protocol', 'http')
+        
+        # 从文本和文件中提取URL
+        repo_urls = []
+        
+        # 从文本框提取
+        if repo_urls_text:
+            repo_urls.extend([url.strip() for url in repo_urls_text.split('\n') if url.strip()])
+        
+        # 从上传文件提取
+        if urls_file and urls_file.filename:
+            file_content = urls_file.read().decode('utf-8')
+            repo_urls.extend([url.strip() for url in file_content.split('\n') if url.strip()])
+        
+        # 去重
+        repo_urls = list(set(repo_urls))
+        
+        if not repo_urls:
+            flash('请至少提供一个有效的仓库URL', 'danger')
+            return redirect(url_for('main.batch_analyze'))
+        
+        logger.info(f"收到批量分析请求，共{len(repo_urls)}个仓库")
+        
+        # 创建批量任务ID
+        batch_id = str(uuid.uuid4())
+        
+        # 创建批量任务目录
+        batch_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], 'batches', batch_id)
+        os.makedirs(batch_dir, exist_ok=True)
+        
+        # 初始化任务列表
+        tasks = []
+        
+        # 为每个URL创建分析任务
+        for repo_url in repo_urls:
+            task_id = str(uuid.uuid4())
+            
+            # 创建任务信息
+            task_info = {
+                'id': task_id,
+                'batch_id': batch_id,
+                'repo_url': repo_url,
+                'language': language,
+                'protocol': clone_protocol,
+                'status': 'initializing',
+                'created_at': datetime.now().isoformat()
+            }
+            
+            tasks.append(task_info)
+            
+            # 创建任务目录
+            task_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id)
+            os.makedirs(task_dir, exist_ok=True)
+            
+            # 保存任务信息
+            task_info_path = os.path.join(task_dir, 'task_info.json')
+            with open(task_info_path, 'w', encoding='utf-8') as f:
+                json.dump(task_info, f, ensure_ascii=False, indent=2)
+            
+            # 启动后台任务进行仓库克隆
+            threading.Thread(
+                target=clone_repo_background, 
+                args=(task_id, repo_url, task_dir, clone_protocol, task_info_path)
+            ).start()
+        
+        # 保存批量任务信息
+        batch_info = {
+            'id': batch_id,
+            'created_at': datetime.now().isoformat(),
+            'task_ids': [task['id'] for task in tasks],
+            'total_tasks': len(tasks)
+        }
+        
+        with open(os.path.join(batch_dir, 'batch_info.json'), 'w', encoding='utf-8') as f:
+            json.dump(batch_info, f, ensure_ascii=False, indent=2)
+        
+        # 重定向到批量分析进度页面
+        return redirect(url_for('main.batch_progress', batch_id=batch_id))
+        
+    except Exception as e:
+        logger.error(f"批量分析请求失败: {str(e)}", exc_info=True)
+        flash(f'批量分析请求失败: {str(e)}', 'danger')
+        return redirect(url_for('main.batch_analyze'))
+
+@main_bp.route('/batch/progress/<batch_id>', methods=['GET'])
+def batch_progress(batch_id):
+    """
+    批量分析进度页面
+    显示批量分析任务的进度
+    """
+    logger.debug(f"访问批量任务进度页面: {batch_id}")
+    
+    # 获取批量任务信息
+    batch_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], 'batches', batch_id)
+    batch_info_path = os.path.join(batch_dir, 'batch_info.json')
+    
+    if not os.path.exists(batch_info_path):
+        flash('无效的批量任务ID', 'danger')
+        return redirect(url_for('main.index'))
+    
+    with open(batch_info_path, 'r', encoding='utf-8') as f:
+        batch_info = json.load(f)
+    
+    # 获取所有任务信息
+    tasks = []
+    for task_id in batch_info['task_ids']:
+        task_info_path = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id, 'task_info.json')
+        if os.path.exists(task_info_path):
+            try:
+                with open(task_info_path, 'r', encoding='utf-8') as f:
+                    task_info = json.load(f)
+                
+                # 移除敏感信息
+                if 'repo_path' in task_info:
+                    task_info.pop('repo_path')
+                
+                tasks.append(task_info)
+            except Exception as e:
+                logger.error(f"读取任务信息失败: {str(e)}")
+    
+    # 添加进度计算函数
+    @current_app.template_filter('task_progress')
+    def task_progress(status):
+        """计算任务进度"""
+        progress_map = {
+            'initializing': 5,
+            'cloning': 15,
+            'cloned': 25,
+            'analyzing': 60,
+            'enhancing': 90,
+            'completed': 100,
+            'failed': 100
+        }
+        return progress_map.get(status, 0)
+    
+    # 渲染进度页面
+    return render_template('batch_progress.html', batch_id=batch_id, tasks=tasks)
+
+@main_bp.route('/api/batch/status/<batch_id>', methods=['GET'])
+def batch_status(batch_id):
+    """
+    批量任务状态API
+    返回当前批量任务的状态
+    """
+    # 获取批量任务信息
+    batch_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], 'batches', batch_id)
+    batch_info_path = os.path.join(batch_dir, 'batch_info.json')
+    
+    if not os.path.exists(batch_info_path):
+        return jsonify({'error': '无效的批量任务ID'}), 404
+    
+    with open(batch_info_path, 'r', encoding='utf-8') as f:
+        batch_info = json.load(f)
+    
+    # 获取所有任务状态
+    tasks = []
+    completed = 0
+    failed = 0
+    in_progress = 0
+    
+    for task_id in batch_info['task_ids']:
+        task_info_path = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id, 'task_info.json')
+        if os.path.exists(task_info_path):
+            try:
+                with open(task_info_path, 'r', encoding='utf-8') as f:
+                    task_info = json.load(f)
+                
+                # 移除敏感信息
+                task_info.pop('repo_path', None)
+                
+                # 计算进度
+                status = task_info.get('status', 'initializing')
+                progress_map = {
+                    'initializing': 5,
+                    'cloning': 15,
+                    'cloned': 25,
+                    'analyzing': 60,
+                    'enhancing': 90,
+                    'completed': 100,
+                    'failed': 100
+                }
+                progress = progress_map.get(status, 0)
+                task_info['progress'] = progress
+                
+                # 统计状态
+                if status == 'completed':
+                    completed += 1
+                elif status == 'failed':
+                    failed += 1
+                else:
+                    in_progress += 1
+                
+                tasks.append(task_info)
+            except Exception as e:
+                logger.error(f"读取任务信息失败: {str(e)}")
+    
+    # 返回批量任务状态
+    return jsonify({
+        'batch_id': batch_id,
+        'total': len(batch_info['task_ids']),
+        'completed': completed,
+        'failed': failed,
+        'in_progress': in_progress,
+        'tasks': tasks
+    }) 

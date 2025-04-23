@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+
+{% block title %}批量分析进度 - CodeInsight{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>批量分析进度</h2>
+        <div>
+            <a href="{{ url_for('main.batch_analyze') }}" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-plus-circle"></i> 新批量分析
+            </a>
+            <a href="{{ url_for('main.history') }}" class="btn btn-outline-info">
+                <i class="bi bi-clock-history"></i> 历史记录
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">批量任务概况</h5>
+                <span id="batch-id" class="text-muted small">批次ID: {{ batch_id }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">总任务数</h5>
+                            <div class="display-5 fw-bold">{{ tasks|length }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">已完成</h5>
+                            <div class="display-5 fw-bold text-success" id="completed-count">
+                                {{ tasks|selectattr('status', 'equalto', 'completed')|list|length }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">进行中</h5>
+                            <div class="display-5 fw-bold text-primary" id="in-progress-count">
+                                {{ tasks|selectattr('status', 'in', ['initializing', 'cloning', 'cloned', 'analyzing', 'enhancing'])|list|length }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 bg-light h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">失败</h5>
+                            <div class="display-5 fw-bold text-danger" id="failed-count">
+                                {{ tasks|selectattr('status', 'equalto', 'failed')|list|length }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 总体进度条 -->
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>总体进度</div>
+                    <div id="overall-progress-percentage">
+                        {% set completed = tasks|selectattr('status', 'equalto', 'completed')|list|length %}
+                        {% set total = tasks|length %}
+                        {% set percentage = (completed / total * 100) if total > 0 else 0 %}
+                        {{ percentage|int }}%
+                    </div>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div id="overall-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         style="width: {{ percentage|int }}%;" 
+                         aria-valuenow="{{ percentage|int }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 任务列表 -->
+    <div class="card">
+        <div class="card-header bg-light">
+            <div class="row fw-bold">
+                <div class="col-md-5">仓库</div>
+                <div class="col-md-2">语言</div>
+                <div class="col-md-3">状态</div>
+                <div class="col-md-2">操作</div>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush" id="task-list">
+            {% for task in tasks %}
+            <li class="list-group-item" id="task-{{ task.id }}">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <strong>{{ task.repo_url }}</strong>
+                    </div>
+                    <div class="col-md-2">{{ task.language }}</div>
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            {% if task.status == 'completed' %}
+                            <span class="badge bg-success me-2">完成</span>
+                            {% elif task.status == 'failed' %}
+                            <span class="badge bg-danger me-2">失败</span>
+                            {% elif task.status == 'initializing' %}
+                            <span class="badge bg-secondary me-2">初始化中</span>
+                            {% elif task.status == 'cloning' %}
+                            <span class="badge bg-info me-2">克隆中</span>
+                            {% elif task.status == 'cloned' %}
+                            <span class="badge bg-info me-2">已克隆</span>
+                            {% elif task.status == 'analyzing' %}
+                            <span class="badge bg-primary me-2">分析中</span>
+                            {% elif task.status == 'enhancing' %}
+                            <span class="badge bg-primary me-2">增强中</span>
+                            {% else %}
+                            <span class="badge bg-secondary me-2">{{ task.status }}</span>
+                            {% endif %}
+                            <div class="progress flex-grow-1" style="height: 8px;">
+                                <div class="progress-bar task-progress-bar" role="progressbar" 
+                                    data-task-id="{{ task.id }}"
+                                    style="width: {{ task_progress(task.status) }}%;" 
+                                    aria-valuenow="{{ task_progress(task.status) }}" 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        {% if task.status == 'completed' %}
+                        <a href="{{ url_for('main.report', task_id=task.id) }}" class="btn btn-sm btn-primary">
+                            查看报告
+                        </a>
+                        {% elif task.status == 'failed' %}
+                        <a href="{{ url_for('main.analysis_progress', task_id=task.id) }}" class="btn btn-sm btn-outline-danger">
+                            查看详情
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('main.analysis_progress', task_id=task.id) }}" class="btn btn-sm btn-outline-secondary">
+                            查看详情
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+    .badge {
+        min-width: 70px;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const batchId = document.getElementById('batch-id').textContent.split(':')[1].trim();
+        const taskElements = document.querySelectorAll('[id^="task-"]');
+        const overallProgressBar = document.getElementById('overall-progress-bar');
+        const overallProgressPercentage = document.getElementById('overall-progress-percentage');
+        const completedCount = document.getElementById('completed-count');
+        const inProgressCount = document.getElementById('in-progress-count');
+        const failedCount = document.getElementById('failed-count');
+        
+        // 更新任务状态
+        function updateTaskStatuses() {
+            fetch(`/api/batch/status/${batchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.tasks) {
+                        // 更新每个任务的状态
+                        data.tasks.forEach(task => {
+                            updateTaskUI(task);
+                        });
+                        
+                        // 更新总体进度
+                        updateOverallProgress(data);
+                        
+                        // 如果还有任务在进行中，继续轮询
+                        if (data.in_progress > 0) {
+                            setTimeout(updateTaskStatuses, 3000);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('获取批量任务状态失败:', error);
+                    setTimeout(updateTaskStatuses, 5000);
+                });
+        }
+        
+        // 更新单个任务UI
+        function updateTaskUI(task) {
+            const taskElement = document.getElementById(`task-${task.id}`);
+            if (!taskElement) return;
+            
+            // 更新状态标签和进度条
+            const statusCol = taskElement.querySelector('.col-md-3');
+            const progressBar = taskElement.querySelector('.task-progress-bar');
+            const actionCol = taskElement.querySelector('.col-md-2');
+            
+            // 更新状态和进度条
+            let statusHtml = '';
+            let actionHtml = '';
+            
+            switch(task.status) {
+                case 'completed':
+                    statusHtml = '<span class="badge bg-success me-2">完成</span>';
+                    actionHtml = `<a href="/report/${task.id}" class="btn btn-sm btn-primary">查看报告</a>`;
+                    break;
+                case 'failed':
+                    statusHtml = '<span class="badge bg-danger me-2">失败</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-danger">查看详情</a>`;
+                    break;
+                case 'initializing':
+                    statusHtml = '<span class="badge bg-secondary me-2">初始化中</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+                    break;
+                case 'cloning':
+                    statusHtml = '<span class="badge bg-info me-2">克隆中</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+                    break;
+                case 'cloned':
+                    statusHtml = '<span class="badge bg-info me-2">已克隆</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+                    break;
+                case 'analyzing':
+                    statusHtml = '<span class="badge bg-primary me-2">分析中</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+                    break;
+                case 'enhancing':
+                    statusHtml = '<span class="badge bg-primary me-2">增强中</span>';
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+                    break;
+                default:
+                    statusHtml = `<span class="badge bg-secondary me-2">${task.status}</span>`;
+                    actionHtml = `<a href="/analysis/progress/${task.id}" class="btn btn-sm btn-outline-secondary">查看详情</a>`;
+            }
+            
+            // 更新状态标签
+            statusCol.innerHTML = `
+                <div class="d-flex align-items-center">
+                    ${statusHtml}
+                    <div class="progress flex-grow-1" style="height: 8px;">
+                        <div class="progress-bar task-progress-bar" role="progressbar" 
+                            data-task-id="${task.id}"
+                            style="width: ${task.progress}%;" 
+                            aria-valuenow="${task.progress}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="100"></div>
+                    </div>
+                </div>
+            `;
+            
+            // 更新操作按钮
+            actionCol.innerHTML = actionHtml;
+        }
+        
+        // 更新总体进度
+        function updateOverallProgress(data) {
+            const totalTasks = data.total;
+            const completedTasks = data.completed;
+            const inProgressTasks = data.in_progress;
+            const failedTasks = data.failed;
+            
+            // 计算总体进度百分比
+            const overallPercentage = Math.round((completedTasks / totalTasks) * 100);
+            
+            // 更新进度条
+            overallProgressBar.style.width = `${overallPercentage}%`;
+            overallProgressBar.setAttribute('aria-valuenow', overallPercentage);
+            overallProgressPercentage.textContent = `${overallPercentage}%`;
+            
+            // 更新计数
+            completedCount.textContent = completedTasks;
+            inProgressCount.textContent = inProgressTasks;
+            failedCount.textContent = failedTasks;
+            
+            // 如果所有任务都完成了，停止进度条动画
+            if (inProgressTasks === 0) {
+                overallProgressBar.classList.remove('progress-bar-animated');
+            }
+        }
+        
+        // 开始轮询任务状态
+        if (taskElements.length > 0) {
+            updateTaskStatuses();
+        }
+    });
+</script>
+{% endblock %} 

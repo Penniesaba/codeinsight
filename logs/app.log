@@ -1617,3 +1617,76 @@ Try codeql database analyze --help for usage help.
 2025-04-21 22:40:22,516 - werkzeug - INFO - 127.0.0.1 - - [21/Apr/2025 22:40:22] "GET /history HTTP/1.1" 200 -
 2025-04-21 22:40:26,506 - app.routes - DEBUG - 访问报告页面: 0e547c22-ade6-4af9-8b7f-ab6ca9f71875
 2025-04-21 22:40:26,507 - werkzeug - INFO - 127.0.0.1 - - [21/Apr/2025 22:40:26] "GET /report/0e547c22-ade6-4af9-8b7f-ab6ca9f71875 HTTP/1.1" 200 -
+2025-04-23 12:02:04,252 - app - INFO - 日志系统初始化完成
+2025-04-23 12:02:04,252 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:02:04,252 - app - INFO - 调试模式: 开启
+2025-04-23 12:02:04,256 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.122.241.3:5000
+2025-04-23 12:02:04,257 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-23 12:02:04,257 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:02:04,397 - app - INFO - 日志系统初始化完成
+2025-04-23 12:02:04,397 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:02:04,397 - app - INFO - 调试模式: 开启
+2025-04-23 12:02:04,401 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:02:04,401 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:02:39,242 - app.routes - DEBUG - 访问首页
+2025-04-23 12:02:39,249 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:02:39] "GET / HTTP/1.1" 200 -
+2025-04-23 12:02:39,336 - app - WARNING - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-23 12:02:39,337 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:02:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-23 12:06:27,272 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:06:27,297 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:06:27,453 - app - INFO - 日志系统初始化完成
+2025-04-23 12:06:27,453 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:06:27,453 - app - INFO - 调试模式: 开启
+2025-04-23 12:06:27,457 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:06:27,457 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:13:39,919 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:13:39,941 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:13:40,089 - app - INFO - 日志系统初始化完成
+2025-04-23 12:13:40,089 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:13:40,089 - app - INFO - 调试模式: 开启
+2025-04-23 12:13:40,093 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:13:40,094 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:14:44,369 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/utils/git.py', reloading
+2025-04-23 12:14:44,393 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:14:44,543 - app - INFO - 日志系统初始化完成
+2025-04-23 12:14:44,543 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:14:44,543 - app - INFO - 调试模式: 开启
+2025-04-23 12:14:44,547 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:14:44,547 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:17:53,887 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/utils/git.py', reloading
+2025-04-23 12:17:53,915 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:17:54,081 - app - INFO - 日志系统初始化完成
+2025-04-23 12:17:54,081 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:17:54,081 - app - INFO - 调试模式: 开启
+2025-04-23 12:17:54,085 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:17:54,085 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:17:57,900 - app.routes - DEBUG - 访问首页
+2025-04-23 12:17:57,908 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:17:57] "GET / HTTP/1.1" 200 -
+2025-04-23 12:18:07,609 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:18:07,619 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:18:07] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:18:09,136 - app.routes - DEBUG - 访问首页
+2025-04-23 12:18:09,137 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:18:09] "GET / HTTP/1.1" 200 -
+2025-04-23 12:18:56,554 - app - INFO - 日志系统初始化完成
+2025-04-23 12:18:56,554 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:18:56,554 - app - INFO - 调试模式: 开启
+2025-04-23 12:18:56,559 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.122.241.3:5000
+2025-04-23 12:18:56,559 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-23 12:18:56,559 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:18:56,699 - app - INFO - 日志系统初始化完成
+2025-04-23 12:18:56,699 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:18:56,699 - app - INFO - 调试模式: 开启
+2025-04-23 12:18:56,703 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:18:56,703 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:19:00,551 - app.routes - DEBUG - 访问首页
+2025-04-23 12:19:00,559 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:19:00] "GET / HTTP/1.1" 200 -
+2025-04-23 12:25:25,662 - app.routes - DEBUG - 访问首页
+2025-04-23 12:25:25,667 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:25:25] "GET / HTTP/1.1" 200 -
+2025-04-23 12:25:27,251 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:25:27] "GET /batch_analyze HTTP/1.1" 200 -
+2025-04-23 12:25:57,905 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:25:57,914 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:25:57] "GET /history HTTP/1.1" 200 -

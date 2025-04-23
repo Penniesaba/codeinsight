@@ -36,9 +36,13 @@ def clone_repository(repo_url, target_dir, protocol='http'):
     # 检查和处理URL
     original_url = repo_url  # 保存原始URL
     original_protocol = protocol
-    repo_url = sanitize_repo_url(repo_url, protocol)
     
-    logger.debug(f"处理后的URL: {repo_url}")
+    try:
+        repo_url = sanitize_repo_url(repo_url, protocol)
+        logger.debug(f"处理后的URL: {repo_url}")
+    except ValueError as e:
+        logger.error(f"URL处理错误: {str(e)}")
+        raise
     
     # 提取仓库名称作为目录名
     repo_name = extract_repo_name(repo_url)
@@ -92,8 +96,16 @@ def clone_repository(repo_url, target_dir, protocol='http'):
         if os.path.exists(repo_path):
             shutil.rmtree(repo_path)
         
-        # 如果是SSH克隆失败，记录更多信息以帮助调试
-        if original_protocol == 'ssh':
+        # 检查是否SSH克隆失败（检查权限错误或公钥错误）
+        should_retry_with_http = False
+        if original_protocol == 'ssh' and error_output:
+            if 'Permission denied' in error_output or 'publickey' in error_output:
+                logger.warning("检测到SSH认证失败，将尝试使用HTTP协议")
+                should_retry_with_http = True
+            else:
+                logger.debug(f"SSH克隆失败，但不是由于认证问题: {error_output}")
+        
+        if should_retry_with_http or original_protocol == 'ssh':
             logger.warning("SSH克隆失败，记录相关信息")
             # 尝试获取SSH设置信息（不含敏感信息）
             try:
@@ -124,7 +136,7 @@ def clone_repository(repo_url, target_dir, protocol='http'):
             # 尝试使用HTTP协议
             logger.warning("尝试使用HTTP协议克隆")
             try:
-                # 如果之前已经转换过URL，先尝试使用原始URL
+                # 使用原始URL生成HTTP URL
                 http_repo_url = sanitize_repo_url(original_url, 'http')
                 logger.debug(f"尝试使用HTTP协议克隆: {http_repo_url}")
                 
@@ -151,6 +163,7 @@ def clone_repository(repo_url, target_dir, protocol='http'):
                 logger.error(http_error_msg)
                 # 继续抛出原始SSH错误
         
+        # 如果HTTP克隆也失败，或者原始协议是HTTP就直接失败
         raise RuntimeError(error_msg)
 
 def is_valid_repository(repo_path):
@@ -204,43 +217,70 @@ def sanitize_repo_url(url, protocol='http'):
     
     logger.debug(f"标准化仓库URL: {url}, 协议: {protocol}")
     
+    # 处理空URL
+    if not url:
+        logger.error("空URL不能被标准化")
+        raise ValueError("仓库URL不能为空")
+    
+    # 移除URL中的.git后缀（稍后会重新添加）
+    url = re.sub(r'\.git$', '', url)
+    
     # 提取域名、用户和仓库部分
+    domain, user, repo = None, None, None
+    
+    # 处理HTTP/HTTPS URL
     if url.startswith(('http://', 'https://')):
-        # 从HTTP URL提取信息
-        match = re.match(r'https?://(?:www\.)?([^/]+)/([^/]+)/([^/.]+)(?:\.git)?', url)
+        # 从HTTP URL提取信息 - 支持常见代码托管平台格式
+        match = re.match(r'https?://(?:www\.)?([^/]+)/([^/]+)/([^/]+)(?:/.*)?', url)
         if match:
             domain, user, repo = match.groups()
         else:
             logger.warning(f"无法解析HTTP URL: {url}")
             return url  # 无法解析，返回原始URL
+    
+    # 处理SSH URL
     elif url.startswith(('git@', 'ssh://')):
-        # 处理不同格式的SSH URL
         if url.startswith('git@'):
-            # 标准格式 git@github.com:username/repo.git
-            match = re.match(r'git@([^:]+):([^/]+)/([^/.]+)(?:\.git)?', url)
+            # 标准格式 git@github.com:username/repo
+            match = re.match(r'git@([^:]+):([^/]+)/([^/]+)(?:/.*)?', url)
             if match:
                 domain, user, repo = match.groups()
             else:
                 logger.warning(f"无法解析SSH URL (git@): {url}")
                 return url
         elif url.startswith('ssh://'):
-            # ssh://git@github.com/username/repo.git 或 ssh://git@github.com:22/username/repo.git
-            match = re.match(r'ssh://(?:git@)?([^:/]+)(?::\d+)?/([^/]+)/([^/.]+)(?:\.git)?', url)
+            # 格式 ssh://git@github.com/username/repo 或 ssh://git@github.com:22/username/repo
+            match = re.match(r'ssh://(?:git@)?([^:/]+)(?::\d+)?/([^/]+)/([^/]+)(?:/.*)?', url)
             if match:
                 domain, user, repo = match.groups()
             else:
                 logger.warning(f"无法解析SSH URL (ssh://): {url}")
                 return url
+    
+    # 处理git:// URL
+    elif url.startswith('git://'):
+        match = re.match(r'git://([^/]+)/([^/]+)/([^/]+)(?:/.*)?', url)
+        if match:
+            domain, user, repo = match.groups()
+        else:
+            logger.warning(f"无法解析git:// URL: {url}")
+            return url
+    
+    # 处理简写形式
     else:
         # 尝试解析可能是简写形式的URL (如 username/repo)
         parts = url.split('/')
-        if len(parts) == 2 and all(parts):
+        if len(parts) >= 2 and all(p.strip() for p in parts[:2]):
             # 假设是GitHub
-            domain, user, repo = 'github.com', parts[0], parts[1]
+            user, repo = parts[0], parts[1]
+            domain = 'github.com'
             logger.debug(f"解析简写URL: {url} -> domain={domain}, user={user}, repo={repo}")
         else:
             logger.warning(f"无法识别的URL格式: {url}")
             return url  # 无法解析，返回原始URL
+    
+    # 清理repo部分中的任何额外路径或查询参数
+    repo = re.sub(r'[?#].*$', '', repo)
     
     # 根据请求的协议生成URL
     if protocol == 'http':
