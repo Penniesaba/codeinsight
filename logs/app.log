@@ -1803,3 +1803,70 @@ PermissionError: [Errno 13] Permission denied: 'task_info.json'
 2025-04-23 12:41:41,855 - app.routes - DEBUG - 访问首页
 2025-04-23 12:41:41,858 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:41] "GET / HTTP/1.1" 200 -
 2025-04-23 12:41:46,613 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:46] "GET /batch_analyze HTTP/1.1" 200 -
+2025-04-23 13:46:42,491 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 13:46:42,517 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 13:46:42,667 - app - INFO - 日志系统初始化完成
+2025-04-23 13:46:42,667 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 13:46:42,667 - app - INFO - 调试模式: 开启
+2025-04-23 13:46:42,671 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 13:46:42,672 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 13:47:06,988 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 13:47:07,012 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 13:47:07,162 - app - INFO - 日志系统初始化完成
+2025-04-23 13:47:07,162 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 13:47:07,162 - app - INFO - 调试模式: 开启
+2025-04-23 13:47:07,166 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 13:47:07,166 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 13:47:43,041 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 13:47:43,063 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 13:47:43,218 - app - INFO - 日志系统初始化完成
+2025-04-23 13:47:43,218 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 13:47:43,218 - app - INFO - 调试模式: 开启
+2025-04-23 13:47:43,223 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 13:47:43,223 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 13:47:52,044 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 13:47:52] "GET /batch_analyze HTTP/1.1" 200 -
+2025-04-23 13:47:54,214 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 13:47:54] "GET /batch_analyze HTTP/1.1" 200 -
+2025-04-23 13:47:54,806 - app.routes - DEBUG - 访问首页
+2025-04-23 13:47:54,808 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 13:47:54] "GET / HTTP/1.1" 200 -
+2025-04-23 14:01:31,274 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 14:01:31,305 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:01:31,460 - app - INFO - 日志系统初始化完成
+2025-04-23 14:01:31,461 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:01:31,461 - app - INFO - 调试模式: 开启
+2025-04-23 14:01:31,465 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:01:31,465 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:03:23,443 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/rule_manager.py', reloading
+2025-04-23 14:03:23,472 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:03:23,641 - app - INFO - 日志系统初始化完成
+2025-04-23 14:03:23,641 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:03:23,641 - app - INFO - 调试模式: 开启
+2025-04-23 14:03:23,646 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:03:23,646 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:04:11,178 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 14:04:11,210 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:04:11,370 - app - INFO - 日志系统初始化完成
+2025-04-23 14:04:11,370 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:04:11,370 - app - INFO - 调试模式: 开启
+2025-04-23 14:04:11,374 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:04:11,374 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:07:04,150 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/rule_manager.py', reloading
+2025-04-23 14:07:04,175 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:07:04,335 - app - INFO - 日志系统初始化完成
+2025-04-23 14:07:04,335 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:07:04,335 - app - INFO - 调试模式: 开启
+2025-04-23 14:07:04,339 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:07:04,339 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:07:23,368 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 14:07:23,391 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:07:23,538 - app - INFO - 日志系统初始化完成
+2025-04-23 14:07:23,538 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:07:23,539 - app - INFO - 调试模式: 开启
+2025-04-23 14:07:23,542 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:07:23,542 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 14:15:40,213 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/codeql/analyzer.py', reloading
+2025-04-23 14:15:40,237 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 14:15:40,404 - app - INFO - 日志系统初始化完成
+2025-04-23 14:15:40,404 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 14:15:40,404 - app - INFO - 调试模式: 开启
+2025-04-23 14:15:40,408 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 14:15:40,408 - werkzeug - INFO -  * Debugger PIN: 396-171-423

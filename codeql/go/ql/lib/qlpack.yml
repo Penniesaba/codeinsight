@@ -1,0 +1,16 @@
+name: codeql/go-all
+version: 4.2.4-dev
+groups: go
+dbscheme: go.dbscheme
+extractor: go
+library: true
+upgrades: upgrades
+dependencies:
+  codeql/dataflow: ${workspace}
+  codeql/mad: ${workspace}
+  codeql/threat-models: ${workspace}
+  codeql/tutorial: ${workspace}
+  codeql/util: ${workspace}
+dataExtensions:
+  - ext/*.model.yml
+warnOnImplicitThis: true
