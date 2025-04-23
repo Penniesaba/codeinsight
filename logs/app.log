@@ -1873,3 +1873,328 @@ PermissionError: [Errno 13] Permission denied: 'task_info.json'
 2025-04-23 14:23:19,279 - app.routes - DEBUG - 访问首页
 2025-04-23 14:23:19,286 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 14:23:19] "GET / HTTP/1.1" 200 -
 2025-04-23 14:23:47,062 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 14:23:47] "GET /batch_analyze HTTP/1.1" 200 -
+2025-04-23 17:04:21,828 - app - INFO - 日志系统初始化完成
+2025-04-23 17:04:21,828 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 17:04:21,828 - app - INFO - 调试模式: 开启
+2025-04-23 17:04:21,833 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 17:04:21,833 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 17:04:39,028 - app.routes - DEBUG - 访问首页
+2025-04-23 17:04:39,037 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:39] "GET / HTTP/1.1" 200 -
+2025-04-23 17:04:40,702 - app.routes - DEBUG - 访问首页
+2025-04-23 17:04:40,703 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:40] "GET / HTTP/1.1" 200 -
+2025-04-23 17:04:47,383 - app.routes - INFO - 收到分析请求: git@github.com:Penniesaba/CAPI2, 语言: python, 协议: ssh
+2025-04-23 17:04:47,384 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:47] "[32mPOST /analyze HTTP/1.1[0m" 302 -
+2025-04-23 17:04:47,384 - app.routes - INFO - 正在克隆仓库: git@github.com:Penniesaba/CAPI2
+2025-04-23 17:04:47,384 - app.utils.git - INFO - 克隆仓库: git@github.com:Penniesaba/CAPI2 到 /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83, 协议: ssh
+2025-04-23 17:04:47,384 - app.utils.git - DEBUG - 标准化仓库URL: git@github.com:Penniesaba/CAPI2, 协议: ssh
+2025-04-23 17:04:47,384 - app.utils.git - DEBUG - URL标准化结果: git@github.com:Penniesaba/CAPI2 -> git@github.com:Penniesaba/CAPI2.git
+2025-04-23 17:04:47,385 - app.utils.git - DEBUG - 处理后的URL: git@github.com:Penniesaba/CAPI2.git
+2025-04-23 17:04:47,385 - app.utils.git - DEBUG - 执行命令: git clone --depth=1 git@github.com:Penniesaba/CAPI2.git /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2
+2025-04-23 17:04:47,388 - app.routes - DEBUG - 访问任务进度页面: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:04:47,394 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:47] "GET /analysis/progress/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:47,410 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:47] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:47,421 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:47] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:49,424 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:49] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:49,427 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:49] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:51,430 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:51] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:51,433 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:51] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:53,436 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:53] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:53,440 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:53] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:55,443 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:55] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:55,445 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:55] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:57,448 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:57] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:57,451 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:04:57] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:04:59,038 - app.utils.git - INFO - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2
+2025-04-23 17:04:59,039 - app.utils.git - DEBUG - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2
+2025-04-23 17:04:59,075 - app.utils.git - DEBUG - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 17:04:59,075 - app.routes - INFO - 仓库克隆完成: git@github.com:Penniesaba/CAPI2 -> /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2
+2025-04-23 17:04:59,455 - app.codeql.rule_manager - DEBUG - 规则集管理器初始化完成
+2025-04-23 17:04:59,835 - app.codeql.analyzer - INFO - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 17:04:59,835 - app.codeql.analyzer - INFO - 找到 70 个查询套件文件
+2025-04-23 17:04:59,835 - app.codeql.analyzer - INFO - 已验证规则库: python-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: java-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: go-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 17:04:59,836 - app.codeql.analyzer - DEBUG - CodeQL分析器初始化完成
+2025-04-23 17:04:59,836 - app.routes - INFO - 开始CodeQL分析: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2, 语言: python, 规则集: None
+2025-04-23 17:04:59,836 - app.codeql.analyzer - INFO - 创建CodeQL数据库: /tmp/tmpqdk46_7q/codeql_db
+2025-04-23 17:04:59,836 - app.codeql.analyzer - DEBUG - 执行命令: codeql database create --language=python --source-root=/home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2 /tmp/tmpqdk46_7q/codeql_db
+2025-04-23 17:05:03,561 - app.codeql.analyzer - INFO - 数据库创建成功
+2025-04-23 17:05:03,561 - app.codeql.analyzer - INFO - 运行CodeQL查询
+2025-04-23 17:05:03,561 - app.codeql.analyzer - DEBUG - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:05:03,562 - app.codeql.analyzer - INFO - 运行标准查询包，共 1 个
+2025-04-23 17:05:03,562 - app.codeql.analyzer - INFO - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:05:03,562 - app.codeql.analyzer - DEBUG - 执行命令: codeql database analyze --format=json --output=/tmp/tmp3i4i8jdo.json /tmp/tmpqdk46_7q/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:05:03,944 - app.codeql.analyzer - ERROR - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:05:03,944 - app.codeql.analyzer - INFO - 运行自定义规则，共 2 条
+2025-04-23 17:05:03,945 - app.codeql.analyzer - INFO - 运行自定义规则: sql_injection.ql
+2025-04-23 17:05:03,945 - app.codeql.analyzer - DEBUG - 执行命令: codeql database analyze --format=json --output=/tmp/tmp8bwul2c5.json --ram=2000 --threads=2 /tmp/tmpqdk46_7q/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/sql_injection.ql
+2025-04-23 17:05:04,302 - app.codeql.analyzer - ERROR - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:05:04,302 - app.codeql.analyzer - INFO - 规则 sql_injection.ql 未找到问题
+2025-04-23 17:05:04,302 - app.codeql.analyzer - INFO - 运行自定义规则: missing_access_control.ql
+2025-04-23 17:05:04,302 - app.codeql.analyzer - DEBUG - 执行命令: codeql database analyze --format=json --output=/tmp/tmp0xibntq1.json --ram=2000 --threads=2 /tmp/tmpqdk46_7q/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/missing_access_control.ql
+2025-04-23 17:05:04,636 - app.codeql.analyzer - ERROR - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:05:04,636 - app.codeql.analyzer - INFO - 规则 missing_access_control.ql 未找到问题
+2025-04-23 17:05:04,637 - app.codeql.analyzer - INFO - 查询完成，共找到 0 条结果
+2025-04-23 17:05:04,637 - app.codeql.analyzer - INFO - 处理查询结果
+2025-04-23 17:05:04,640 - app.llm.enhancer - WARNING - 未设置LLM API密钥，将使用模拟增强模式
+2025-04-23 17:05:04,640 - app.llm.enhancer - DEBUG - LLM增强器初始化完成
+2025-04-23 17:05:04,640 - app.routes - INFO - 开始LLM增强分析: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:04,640 - app.llm.enhancer - INFO - 开始增强分析结果
+2025-04-23 17:05:04,640 - app.llm.enhancer - INFO - 使用模拟增强模式
+2025-04-23 17:05:04,640 - app.llm.enhancer - INFO - 使用模拟方法增强结果
+2025-04-23 17:05:04,641 - app.routes - INFO - 分析完成: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:04,641 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:04] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:05:04,644 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:04] "GET /api/analysis/status/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:05:06,650 - app.routes - DEBUG - 访问报告页面: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:06,678 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:06] "GET /report/8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1" 200 -
+2025-04-23 17:05:14,848 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 17:05:14,859 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:14] "GET /history HTTP/1.1" 200 -
+2025-04-23 17:05:18,161 - app.routes - INFO - 删除任务: 8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:18,162 - app.routes - INFO - 已删除分析结果目录: /home/xiao/project/codeinsight/cache/analysis/8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:18,197 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python3.10: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python3.10'
+2025-04-23 17:05:18,198 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python'
+2025-04-23 17:05:18,198 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python3: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83/CAPI2/venv/bin/python3'
+2025-04-23 17:05:18,285 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/8f366710-7c3a-47cc-be8e-9dae4b8d3b83
+2025-04-23 17:05:18,286 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:18] "[32mGET /task/delete?task_id=8f366710-7c3a-47cc-be8e-9dae4b8d3b83 HTTP/1.1[0m" 302 -
+2025-04-23 17:05:18,289 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 17:05:18,290 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:18] "GET /history HTTP/1.1" 200 -
+2025-04-23 17:05:20,677 - app.routes - INFO - 删除任务: fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f
+2025-04-23 17:05:20,709 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python3.10: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python3.10'
+2025-04-23 17:05:20,709 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python'
+2025-04-23 17:05:20,709 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python3: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f/repo/CAPI2/venv/bin/python3'
+2025-04-23 17:05:20,802 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f
+2025-04-23 17:05:20,803 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:20] "[32mGET /task/delete?task_id=fbb12ef4-9ced-4ba9-85c6-7fad27b1f78f HTTP/1.1[0m" 302 -
+2025-04-23 17:05:20,806 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 17:05:20,807 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:20] "GET /history HTTP/1.1" 200 -
+2025-04-23 17:05:38,311 - app.routes - DEBUG - 访问首页
+2025-04-23 17:05:38,311 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:38] "GET / HTTP/1.1" 200 -
+2025-04-23 17:05:45,803 - app.routes - INFO - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-spring , 语言: java, 协议: ssh
+2025-04-23 17:05:45,803 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:45] "[32mPOST /analyze HTTP/1.1[0m" 302 -
+2025-04-23 17:05:45,804 - app.routes - INFO - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-spring 
+2025-04-23 17:05:45,804 - app.utils.git - INFO - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-spring  到 /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04, 协议: ssh
+2025-04-23 17:05:45,804 - app.utils.git - DEBUG - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-spring, 协议: ssh
+2025-04-23 17:05:45,804 - app.utils.git - DEBUG - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-spring -> git@github.com:lzy-2004/cryptographic-library-spring.git
+2025-04-23 17:05:45,804 - app.utils.git - DEBUG - 处理后的URL: git@github.com:lzy-2004/cryptographic-library-spring.git
+2025-04-23 17:05:45,804 - app.utils.git - DEBUG - 执行命令: git clone --depth=1 git@github.com:lzy-2004/cryptographic-library-spring.git /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring
+2025-04-23 17:05:45,806 - app.routes - DEBUG - 访问任务进度页面: 66ec9564-7c6e-4d9f-9dca-591e446cff04
+2025-04-23 17:05:45,806 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:45] "GET /analysis/progress/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:45,829 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:45] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:45,840 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:45] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:47,843 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:47] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:47,846 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:47] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:49,849 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:49] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:49,852 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:49] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:50,899 - app.utils.git - INFO - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring
+2025-04-23 17:05:50,899 - app.utils.git - DEBUG - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring
+2025-04-23 17:05:50,902 - app.utils.git - DEBUG - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 17:05:50,903 - app.routes - INFO - 仓库克隆完成: git@github.com:lzy-2004/cryptographic-library-spring  -> /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring
+2025-04-23 17:05:51,855 - app.codeql.rule_manager - DEBUG - 规则集管理器初始化完成
+2025-04-23 17:05:52,240 - app.codeql.analyzer - INFO - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 找到 70 个查询套件文件
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: python-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: java-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: go-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 17:05:52,241 - app.codeql.analyzer - DEBUG - CodeQL分析器初始化完成
+2025-04-23 17:05:52,241 - app.routes - INFO - 开始CodeQL分析: 66ec9564-7c6e-4d9f-9dca-591e446cff04
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring, 语言: java, 规则集: None
+2025-04-23 17:05:52,241 - app.codeql.analyzer - INFO - 创建CodeQL数据库: /tmp/tmpme0xf5z5/codeql_db
+2025-04-23 17:05:52,241 - app.codeql.analyzer - DEBUG - 执行命令: codeql database create --language=java --source-root=/home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring /tmp/tmpme0xf5z5/codeql_db
+2025-04-23 17:05:53,782 - app.codeql.analyzer - ERROR - 数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+
+2025-04-23 17:05:53,783 - app.codeql.analyzer - ERROR - 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 144, in _create_database
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['codeql', 'database', 'create', '--language=java', '--source-root=/home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring', '/tmp/tmpme0xf5z5/codeql_db']' returned non-zero exit status 2.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 106, in analyze_repository
+    self._create_database(repo_path, db_path, language)
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 154, in _create_database
+    raise RuntimeError(f"CodeQL数据库创建失败: {e.stderr}")
+RuntimeError: CodeQL数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+
+2025-04-23 17:05:53,784 - app.routes - ERROR - 分析失败: 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 144, in _create_database
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['codeql', 'database', 'create', '--language=java', '--source-root=/home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring', '/tmp/tmpme0xf5z5/codeql_db']' returned non-zero exit status 2.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 106, in analyze_repository
+    self._create_database(repo_path, db_path, language)
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 154, in _create_database
+    raise RuntimeError(f"CodeQL数据库创建失败: {e.stderr}")
+RuntimeError: CodeQL数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 197, in analysis_status
+    codeql_results = analyzer.analyze_repository(task_info['repo_path'], task_info['language'])
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 118, in analyze_repository
+    raise RuntimeError(f"仓库分析失败: {str(e)}")
+RuntimeError: 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpme0xf5z5/codeql_db.
+Running build command: [/opt/codeql/java/tools/autobuild.sh]
+Running command in /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04/cryptographic-library-spring: [/opt/codeql/java/tools/autobuild.sh]
+A fatal error occurred: Exit status 1 from command: [/opt/codeql/java/tools/autobuild.sh]
+
+2025-04-23 17:05:53,784 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:53] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:05:53,788 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 17:05:53] "GET /api/analysis/status/66ec9564-7c6e-4d9f-9dca-591e446cff04 HTTP/1.1" 200 -
+2025-04-23 17:12:26,763 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/run.py', reloading
+2025-04-23 17:12:26,937 - app - INFO - run.py:54 - 日志系统初始化完成
+2025-04-23 17:12:26,937 - app - INFO - run.py:62 - CodeInsight 启动于环境: default
+2025-04-23 17:12:26,937 - app - INFO - run.py:63 - 调试模式: 开启
+2025-04-23 17:12:26,941 - werkzeug - WARNING - _internal.py:187 -  * Debugger is active!
+2025-04-23 17:12:26,942 - werkzeug - INFO - _internal.py:187 -  * Debugger PIN: 396-171-423
+2025-04-23 17:12:55,572 - werkzeug - INFO - _internal.py:187 -  * Detected change in '/home/xiao/project/codeinsight/run.py', reloading
+2025-04-23 17:12:55,741 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:132029188239360] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:12:55,741 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:132029188239360] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:12:55,741 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:132029188239360] - CodeInsight 启动于环境: default
+2025-04-23 17:12:55,741 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:132029188239360] - 调试模式: 开启
+2025-04-23 17:12:55,745 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:132029188239360] -  * Debugger is active!
+2025-04-23 17:13:29,809 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:135162298208256] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:13:29,809 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:135162298208256] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:13:29,810 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:135162298208256] - CodeInsight 启动于环境: default
+2025-04-23 17:13:29,810 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:135162298208256] - 调试模式: 开启
+2025-04-23 17:13:29,814 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:135162298208256] -  * Debugger is active!
+2025-04-23 17:13:43,790 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:139875182034944] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:13:43,790 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:139875182034944] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:13:43,790 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:139875182034944] - CodeInsight 启动于环境: default
+2025-04-23 17:13:43,791 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:139875182034944] - 调试模式: 开启
+2025-04-23 17:13:43,795 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:139875182034944] -  * Debugger is active!
+2025-04-23 17:21:34,490 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:139720887103488] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:21:34,490 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:139720887103488] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:21:34,490 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:139720887103488] - CodeInsight 启动于环境: default
+2025-04-23 17:21:34,490 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:139720887103488] - 调试模式: 开启
+2025-04-23 17:21:34,494 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:139720887103488] -  * Debugger is active!
+2025-04-23 17:21:44,417 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:139720835204672] - 访问任务进度页面: 66ec9564-7c6e-4d9f-9dca-591e446cff04
+2025-04-23 17:21:46,546 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:139720824718912] - 访问首页
+2025-04-23 17:21:53,347 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:139720835204672] - 访问历史记录页面
+2025-04-23 17:22:00,664 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:139720824718912] - 访问首页
+2025-04-23 17:22:06,164 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:139720824718912] - 收到分析请求: git@github.com:Penniesaba/CAPI2, 语言: python, 协议: ssh
+2025-04-23 17:22:06,165 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:139720814233152] - 正在克隆仓库: git@github.com:Penniesaba/CAPI2
+2025-04-23 17:22:06,165 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:139720814233152] - 克隆仓库: git@github.com:Penniesaba/CAPI2 到 /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac, 协议: ssh
+2025-04-23 17:22:06,165 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:139720814233152] - 标准化仓库URL: git@github.com:Penniesaba/CAPI2, 协议: ssh
+2025-04-23 17:22:06,166 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:139720814233152] - URL标准化结果: git@github.com:Penniesaba/CAPI2 -> git@github.com:Penniesaba/CAPI2.git
+2025-04-23 17:22:06,166 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:139720814233152] - 处理后的URL: git@github.com:Penniesaba/CAPI2.git
+2025-04-23 17:22:06,166 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:139720814233152] - 执行命令: git clone --depth=1 git@github.com:Penniesaba/CAPI2.git /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2
+2025-04-23 17:22:06,171 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:139720835204672] - 访问任务进度页面: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 17:22:16,450 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:139720814233152] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2
+2025-04-23 17:22:16,450 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:139720814233152] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2
+2025-04-23 17:22:16,694 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:139720814233152] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 17:22:16,695 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:139720814233152] - 仓库克隆完成: git@github.com:Penniesaba/CAPI2 -> /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2
+2025-04-23 17:22:18,229 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:139720814233152] - 规则集管理器初始化完成
+2025-04-23 17:22:18,614 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:139720814233152] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 17:22:18,614 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:139720814233152] - 找到 70 个查询套件文件
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: python-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: java-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: go-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:139720814233152] - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 17:22:18,615 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:139720814233152] - CodeQL分析器初始化完成
+2025-04-23 17:22:18,615 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:139720814233152] - 开始CodeQL分析: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:139720814233152] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2, 语言: python, 规则集: None
+2025-04-23 17:22:18,615 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:139720814233152] - 创建CodeQL数据库: /tmp/tmphamrr21d/codeql_db
+2025-04-23 17:22:18,615 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:139720814233152] - 执行命令: codeql database create --language=python --source-root=/home/xiao/project/codeinsight/cache/repos/be2ab2bc-e277-4c3d-a735-2ad07e93f1ac/CAPI2 /tmp/tmphamrr21d/codeql_db
+2025-04-23 17:22:22,370 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:139720814233152] - 数据库创建成功
+2025-04-23 17:22:22,371 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:139720814233152] - 运行CodeQL查询
+2025-04-23 17:22:22,371 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:139720814233152] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:22:22,372 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:139720814233152] - 运行标准查询包，共 1 个
+2025-04-23 17:22:22,372 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:139720814233152] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:22:22,372 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:139720814233152] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp0qs8w7_q.json /tmp/tmphamrr21d/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 17:22:22,697 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:139720814233152] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:22:22,697 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:139720814233152] - 运行自定义规则，共 2 条
+2025-04-23 17:22:22,697 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:139720814233152] - 运行自定义规则: sql_injection.ql
+2025-04-23 17:22:22,697 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:139720814233152] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpaoof357h.json --ram=2000 --threads=2 /tmp/tmphamrr21d/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/sql_injection.ql
+2025-04-23 17:22:23,034 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:139720814233152] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:22:23,034 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:139720814233152] - 规则 sql_injection.ql 未找到问题
+2025-04-23 17:22:23,034 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:139720814233152] - 运行自定义规则: missing_access_control.ql
+2025-04-23 17:22:23,034 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:139720814233152] - 执行命令: codeql database analyze --format=json --output=/tmp/tmppc1s4h1k.json --ram=2000 --threads=2 /tmp/tmphamrr21d/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/missing_access_control.ql
+2025-04-23 17:22:23,359 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:139720814233152] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 17:22:23,360 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:139720814233152] - 规则 missing_access_control.ql 未找到问题
+2025-04-23 17:22:23,360 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:139720814233152] - 查询完成，共找到 0 条结果
+2025-04-23 17:22:23,360 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:139720814233152] - 处理查询结果
+2025-04-23 17:22:23,365 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:139720814233152] - 未设置LLM API密钥，将使用模拟增强模式
+2025-04-23 17:22:23,366 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:139720814233152] - LLM增强器初始化完成
+2025-04-23 17:22:23,366 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:139720814233152] - 开始LLM增强分析: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 17:22:23,366 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:139720814233152] - 开始增强分析结果
+2025-04-23 17:22:23,366 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:139720814233152] - 使用模拟增强模式
+2025-04-23 17:22:23,366 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:139720814233152] - 使用模拟方法增强结果
+2025-04-23 17:22:23,366 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:139720814233152] - 分析完成: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 17:22:25,377 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:139720814233152] - 访问报告页面: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 17:22:38,760 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:139720824718912] - 访问历史记录页面
+2025-04-23 17:23:54,322 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:139720814233152] - 删除任务: 66ec9564-7c6e-4d9f-9dca-591e446cff04
+2025-04-23 17:23:54,327 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:139720814233152] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04
+2025-04-23 17:23:54,330 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:139720824718912] - 访问历史记录页面
