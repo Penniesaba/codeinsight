@@ -94,9 +94,7 @@ python run.py
 2. 网络连接是否正常（拉取代码库需要网络连接）
 3. 日志文件`logs/app.log`中的错误信息
 
-## 开发指南
 
-详细的开发文档请参考`docs/developer_guide.md`。
 
 ## 许可证
 
