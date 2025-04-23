@@ -15,6 +15,7 @@ import glob
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, send_from_directory
 import threading
+import shutil
 
 # 创建蓝图
 main_bp = Blueprint('main', __name__)
@@ -685,4 +686,108 @@ def batch_status(batch_id):
         'failed': failed,
         'in_progress': in_progress,
         'tasks': tasks
-    }) 
+    })
+
+@main_bp.route('/task/delete', methods=['GET'])
+def delete_task():
+    """
+    删除分析任务
+    删除指定任务ID对应的所有文件和目录
+    """
+    task_id = request.args.get('task_id')
+    
+    if not task_id:
+        flash('缺少任务ID', 'danger')
+        return redirect(url_for('main.history'))
+    
+    logger.info(f"删除任务: {task_id}")
+    
+    try:
+        # 获取任务信息路径
+        task_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id)
+        task_info_path = os.path.join(task_dir, 'task_info.json')
+        
+        # 检查任务是否存在
+        if not os.path.exists(task_info_path):
+            flash('找不到指定的任务', 'danger')
+            return redirect(url_for('main.history'))
+        
+        # 读取任务信息，用于删除确认提示
+        repo_url = '未知仓库'
+        try:
+            with open(task_info_path, 'r', encoding='utf-8') as f:
+                task_info = json.load(f)
+            repo_url = task_info.get('repo_url', '未知仓库')
+        except (PermissionError, IOError) as e:
+            logger.warning(f"无法读取任务信息文件 {task_info_path}: {str(e)}")
+            # 即使无法读取任务信息，也继续尝试删除
+        
+        # 从批量任务记录中移除该任务ID（如果存在于某个批量任务中）
+        # 先执行这一步，因为如果后面的删除操作失败，至少批量任务记录已更新
+        batches_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], 'batches')
+        if os.path.exists(batches_dir):
+            for batch_id in os.listdir(batches_dir):
+                batch_dir = os.path.join(batches_dir, batch_id)
+                batch_info_path = os.path.join(batch_dir, 'batch_info.json')
+                if os.path.exists(batch_info_path):
+                    try:
+                        with open(batch_info_path, 'r', encoding='utf-8') as f:
+                            batch_info = json.load(f)
+                        
+                        if task_id in batch_info.get('task_ids', []):
+                            batch_info['task_ids'].remove(task_id)
+                            batch_info['total_tasks'] = len(batch_info['task_ids'])
+                            
+                            with open(batch_info_path, 'w', encoding='utf-8') as f:
+                                json.dump(batch_info, f, ensure_ascii=False, indent=2)
+                                
+                            logger.info(f"已从批量任务 {batch_id} 中移除任务 {task_id}")
+                    except Exception as e:
+                        logger.error(f"更新批量任务信息失败: {str(e)}")
+        
+        # 删除分析结果目录
+        analysis_dir = os.path.join(current_app.config['ANALYSIS_CACHE_DIR'], task_id)
+        if os.path.exists(analysis_dir):
+            try:
+                shutil.rmtree(analysis_dir)
+                logger.info(f"已删除分析结果目录: {analysis_dir}")
+            except (PermissionError, OSError) as e:
+                logger.error(f"删除分析结果目录失败: {str(e)}")
+                # 继续执行，尝试删除其他内容
+        
+        # 使用更健壮的方式删除任务目录（仓库缓存）
+        if os.path.exists(task_dir):
+            try:
+                # 首先尝试修复文件权限
+                for root, dirs, files in os.walk(task_dir):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        try:
+                            # 添加写权限
+                            current_mode = os.stat(file_path).st_mode
+                            os.chmod(file_path, current_mode | 0o200)  # 添加写权限
+                        except Exception as e:
+                            logger.warning(f"无法修改文件权限 {file_path}: {str(e)}")
+                
+                # 然后尝试删除
+                shutil.rmtree(task_dir)
+                logger.info(f"已删除任务目录: {task_dir}")
+            except (PermissionError, OSError) as e:
+                logger.error(f"删除任务目录失败 {task_dir}: {str(e)}")
+                # 如果rmtree失败，尝试使用系统命令强制删除
+                try:
+                    import subprocess
+                    subprocess.run(['rm', '-rf', task_dir], check=True)
+                    logger.info(f"使用系统命令成功删除任务目录: {task_dir}")
+                except Exception as cmd_e:
+                    logger.error(f"使用系统命令删除失败: {str(cmd_e)}")
+                    flash(f'删除文件失败，可能需要管理员权限: {str(e)}', 'warning')
+                    return redirect(url_for('main.history'))
+        
+        flash(f'已成功删除仓库 "{repo_url}" 的分析记录和相关文件', 'success')
+        
+    except Exception as e:
+        logger.error(f"删除任务失败: {str(e)}", exc_info=True)
+        flash(f'删除失败: {str(e)}', 'danger')
+    
+    return redirect(url_for('main.history')) 

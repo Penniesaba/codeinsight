@@ -1690,3 +1690,116 @@ Try codeql database analyze --help for usage help.
 2025-04-23 12:25:27,251 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:25:27] "GET /batch_analyze HTTP/1.1" 200 -
 2025-04-23 12:25:57,905 - app.routes - DEBUG - 访问历史记录页面
 2025-04-23 12:25:57,914 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:25:57] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:33:49,047 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:33:49,071 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:33:49,229 - app - INFO - 日志系统初始化完成
+2025-04-23 12:33:49,229 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:33:49,230 - app - INFO - 调试模式: 开启
+2025-04-23 12:33:49,233 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:33:49,234 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:34:41,075 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:34:41,100 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:34:41,254 - app - INFO - 日志系统初始化完成
+2025-04-23 12:34:41,254 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:34:41,255 - app - INFO - 调试模式: 开启
+2025-04-23 12:34:41,259 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:34:41,259 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:34:45,959 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:34:45,978 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:34:45] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:34:56,574 - app.routes - INFO - 删除任务: 22e1a363-9dd5-4179-bd42-b330faa76caf
+2025-04-23 12:34:56,683 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/22e1a363-9dd5-4179-bd42-b330faa76caf
+2025-04-23 12:34:56,684 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:34:56] "[32mGET /task/delete?task_id=22e1a363-9dd5-4179-bd42-b330faa76caf HTTP/1.1[0m" 302 -
+2025-04-23 12:34:56,687 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:34:56,688 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:34:56] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:35:00,127 - app.routes - INFO - 删除任务: 3d90cff5-bc3d-4fee-806e-ccc19b39ea00
+2025-04-23 12:35:00,128 - app.routes - ERROR - 删除任务失败: [Errno 13] Permission denied: 'task_info.json'
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 723, in delete_task
+    shutil.rmtree(task_dir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+PermissionError: [Errno 13] Permission denied: 'task_info.json'
+2025-04-23 12:35:00,132 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:00] "[32mGET /task/delete?task_id=3d90cff5-bc3d-4fee-806e-ccc19b39ea00 HTTP/1.1[0m" 302 -
+2025-04-23 12:35:00,135 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:35:00,136 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:00] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:35:06,139 - app.routes - INFO - 删除任务: 0b779bd7-df33-4282-af70-986b2e4097f5
+2025-04-23 12:35:06,140 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/0b779bd7-df33-4282-af70-986b2e4097f5
+2025-04-23 12:35:06,140 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:06] "[32mGET /task/delete?task_id=0b779bd7-df33-4282-af70-986b2e4097f5 HTTP/1.1[0m" 302 -
+2025-04-23 12:35:06,143 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:35:06,143 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:06] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:35:10,220 - app.routes - INFO - 删除任务: 3d90cff5-bc3d-4fee-806e-ccc19b39ea00
+2025-04-23 12:35:10,220 - app.routes - ERROR - 删除任务失败: [Errno 13] Permission denied: 'task_info.json'
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 723, in delete_task
+    shutil.rmtree(task_dir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+PermissionError: [Errno 13] Permission denied: 'task_info.json'
+2025-04-23 12:35:10,221 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:10] "[32mGET /task/delete?task_id=3d90cff5-bc3d-4fee-806e-ccc19b39ea00 HTTP/1.1[0m" 302 -
+2025-04-23 12:35:10,223 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:35:10,224 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:35:10] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:36:40,380 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:36:40,405 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:36:40,567 - app - INFO - 日志系统初始化完成
+2025-04-23 12:36:40,567 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:36:40,567 - app - INFO - 调试模式: 开启
+2025-04-23 12:36:40,572 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:36:40,572 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:39:21,044 - werkzeug - INFO -  * Detected change in '/home/xiao/project/codeinsight/app/routes.py', reloading
+2025-04-23 12:39:21,071 - werkzeug - INFO -  * Restarting with stat
+2025-04-23 12:39:21,219 - app - INFO - 日志系统初始化完成
+2025-04-23 12:39:21,219 - app - INFO - CodeInsight 启动于环境: default
+2025-04-23 12:39:21,219 - app - INFO - 调试模式: 开启
+2025-04-23 12:39:21,223 - werkzeug - WARNING -  * Debugger is active!
+2025-04-23 12:39:21,224 - werkzeug - INFO -  * Debugger PIN: 396-171-423
+2025-04-23 12:39:25,746 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:39:25,761 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:39:25] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:39:28,943 - app.routes - INFO - 删除任务: 3d90cff5-bc3d-4fee-806e-ccc19b39ea00
+2025-04-23 12:39:28,944 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00/task_info.json: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00/task_info.json'
+2025-04-23 12:39:28,944 - app.routes - ERROR - 删除任务目录失败 /home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00: [Errno 13] Permission denied: 'task_info.json'
+2025-04-23 12:39:28,946 - app.routes - ERROR - 使用系统命令删除失败: Command '['rm', '-rf', '/home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00']' returned non-zero exit status 1.
+2025-04-23 12:39:28,947 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:39:28] "[32mGET /task/delete?task_id=3d90cff5-bc3d-4fee-806e-ccc19b39ea00 HTTP/1.1[0m" 302 -
+2025-04-23 12:39:28,950 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:39:28,951 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:39:28] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:41:35,226 - app.routes - INFO - 删除任务: 3d90cff5-bc3d-4fee-806e-ccc19b39ea00
+2025-04-23 12:41:35,226 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00/task_info.json: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00/task_info.json'
+2025-04-23 12:41:35,226 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/3d90cff5-bc3d-4fee-806e-ccc19b39ea00
+2025-04-23 12:41:35,226 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:35] "[32mGET /task/delete?task_id=3d90cff5-bc3d-4fee-806e-ccc19b39ea00 HTTP/1.1[0m" 302 -
+2025-04-23 12:41:35,230 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:41:35,231 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:35] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:41:38,580 - app.routes - INFO - 删除任务: 01fd9492-63e5-401a-993e-36fc4d6578f8
+2025-04-23 12:41:38,580 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/task_info.json: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/task_info.json'
+2025-04-23 12:41:38,580 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/description: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/description'
+2025-04-23 12:41:38,580 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/config: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/config'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/shallow.lock: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/shallow.lock'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/HEAD: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/HEAD'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/objects/pack/tmp_pack_h1p8Od: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/objects/pack/tmp_pack_h1p8Od'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-merge-commit.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-merge-commit.sample'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/push-to-checkout.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/push-to-checkout.sample'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-push.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-push.sample'
+2025-04-23 12:41:38,581 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/commit-msg.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/commit-msg.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-rebase.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-rebase.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/post-update.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/post-update.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-receive.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-receive.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/fsmonitor-watchman.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/fsmonitor-watchman.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/prepare-commit-msg.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/prepare-commit-msg.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/applypatch-msg.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/applypatch-msg.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-commit.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-commit.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-applypatch.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/pre-applypatch.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/update.sample: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/hooks/update.sample'
+2025-04-23 12:41:38,582 - app.routes - WARNING - 无法修改文件权限 /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/info/exclude: [Errno 1] Operation not permitted: '/home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8/CAPI2/.git/info/exclude'
+2025-04-23 12:41:38,584 - app.routes - INFO - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/01fd9492-63e5-401a-993e-36fc4d6578f8
+2025-04-23 12:41:38,585 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:38] "[32mGET /task/delete?task_id=01fd9492-63e5-401a-993e-36fc4d6578f8 HTTP/1.1[0m" 302 -
+2025-04-23 12:41:38,587 - app.routes - DEBUG - 访问历史记录页面
+2025-04-23 12:41:38,588 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:38] "GET /history HTTP/1.1" 200 -
+2025-04-23 12:41:41,855 - app.routes - DEBUG - 访问首页
+2025-04-23 12:41:41,858 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:41] "GET / HTTP/1.1" 200 -
+2025-04-23 12:41:46,613 - werkzeug - INFO - 127.0.0.1 - - [23/Apr/2025 12:41:46] "GET /batch_analyze HTTP/1.1" 200 -
