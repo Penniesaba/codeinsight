@@ -1,8 +1,0 @@
-{
-  "sysroot_src": "filled by the rust_project fixture",
-  "crates": [{
-    "root_module": "src/main.rs",
-    "edition": "2021",
-    "deps": []
-  }]
-}

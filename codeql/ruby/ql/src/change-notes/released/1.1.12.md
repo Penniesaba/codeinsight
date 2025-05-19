@@ -1,3 +1,0 @@
-## 1.1.12
-
-No user-facing changes.

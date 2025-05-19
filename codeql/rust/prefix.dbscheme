@@ -1,5 +1,0 @@
-#keyset[id]
-locatable_locations(
-  int id: @locatable ref,
-  int location: @location_default ref
-);

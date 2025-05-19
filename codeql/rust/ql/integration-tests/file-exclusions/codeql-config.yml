@@ -1,3 +1,0 @@
-paths-ignore:
-  - '/src/maybe_ignore'
-  - '**/tests'

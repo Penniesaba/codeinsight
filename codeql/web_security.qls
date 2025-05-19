@@ -1,0 +1,21 @@
+# Web应用安全规则集
+# 这个规则集包含了针对Web应用的常见安全漏洞检测规则
+
+# Python规则
+- import custom_rules/python/sql_injection.ql
+- import custom_rules/python/missing_access_control.ql
+
+# JavaScript规则
+- import custom_rules/javascript/dom_xss.ql
+
+# 常见安全规则
+- import ql/src/Security/CWE-020 # 输入验证
+- import ql/src/Security/CWE-022 # 路径穿越
+- import ql/src/Security/CWE-078 # 命令注入
+- import ql/src/Security/CWE-079 # XSS
+- import ql/src/Security/CWE-089 # SQL注入
+- import ql/src/Security/CWE-295 # 证书验证不当
+- import ql/src/Security/CWE-312 # 敏感信息明文存储
+- import ql/src/Security/CWE-327 # 弱加密算法
+- import ql/src/Security/CWE-611 # XXE注入
+- import ql/src/Security/CWE-918 # SSRF 

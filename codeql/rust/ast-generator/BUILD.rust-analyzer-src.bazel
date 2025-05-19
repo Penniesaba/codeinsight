@@ -1,4 +1,0 @@
-exports_files([
-    "xtask/src/codegen/grammar.rs",
-    "xtask/src/codegen/grammar/ast_src.rs",
-])

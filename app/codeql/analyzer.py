@@ -174,18 +174,17 @@ class CodeQLAnalyzer:
         
         # 获取要运行的规则或规则集
         if rule_set:
-            # 运行指定的规则集
             logger.info(f"使用指定规则集: {rule_set}")
             query_packs = [rule_set]
-            custom_rules = []
         else:
-            # 获取标准查询包和自定义规则
-            standard_packs = self._get_query_packs(language)
-            custom_rules = self.rule_manager._get_custom_rules(language)
-            custom_rules = [rule['path'] for rule in custom_rules]
-            
-            query_packs = standard_packs
-        
+            query_packs = self._get_query_packs(language)
+
+        # 无论如何都加载自定义规则
+        custom_rules = self.rule_manager._get_custom_rules(language)
+        custom_rules = [rule['path'] for rule in custom_rules]
+
+        logger.debug(f"自定义规则路径: {custom_rules}")
+
         results = []
         
         # 首先运行标准查询包（批量方式）
@@ -196,14 +195,14 @@ class CodeQLAnalyzer:
                 logger.info(f"运行查询包: {query_pack}")
                 
                 # 创建临时结果文件
-                with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as temp_file:
+                with tempfile.NamedTemporaryFile(suffix='.sarif', delete=False) as temp_file:
                     results_path = temp_file.name
                 
                 try:
                     # 运行查询
                     cmd = [
                         self.codeql_path, 'database', 'analyze',
-                        '--format=json',
+                        '--format=sarif-latest',
                         f'--output={results_path}',
                         db_path, query_pack
                     ]
@@ -265,14 +264,14 @@ class CodeQLAnalyzer:
             查询结果列表
         """
         # 创建临时结果文件
-        with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as temp_file:
+        with tempfile.NamedTemporaryFile(suffix='.sarif', delete=False) as temp_file:
             results_path = temp_file.name
         
         try:
             # 构建命令
             cmd = [
                 self.codeql_path, 'database', 'analyze',
-                '--format=json',
+                '--format=sarif-latest',
                 f'--output={results_path}',
                 '--ram=2000',  # 设置内存限制，避免大型代码库分析时内存溢出
                 '--threads=2',  # 设置线程数

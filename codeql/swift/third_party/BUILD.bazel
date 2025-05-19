@@ -1,3 +1,0 @@
-load(":load.bzl", "test_no_override")
-
-test_no_override()

@@ -1,5 +1,0 @@
-dependencies:
-  codeql/rust-queries: '*'
-  codeql/rust-all: '*'
-extractor: rust
-warnOnImplicitThis: true

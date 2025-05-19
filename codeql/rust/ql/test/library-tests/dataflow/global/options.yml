@@ -1,3 +1,0 @@
-qltest_cargo_check: true
-qltest_dependencies:
-    - futures = { version = "0.3" }

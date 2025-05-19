@@ -1,3 +1,0 @@
-qltest_cargo_check: true
-qltest_dependencies:
-  - regex = { version = "1.11.1" }

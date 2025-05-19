@@ -1,5 +1,0 @@
-name: codeql/rust-consistency-queries
-groups: [rust, test, consistency-queries]
-dependencies:
-  codeql/rust-all: ${workspace}
-warnOnImplicitThis: true

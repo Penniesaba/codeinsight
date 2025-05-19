@@ -2935,3 +2935,556 @@ Try codeql database analyze --help for usage help.
 2025-05-19 22:09:25,237 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:140555594665984] - 调试模式: 开启
 2025-05-19 22:09:25,241 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:140555594665984] -  * Debugger is active!
 2025-05-19 22:09:29,588 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:140555544684096] - 访问首页
+2025-05-19 22:28:27,720 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:140555544684096] - 访问首页
+2025-05-19 22:28:49,364 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:140555536291392] - 收到分析请求: git@github.com:he1995/chatgpt-demo, 语言: javascript, 协议: ssh
+2025-05-19 22:28:49,365 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:140555544684096] - 正在克隆仓库: git@github.com:he1995/chatgpt-demo
+2025-05-19 22:28:49,365 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:140555544684096] - 克隆仓库: git@github.com:he1995/chatgpt-demo 到 /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14, 协议: ssh
+2025-05-19 22:28:49,365 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:140555544684096] - 标准化仓库URL: git@github.com:he1995/chatgpt-demo, 协议: ssh
+2025-05-19 22:28:49,365 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:140555544684096] - URL标准化结果: git@github.com:he1995/chatgpt-demo -> git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:28:49,365 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:140555544684096] - 处理后的URL: git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:28:49,365 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:140555544684096] - 执行命令: git clone --depth=1 git@github.com:he1995/chatgpt-demo.git /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo
+2025-05-19 22:28:49,371 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:140555526850112] - 访问任务进度页面: b367ca23-b51b-4574-9796-75815ad65b14
+2025-05-19 22:28:54,190 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:140555544684096] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo
+2025-05-19 22:28:54,190 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:140555544684096] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo
+2025-05-19 22:28:54,196 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:140555544684096] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-05-19 22:28:54,196 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:140555544684096] - 仓库克隆完成: git@github.com:he1995/chatgpt-demo -> /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo
+2025-05-19 22:28:55,614 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:140555544684096] - 规则集管理器初始化完成
+2025-05-19 22:28:56,143 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:140555544684096] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:140555544684096] - 找到 70 个查询套件文件
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: python-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: javascript-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: java-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: cpp-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: csharp-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: go-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555544684096] - 已验证规则库: ruby-security-and-quality.qls
+2025-05-19 22:28:56,144 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:140555544684096] - CodeQL分析器初始化完成
+2025-05-19 22:28:56,144 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:140555544684096] - 开始CodeQL分析: b367ca23-b51b-4574-9796-75815ad65b14
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:140555544684096] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo, 语言: javascript, 规则集: None
+2025-05-19 22:28:56,144 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:140555544684096] - 创建CodeQL数据库: /tmp/tmptr8hmwz1/codeql_db
+2025-05-19 22:28:56,145 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:140555544684096] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/b367ca23-b51b-4574-9796-75815ad65b14/chatgpt-demo /tmp/tmptr8hmwz1/codeql_db
+2025-05-19 22:29:04,733 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:140555544684096] - 数据库创建成功
+2025-05-19 22:29:04,733 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:140555544684096] - 运行CodeQL查询
+2025-05-19 22:29:04,734 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:140555544684096] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:29:04,734 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:140555544684096] - 运行标准查询包，共 1 个
+2025-05-19 22:29:04,734 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:140555544684096] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:29:04,735 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:140555544684096] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpfii2xp9t.json /tmp/tmptr8hmwz1/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:29:05,053 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:140555544684096] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:29:05,053 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:140555544684096] - 运行自定义规则，共 2 条
+2025-05-19 22:29:05,053 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555544684096] - 运行自定义规则: dom_xss.ql
+2025-05-19 22:29:05,053 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555544684096] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp31tl0r_f.json --ram=2000 --threads=2 /tmp/tmptr8hmwz1/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-05-19 22:29:05,377 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555544684096] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:29:05,377 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555544684096] - 规则 dom_xss.ql 未找到问题
+2025-05-19 22:29:05,378 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555544684096] - 运行自定义规则: xss.ql
+2025-05-19 22:29:05,378 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555544684096] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp5kcjvj7b.json --ram=2000 --threads=2 /tmp/tmptr8hmwz1/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-05-19 22:29:05,712 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555544684096] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:29:05,712 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555544684096] - 规则 xss.ql 未找到问题
+2025-05-19 22:29:05,712 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:140555544684096] - 查询完成，共找到 0 条结果
+2025-05-19 22:29:05,712 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:140555544684096] - 处理查询结果
+2025-05-19 22:29:05,717 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:140555544684096] - 未设置LLM API密钥，将使用模拟增强模式
+2025-05-19 22:29:05,717 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:140555544684096] - LLM增强器初始化完成
+2025-05-19 22:29:05,717 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:140555544684096] - 开始LLM增强分析: b367ca23-b51b-4574-9796-75815ad65b14
+2025-05-19 22:29:05,717 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:140555544684096] - 开始增强分析结果
+2025-05-19 22:29:05,717 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:140555544684096] - 使用模拟增强模式
+2025-05-19 22:29:05,717 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:140555544684096] - 使用模拟方法增强结果
+2025-05-19 22:29:05,718 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:140555544684096] - 分析完成: b367ca23-b51b-4574-9796-75815ad65b14
+2025-05-19 22:29:07,944 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:140555544684096] - 访问报告页面: b367ca23-b51b-4574-9796-75815ad65b14
+2025-05-19 22:38:14,780 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:140555526850112] - 访问首页
+2025-05-19 22:38:22,255 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:140555544684096] - 收到分析请求: git@github.com:he1995/chatgpt-demo, 语言: javascript, 协议: ssh
+2025-05-19 22:38:22,256 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:140555526850112] - 正在克隆仓库: git@github.com:he1995/chatgpt-demo
+2025-05-19 22:38:22,256 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:140555526850112] - 克隆仓库: git@github.com:he1995/chatgpt-demo 到 /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b, 协议: ssh
+2025-05-19 22:38:22,256 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:140555526850112] - 标准化仓库URL: git@github.com:he1995/chatgpt-demo, 协议: ssh
+2025-05-19 22:38:22,256 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:140555526850112] - URL标准化结果: git@github.com:he1995/chatgpt-demo -> git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:38:22,256 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:140555526850112] - 处理后的URL: git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:38:22,256 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:140555526850112] - 执行命令: git clone --depth=1 git@github.com:he1995/chatgpt-demo.git /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo
+2025-05-19 22:38:22,263 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:140555536291392] - 访问任务进度页面: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:38:27,444 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:140555526850112] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo
+2025-05-19 22:38:27,445 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:140555526850112] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo
+2025-05-19 22:38:27,450 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:140555526850112] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-05-19 22:38:27,450 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:140555526850112] - 仓库克隆完成: git@github.com:he1995/chatgpt-demo -> /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo
+2025-05-19 22:38:28,523 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:140555526850112] - 规则集管理器初始化完成
+2025-05-19 22:38:28,894 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:140555526850112] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-05-19 22:38:28,894 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:140555526850112] - 找到 70 个查询套件文件
+2025-05-19 22:38:28,894 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: python-security-and-quality.qls
+2025-05-19 22:38:28,894 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: javascript-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: java-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: cpp-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: csharp-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: go-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:140555526850112] - 已验证规则库: ruby-security-and-quality.qls
+2025-05-19 22:38:28,895 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:140555526850112] - CodeQL分析器初始化完成
+2025-05-19 22:38:28,895 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:140555526850112] - 开始CodeQL分析: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:140555526850112] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo, 语言: javascript, 规则集: None
+2025-05-19 22:38:28,895 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:140555526850112] - 创建CodeQL数据库: /tmp/tmp9vo6so27/codeql_db
+2025-05-19 22:38:28,896 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:140555526850112] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/aaf0efd8-4083-4d26-9125-f0977c09ee6b/chatgpt-demo /tmp/tmp9vo6so27/codeql_db
+2025-05-19 22:38:37,335 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:140555526850112] - 数据库创建成功
+2025-05-19 22:38:37,335 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:140555526850112] - 运行CodeQL查询
+2025-05-19 22:38:37,335 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:140555526850112] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:38:37,336 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:140555526850112] - 运行标准查询包，共 1 个
+2025-05-19 22:38:37,336 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:140555526850112] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:38:37,336 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:140555526850112] - 执行命令: codeql database analyze --format=json --output=/tmp/tmppjlyf1t_.json /tmp/tmp9vo6so27/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:38:37,652 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:140555526850112] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:38:37,652 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:140555526850112] - 运行自定义规则，共 4 条
+2025-05-19 22:38:37,652 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555526850112] - 运行自定义规则: unsafe-input.ql
+2025-05-19 22:38:37,652 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555526850112] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpjgxwqf_3.json --ram=2000 --threads=2 /tmp/tmp9vo6so27/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql
+2025-05-19 22:38:37,993 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555526850112] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:38:37,994 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555526850112] - 规则 unsafe-input.ql 未找到问题
+2025-05-19 22:38:37,994 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555526850112] - 运行自定义规则: unsafe-error-handling.ql
+2025-05-19 22:38:37,994 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555526850112] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp9jqathoo.json --ram=2000 --threads=2 /tmp/tmp9vo6so27/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql
+2025-05-19 22:38:38,343 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555526850112] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:38:38,343 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555526850112] - 规则 unsafe-error-handling.ql 未找到问题
+2025-05-19 22:38:38,344 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555526850112] - 运行自定义规则: dom_xss.ql
+2025-05-19 22:38:38,344 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555526850112] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpcj5f5ts6.json --ram=2000 --threads=2 /tmp/tmp9vo6so27/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-05-19 22:38:38,662 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555526850112] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:38:38,662 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555526850112] - 规则 dom_xss.ql 未找到问题
+2025-05-19 22:38:38,662 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:140555526850112] - 运行自定义规则: xss.ql
+2025-05-19 22:38:38,662 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:140555526850112] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpdehufve4.json --ram=2000 --threads=2 /tmp/tmp9vo6so27/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-05-19 22:38:38,984 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:140555526850112] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:38:38,984 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:140555526850112] - 规则 xss.ql 未找到问题
+2025-05-19 22:38:38,984 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:140555526850112] - 查询完成，共找到 0 条结果
+2025-05-19 22:38:38,984 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:140555526850112] - 处理查询结果
+2025-05-19 22:38:38,989 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:140555526850112] - 未设置LLM API密钥，将使用模拟增强模式
+2025-05-19 22:38:38,989 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:140555526850112] - LLM增强器初始化完成
+2025-05-19 22:38:38,989 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:140555526850112] - 开始LLM增强分析: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:38:38,989 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:140555526850112] - 开始增强分析结果
+2025-05-19 22:38:38,989 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:140555526850112] - 使用模拟增强模式
+2025-05-19 22:38:38,990 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:140555526850112] - 使用模拟方法增强结果
+2025-05-19 22:38:38,990 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:140555526850112] - 分析完成: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:38:41,920 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:140555526850112] - 访问报告页面: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:50:29,790 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:123558348591104] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:50:29,790 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:123558348591104] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:50:29,790 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:123558348591104] - CodeInsight 启动于环境: default
+2025-05-19 22:50:29,790 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:123558348591104] - 调试模式: 开启
+2025-05-19 22:50:29,795 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:123558348591104] -  * Debugger is active!
+2025-05-19 22:50:46,088 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:137404291682304] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:50:46,088 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:137404291682304] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:50:46,088 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:137404291682304] - CodeInsight 启动于环境: default
+2025-05-19 22:50:46,089 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:137404291682304] - 调试模式: 开启
+2025-05-19 22:50:46,092 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:137404291682304] -  * Debugger is active!
+2025-05-19 22:50:56,002 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:124977365524480] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:50:56,002 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:124977365524480] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:50:56,002 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:124977365524480] - CodeInsight 启动于环境: default
+2025-05-19 22:50:56,002 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:124977365524480] - 调试模式: 开启
+2025-05-19 22:50:56,006 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:124977365524480] -  * Debugger is active!
+2025-05-19 22:50:58,436 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:132797473161216] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:50:58,436 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:132797473161216] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:50:58,436 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:132797473161216] - CodeInsight 启动于环境: default
+2025-05-19 22:50:58,437 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:132797473161216] - 调试模式: 开启
+2025-05-19 22:50:58,441 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:132797473161216] -  * Debugger is active!
+2025-05-19 22:51:13,572 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:132797422364224] - 访问报告页面: aaf0efd8-4083-4d26-9125-f0977c09ee6b
+2025-05-19 22:51:16,174 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:132797413971520] - 访问首页
+2025-05-19 22:51:20,271 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:132797422364224] - 收到分析请求: git@github.com:he1995/chatgpt-demo, 语言: javascript, 协议: ssh
+2025-05-19 22:51:20,271 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:132797413971520] - 正在克隆仓库: git@github.com:he1995/chatgpt-demo
+2025-05-19 22:51:20,271 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:132797413971520] - 克隆仓库: git@github.com:he1995/chatgpt-demo 到 /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7, 协议: ssh
+2025-05-19 22:51:20,272 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:132797413971520] - 标准化仓库URL: git@github.com:he1995/chatgpt-demo, 协议: ssh
+2025-05-19 22:51:20,272 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:132797413971520] - URL标准化结果: git@github.com:he1995/chatgpt-demo -> git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:51:20,272 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:132797413971520] - 处理后的URL: git@github.com:he1995/chatgpt-demo.git
+2025-05-19 22:51:20,272 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:132797413971520] - 执行命令: git clone --depth=1 git@github.com:he1995/chatgpt-demo.git /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo
+2025-05-19 22:51:20,280 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:132797405578816] - 访问任务进度页面: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 22:52:21,143 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:132797413971520] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo
+2025-05-19 22:52:21,143 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:132797413971520] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo
+2025-05-19 22:52:21,148 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:132797413971520] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-05-19 22:52:21,149 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:132797413971520] - 仓库克隆完成: git@github.com:he1995/chatgpt-demo -> /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo
+2025-05-19 22:52:21,918 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:132797413971520] - 规则集管理器初始化完成
+2025-05-19 22:52:22,295 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:132797413971520] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-05-19 22:52:22,295 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:132797413971520] - 找到 70 个查询套件文件
+2025-05-19 22:52:22,295 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: python-security-and-quality.qls
+2025-05-19 22:52:22,295 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: javascript-security-and-quality.qls
+2025-05-19 22:52:22,295 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: java-security-and-quality.qls
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: cpp-security-and-quality.qls
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: csharp-security-and-quality.qls
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: go-security-and-quality.qls
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:132797413971520] - 已验证规则库: ruby-security-and-quality.qls
+2025-05-19 22:52:22,296 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:132797413971520] - CodeQL分析器初始化完成
+2025-05-19 22:52:22,296 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:132797413971520] - 开始CodeQL分析: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:132797413971520] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo, 语言: javascript, 规则集: None
+2025-05-19 22:52:22,296 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:132797413971520] - 创建CodeQL数据库: /tmp/tmpp2zs7kbf/codeql_db
+2025-05-19 22:52:22,296 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:132797413971520] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/df14d9fa-26f3-4169-ad58-dbdd4a467be7/chatgpt-demo /tmp/tmpp2zs7kbf/codeql_db
+2025-05-19 22:52:30,624 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:132797413971520] - 数据库创建成功
+2025-05-19 22:52:30,624 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:132797413971520] - 运行CodeQL查询
+2025-05-19 22:52:30,624 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:419 - [线程:132797413971520] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:52:30,625 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:186 - [线程:132797413971520] - 自定义规则路径: ['/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql']
+2025-05-19 22:52:30,625 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:192 - [线程:132797413971520] - 运行标准查询包，共 1 个
+2025-05-19 22:52:30,625 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:195 - [线程:132797413971520] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:52:30,626 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:210 - [线程:132797413971520] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp8ud7qj8h.json /tmp/tmpp2zs7kbf/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 22:52:30,952 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:225 - [线程:132797413971520] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:52:30,953 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:234 - [线程:132797413971520] - 运行自定义规则，共 4 条
+2025-05-19 22:52:30,953 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:132797413971520] - 运行自定义规则: unsafe-input.ql
+2025-05-19 22:52:30,953 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:132797413971520] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpjkdmxo72.json --ram=2000 --threads=2 /tmp/tmpp2zs7kbf/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql
+2025-05-19 22:52:31,284 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:132797413971520] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:52:31,285 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:132797413971520] - 规则 unsafe-input.ql 未找到问题
+2025-05-19 22:52:31,285 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:132797413971520] - 运行自定义规则: unsafe-error-handling.ql
+2025-05-19 22:52:31,285 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:132797413971520] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpg512jji0.json --ram=2000 --threads=2 /tmp/tmpp2zs7kbf/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql
+2025-05-19 22:52:31,606 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:132797413971520] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:52:31,606 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:132797413971520] - 规则 unsafe-error-handling.ql 未找到问题
+2025-05-19 22:52:31,606 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:132797413971520] - 运行自定义规则: dom_xss.ql
+2025-05-19 22:52:31,606 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:132797413971520] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpz3mntkxm.json --ram=2000 --threads=2 /tmp/tmpp2zs7kbf/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-05-19 22:52:31,944 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:132797413971520] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:52:31,944 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:132797413971520] - 规则 dom_xss.ql 未找到问题
+2025-05-19 22:52:31,944 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:132797413971520] - 运行自定义规则: xss.ql
+2025-05-19 22:52:31,944 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:132797413971520] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpxjx80f8f.json --ram=2000 --threads=2 /tmp/tmpp2zs7kbf/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-05-19 22:52:32,289 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:132797413971520] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-05-19 22:52:32,289 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:132797413971520] - 规则 xss.ql 未找到问题
+2025-05-19 22:52:32,290 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:252 - [线程:132797413971520] - 查询完成，共找到 0 条结果
+2025-05-19 22:52:32,290 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:439 - [线程:132797413971520] - 处理查询结果
+2025-05-19 22:52:32,295 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:132797413971520] - 未设置LLM API密钥，将使用模拟增强模式
+2025-05-19 22:52:32,295 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:132797413971520] - LLM增强器初始化完成
+2025-05-19 22:52:32,295 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:132797413971520] - 开始LLM增强分析: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 22:52:32,295 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:132797413971520] - 开始增强分析结果
+2025-05-19 22:52:32,295 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:132797413971520] - 使用模拟增强模式
+2025-05-19 22:52:32,295 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:132797413971520] - 使用模拟方法增强结果
+2025-05-19 22:52:32,296 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:132797413971520] - 分析完成: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 22:52:34,859 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:132797413971520] - 访问报告页面: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 23:00:44,133 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:136566393929728] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:00:44,133 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:136566393929728] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:00:44,133 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:136566393929728] - CodeInsight 启动于环境: default
+2025-05-19 23:00:44,134 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:136566393929728] - 调试模式: 开启
+2025-05-19 23:00:44,137 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:136566393929728] -  * Debugger is active!
+2025-05-19 23:01:42,006 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:135160523460608] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:01:42,006 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:135160523460608] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:01:42,006 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:135160523460608] - CodeInsight 启动于环境: default
+2025-05-19 23:01:42,006 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:135160523460608] - 调试模式: 开启
+2025-05-19 23:01:42,010 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:135160523460608] -  * Debugger is active!
+2025-05-19 23:01:46,906 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:124366167728128] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:01:46,906 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:124366167728128] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:01:46,906 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:124366167728128] - CodeInsight 启动于环境: default
+2025-05-19 23:01:46,906 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:124366167728128] - 调试模式: 开启
+2025-05-19 23:01:47,060 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:133314077536256] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:01:47,060 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:133314077536256] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:01:47,060 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:133314077536256] - CodeInsight 启动于环境: default
+2025-05-19 23:01:47,060 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:133314077536256] - 调试模式: 开启
+2025-05-19 23:01:47,064 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:133314077536256] -  * Debugger is active!
+2025-05-19 23:01:51,159 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:133314027447872] - 访问报告页面: df14d9fa-26f3-4169-ad58-dbdd4a467be7
+2025-05-19 23:01:52,724 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:133314019055168] - 访问首页
+2025-05-19 23:01:58,732 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:133314027447872] - 收到分析请求: git@github.com:he1995/chatgpt-demo, 语言: javascript, 协议: ssh
+2025-05-19 23:01:58,733 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:133314019055168] - 正在克隆仓库: git@github.com:he1995/chatgpt-demo
+2025-05-19 23:01:58,733 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:133314019055168] - 克隆仓库: git@github.com:he1995/chatgpt-demo 到 /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2, 协议: ssh
+2025-05-19 23:01:58,733 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:133314019055168] - 标准化仓库URL: git@github.com:he1995/chatgpt-demo, 协议: ssh
+2025-05-19 23:01:58,733 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:133314019055168] - URL标准化结果: git@github.com:he1995/chatgpt-demo -> git@github.com:he1995/chatgpt-demo.git
+2025-05-19 23:01:58,733 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:133314019055168] - 处理后的URL: git@github.com:he1995/chatgpt-demo.git
+2025-05-19 23:01:58,734 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:133314019055168] - 执行命令: git clone --depth=1 git@github.com:he1995/chatgpt-demo.git /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo
+2025-05-19 23:01:58,739 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:133314027447872] - 访问任务进度页面: 51d86c61-c683-4578-afd6-f4bdedb6c7b2
+2025-05-19 23:02:03,780 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:133314019055168] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo
+2025-05-19 23:02:03,780 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:133314019055168] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo
+2025-05-19 23:02:03,786 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:133314019055168] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-05-19 23:02:03,786 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:133314019055168] - 仓库克隆完成: git@github.com:he1995/chatgpt-demo -> /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo
+2025-05-19 23:02:03,832 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:133314019055168] - 规则集管理器初始化完成
+2025-05-19 23:02:04,230 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:133314019055168] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:133314019055168] - 找到 70 个查询套件文件
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: python-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: javascript-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: java-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: cpp-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: csharp-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: go-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:133314019055168] - 已验证规则库: ruby-security-and-quality.qls
+2025-05-19 23:02:04,231 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:133314019055168] - CodeQL分析器初始化完成
+2025-05-19 23:02:04,231 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:133314019055168] - 开始CodeQL分析: 51d86c61-c683-4578-afd6-f4bdedb6c7b2
+2025-05-19 23:02:04,231 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:133314019055168] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo, 语言: javascript, 规则集: None
+2025-05-19 23:02:04,232 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:133314019055168] - 创建CodeQL数据库: /tmp/tmp87j0ivnl/codeql_db
+2025-05-19 23:02:04,232 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:133314019055168] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/51d86c61-c683-4578-afd6-f4bdedb6c7b2/chatgpt-demo /tmp/tmp87j0ivnl/codeql_db
+2025-05-19 23:02:12,478 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:133314019055168] - 数据库创建成功
+2025-05-19 23:02:12,478 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:133314019055168] - 运行CodeQL查询
+2025-05-19 23:02:12,478 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:419 - [线程:133314019055168] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:02:12,480 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:186 - [线程:133314019055168] - 自定义规则路径: ['/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql']
+2025-05-19 23:02:12,480 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:192 - [线程:133314019055168] - 运行标准查询包，共 1 个
+2025-05-19 23:02:12,480 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:195 - [线程:133314019055168] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:02:12,480 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:210 - [线程:133314019055168] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmp5xivysnu.json /tmp/tmp87j0ivnl/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:02:14,158 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:225 - [线程:133314019055168] - 查询执行失败: Running queries.
+ERROR: Dependency on pack 'codeql/suite-helpers' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Dependency on pack 'codeql/swift-all' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Dependency on pack 'codeql/util' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Pack 'codeql/suite-helpers' was not found locally, and is not listed in the lock file. Run 'codeql pack install' to update the lock file and download the dependencies. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: No valid pack solution found:
+Because 'codeql/swift-queries' depends on 'codeql/suite-helpers@0.0.0', but pack 'codeql/suite-helpers' was not found, version solving failed.
+ (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+A fatal error occurred: The QL pack 'codeql/suite-helpers' which is referenced from /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls cannot be found.
+
+2025-05-19 23:02:14,158 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:234 - [线程:133314019055168] - 运行自定义规则，共 4 条
+2025-05-19 23:02:14,158 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:133314019055168] - 运行自定义规则: unsafe-input.ql
+2025-05-19 23:02:14,158 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:133314019055168] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpi3j7luz0.json --ram=2000 --threads=2 /tmp/tmp87j0ivnl/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql
+2025-05-19 23:02:16,212 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:133314019055168] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:9,8-18)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:11,6-14)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:14,14-22)
+
+2025-05-19 23:02:16,212 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:133314019055168] - 规则 unsafe-input.ql 未找到问题
+2025-05-19 23:02:16,212 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:133314019055168] - 运行自定义规则: unsafe-error-handling.ql
+2025-05-19 23:02:16,212 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:133314019055168] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpnpan7p3f.json --ram=2000 --threads=2 /tmp/tmp87j0ivnl/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql
+2025-05-19 23:02:18,205 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:133314019055168] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:9,8-18)
+ERROR: could not resolve type FunctionExpr (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,6-18)
+ERROR: could not resolve type TryStmt (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,25-32)
+ERROR: could not resolve type CatchClause (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,42-53)
+ERROR: could not resolve type CallExpr (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:15,10-18)
+ERROR: could not resolve type IfStmt (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:20,14-20)
+
+2025-05-19 23:02:18,205 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:133314019055168] - 规则 unsafe-error-handling.ql 未找到问题
+2025-05-19 23:02:18,206 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:133314019055168] - 运行自定义规则: dom_xss.ql
+2025-05-19 23:02:18,206 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:133314019055168] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpr4_w1zmp.json --ram=2000 --threads=2 /tmp/tmp87j0ivnl/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-05-19 23:02:20,384 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:133314019055168] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:14,8-18)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:15,8-16)
+ERROR: could not resolve module semmle.javascript.security.dataflow.DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:16,8-55)
+ERROR: could not resolve module TaintTracking (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:37,41-54)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:40,31-39)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:42,23-34)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:45,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:48,14-22)
+ERROR: could not resolve type GlobalVarAccess (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:50,36-51)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:55,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:58,27-35)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:66,29-37)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:68,21-32)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:71,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:77,12-20)
+ERROR: could not resolve type GlobalVarAccess (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:79,36-51)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:84,12-20)
+ERROR: could not resolve module JQuery (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:87,55-61)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,44-52)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,65-73)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:93,9-20)
+ERROR: could not resolve module StringOps (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:96,12-21)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:102,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:110,40-48)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:110,67-75)
+WARNING: unused method 'isSource' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:40,22-30)
+WARNING: unused method 'isSink' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:66,22-28)
+WARNING: unused method 'isAdditionalTaintStep' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,22-43)
+
+2025-05-19 23:02:20,384 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:133314019055168] - 规则 dom_xss.ql 未找到问题
+2025-05-19 23:02:20,384 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:133314019055168] - 运行自定义规则: xss.ql
+2025-05-19 23:02:20,385 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:133314019055168] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmp8ooq85j8.json --ram=2000 --threads=2 /tmp/tmp87j0ivnl/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-05-19 23:02:22,385 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:133314019055168] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:13,8-18)
+ERROR: could not resolve module semmle.javascript.security.dataflow.XSS (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:14,8-47)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:15,8-16)
+ERROR: could not resolve module DOM (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,6-9)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,38-46)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,65-73)
+
+2025-05-19 23:02:22,385 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:133314019055168] - 规则 xss.ql 未找到问题
+2025-05-19 23:02:22,385 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:252 - [线程:133314019055168] - 查询完成，共找到 0 条结果
+2025-05-19 23:02:22,385 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:439 - [线程:133314019055168] - 处理查询结果
+2025-05-19 23:02:22,390 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:133314019055168] - 未设置LLM API密钥，将使用模拟增强模式
+2025-05-19 23:02:22,390 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:133314019055168] - LLM增强器初始化完成
+2025-05-19 23:02:22,391 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:133314019055168] - 开始LLM增强分析: 51d86c61-c683-4578-afd6-f4bdedb6c7b2
+2025-05-19 23:02:22,391 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:133314019055168] - 开始增强分析结果
+2025-05-19 23:02:22,391 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:133314019055168] - 使用模拟增强模式
+2025-05-19 23:02:22,391 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:133314019055168] - 使用模拟方法增强结果
+2025-05-19 23:02:22,391 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:133314019055168] - 分析完成: 51d86c61-c683-4578-afd6-f4bdedb6c7b2
+2025-05-19 23:02:24,857 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:133314019055168] - 访问报告页面: 51d86c61-c683-4578-afd6-f4bdedb6c7b2
+2025-05-19 23:05:23,035 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:136707060736000] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:05:23,035 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:136707060736000] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:05:23,035 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:136707060736000] - CodeInsight 启动于环境: default
+2025-05-19 23:05:23,035 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:136707060736000] - 调试模式: 开启
+2025-05-19 23:05:23,039 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:136707060736000] -  * Debugger is active!
+2025-05-19 23:05:36,114 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:135833821724672] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 23:05:36,114 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:135833821724672] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 23:05:36,114 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:135833821724672] - CodeInsight 启动于环境: default
+2025-05-19 23:05:36,114 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:135833821724672] - 调试模式: 开启
+2025-05-19 23:05:36,118 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:135833821724672] -  * Debugger is active!
+2025-05-19 23:05:50,367 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:135833772111424] - 访问首页
+2025-05-19 23:05:52,139 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:135833763718720] - 访问历史记录页面
+2025-05-19 23:05:57,120 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:135833772111424] - 访问首页
+2025-05-19 23:06:01,626 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:135833763718720] - 收到分析请求: git@github.com:he1995/chatgpt-demo, 语言: javascript, 协议: ssh
+2025-05-19 23:06:01,627 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:135833772111424] - 正在克隆仓库: git@github.com:he1995/chatgpt-demo
+2025-05-19 23:06:01,627 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:135833772111424] - 克隆仓库: git@github.com:he1995/chatgpt-demo 到 /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8, 协议: ssh
+2025-05-19 23:06:01,627 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:135833772111424] - 标准化仓库URL: git@github.com:he1995/chatgpt-demo, 协议: ssh
+2025-05-19 23:06:01,628 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:135833772111424] - URL标准化结果: git@github.com:he1995/chatgpt-demo -> git@github.com:he1995/chatgpt-demo.git
+2025-05-19 23:06:01,628 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:135833772111424] - 处理后的URL: git@github.com:he1995/chatgpt-demo.git
+2025-05-19 23:06:01,628 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:135833772111424] - 执行命令: git clone --depth=1 git@github.com:he1995/chatgpt-demo.git /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo
+2025-05-19 23:06:01,634 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:135833754277440] - 访问任务进度页面: 67cc569e-ede6-40a2-99a9-f3aaa7a251e8
+2025-05-19 23:06:06,434 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:135833772111424] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo
+2025-05-19 23:06:06,434 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:135833772111424] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo
+2025-05-19 23:06:06,439 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:135833772111424] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-05-19 23:06:06,440 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:135833772111424] - 仓库克隆完成: git@github.com:he1995/chatgpt-demo -> /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo
+2025-05-19 23:06:07,980 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:135833772111424] - 规则集管理器初始化完成
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:135833772111424] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:135833772111424] - 找到 70 个查询套件文件
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: python-security-and-quality.qls
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: javascript-security-and-quality.qls
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: java-security-and-quality.qls
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: cpp-security-and-quality.qls
+2025-05-19 23:06:08,363 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: csharp-security-and-quality.qls
+2025-05-19 23:06:08,364 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: go-security-and-quality.qls
+2025-05-19 23:06:08,364 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:135833772111424] - 已验证规则库: ruby-security-and-quality.qls
+2025-05-19 23:06:08,364 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:135833772111424] - CodeQL分析器初始化完成
+2025-05-19 23:06:08,364 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:135833772111424] - 开始CodeQL分析: 67cc569e-ede6-40a2-99a9-f3aaa7a251e8
+2025-05-19 23:06:08,364 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:135833772111424] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo, 语言: javascript, 规则集: None
+2025-05-19 23:06:08,364 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:135833772111424] - 创建CodeQL数据库: /tmp/tmpetn73jb3/codeql_db
+2025-05-19 23:06:08,364 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:135833772111424] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/67cc569e-ede6-40a2-99a9-f3aaa7a251e8/chatgpt-demo /tmp/tmpetn73jb3/codeql_db
+2025-05-19 23:06:16,853 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:135833772111424] - 数据库创建成功
+2025-05-19 23:06:16,853 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:135833772111424] - 运行CodeQL查询
+2025-05-19 23:06:16,854 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:419 - [线程:135833772111424] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:06:16,854 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:186 - [线程:135833772111424] - 自定义规则路径: ['/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql', '/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql']
+2025-05-19 23:06:16,855 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:192 - [线程:135833772111424] - 运行标准查询包，共 1 个
+2025-05-19 23:06:16,855 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:195 - [线程:135833772111424] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:06:16,855 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:210 - [线程:135833772111424] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmplzdm2zt7.sarif /tmp/tmpetn73jb3/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-05-19 23:06:18,422 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:225 - [线程:135833772111424] - 查询执行失败: Running queries.
+ERROR: Dependency on pack 'codeql/suite-helpers' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Dependency on pack 'codeql/swift-all' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Dependency on pack 'codeql/util' uses '${workspace}', but the referring pack is not in a workspace. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: Pack 'codeql/suite-helpers' was not found locally, and is not listed in the lock file. Run 'codeql pack install' to update the lock file and download the dependencies. (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+ERROR: No valid pack solution found:
+Because 'codeql/swift-queries' depends on 'codeql/suite-helpers@0.0.0', but pack 'codeql/suite-helpers' was not found, version solving failed.
+ (/home/xiao/project/codeinsight/app/codeql/queries/ql/src/qlpack.yml:1,1-1)
+A fatal error occurred: The QL pack 'codeql/suite-helpers' which is referenced from /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls cannot be found.
+
+2025-05-19 23:06:18,423 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:234 - [线程:135833772111424] - 运行自定义规则，共 4 条
+2025-05-19 23:06:18,423 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:135833772111424] - 运行自定义规则: unsafe-input.ql
+2025-05-19 23:06:18,423 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:135833772111424] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpq8pxp12t.sarif --ram=2000 --threads=2 /tmp/tmpetn73jb3/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql
+2025-05-19 23:06:20,544 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:135833772111424] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:9,8-18)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:11,6-14)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-input.ql:14,14-22)
+
+2025-05-19 23:06:20,545 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:135833772111424] - 规则 unsafe-input.ql 未找到问题
+2025-05-19 23:06:20,545 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:135833772111424] - 运行自定义规则: unsafe-error-handling.ql
+2025-05-19 23:06:20,545 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:135833772111424] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpneq0ii6k.sarif --ram=2000 --threads=2 /tmp/tmpetn73jb3/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql
+2025-05-19 23:06:22,610 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:135833772111424] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:9,8-18)
+ERROR: could not resolve type FunctionExpr (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,6-18)
+ERROR: could not resolve type TryStmt (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,25-32)
+ERROR: could not resolve type CatchClause (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:11,42-53)
+ERROR: could not resolve type CallExpr (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:15,10-18)
+ERROR: could not resolve type IfStmt (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/unsafe-error-handling.ql:20,14-20)
+
+2025-05-19 23:06:22,611 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:135833772111424] - 规则 unsafe-error-handling.ql 未找到问题
+2025-05-19 23:06:22,611 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:135833772111424] - 运行自定义规则: dom_xss.ql
+2025-05-19 23:06:22,611 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:135833772111424] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmp4h101687.sarif --ram=2000 --threads=2 /tmp/tmpetn73jb3/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-05-19 23:06:24,655 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:135833772111424] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:14,8-18)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:15,8-16)
+ERROR: could not resolve module semmle.javascript.security.dataflow.DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:16,8-55)
+ERROR: could not resolve module TaintTracking (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:37,41-54)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:40,31-39)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:42,23-34)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:45,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:48,14-22)
+ERROR: could not resolve type GlobalVarAccess (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:50,36-51)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:55,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:58,27-35)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:66,29-37)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:68,21-32)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:71,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:77,12-20)
+ERROR: could not resolve type GlobalVarAccess (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:79,36-51)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:84,12-20)
+ERROR: could not resolve module JQuery (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:87,55-61)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,44-52)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,65-73)
+ERROR: could not resolve module DomBasedXss (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:93,9-20)
+ERROR: could not resolve module StringOps (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:96,12-21)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:102,12-20)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:110,40-48)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:110,67-75)
+WARNING: unused method 'isSource' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:40,22-30)
+WARNING: unused method 'isSink' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:66,22-28)
+WARNING: unused method 'isAdditionalTaintStep' (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql:91,22-43)
+
+2025-05-19 23:06:24,656 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:135833772111424] - 规则 dom_xss.ql 未找到问题
+2025-05-19 23:06:24,656 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:238 - [线程:135833772111424] - 运行自定义规则: xss.ql
+2025-05-19 23:06:24,656 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:281 - [线程:135833772111424] - 执行命令: codeql database analyze --format=sarif-latest --output=/tmp/tmpy3csrs47.sarif --ram=2000 --threads=2 /tmp/tmpetn73jb3/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-05-19 23:06:26,653 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:307 - [线程:135833772111424] - 查询执行失败: Running queries.
+Warning: rounding --ram up to the minimum of 2048
+Compiling query plan for /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql.
+ERROR: could not resolve module javascript (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:13,8-18)
+ERROR: could not resolve module semmle.javascript.security.dataflow.XSS (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:14,8-47)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:15,8-16)
+ERROR: could not resolve module DOM (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,6-9)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,38-46)
+ERROR: could not resolve module DataFlow (/home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql:17,65-73)
+
+2025-05-19 23:06:26,653 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:247 - [线程:135833772111424] - 规则 xss.ql 未找到问题
+2025-05-19 23:06:26,653 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:252 - [线程:135833772111424] - 查询完成，共找到 0 条结果
+2025-05-19 23:06:26,653 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:439 - [线程:135833772111424] - 处理查询结果
+2025-05-19 23:06:26,659 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:135833772111424] - 未设置LLM API密钥，将使用模拟增强模式
+2025-05-19 23:06:26,659 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:135833772111424] - LLM增强器初始化完成
+2025-05-19 23:06:26,659 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:135833772111424] - 开始LLM增强分析: 67cc569e-ede6-40a2-99a9-f3aaa7a251e8
+2025-05-19 23:06:26,659 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:135833772111424] - 开始增强分析结果
+2025-05-19 23:06:26,659 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:135833772111424] - 使用模拟增强模式
+2025-05-19 23:06:26,659 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:135833772111424] - 使用模拟方法增强结果
+2025-05-19 23:06:26,659 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:135833772111424] - 分析完成: 67cc569e-ede6-40a2-99a9-f3aaa7a251e8
+2025-05-19 23:06:28,854 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:135833772111424] - 访问报告页面: 67cc569e-ede6-40a2-99a9-f3aaa7a251e8
+2025-05-19 23:17:31,876 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:135833754277440] - 访问首页

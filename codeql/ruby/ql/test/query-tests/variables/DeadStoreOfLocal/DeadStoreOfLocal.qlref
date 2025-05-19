@@ -1,2 +1,0 @@
-query: queries/variables/DeadStoreOfLocal.ql
-postprocess: utils/test/InlineExpectationsTestQuery.ql
