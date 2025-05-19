@@ -2198,3 +2198,740 @@ Try codeql database analyze --help for usage help.
 2025-04-23 17:23:54,322 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:139720814233152] - 删除任务: 66ec9564-7c6e-4d9f-9dca-591e446cff04
 2025-04-23 17:23:54,327 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:139720814233152] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/66ec9564-7c6e-4d9f-9dca-591e446cff04
 2025-04-23 17:23:54,330 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:139720824718912] - 访问历史记录页面
+2025-04-23 17:37:02,652 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:126995743514624] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:37:02,652 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:126995743514624] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:37:02,652 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:126995743514624] - CodeInsight 启动于环境: default
+2025-04-23 17:37:02,652 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:126995743514624] - 调试模式: 开启
+2025-04-23 17:41:14,366 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:133996139216896] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:41:14,366 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:133996139216896] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:41:14,366 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:133996139216896] - CodeInsight 启动于环境: default
+2025-04-23 17:41:14,366 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:133996139216896] - 调试模式: 开启
+2025-04-23 17:41:14,519 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:129510285393920] - 日志系统初始化完成 (级别: DEBUG)
+2025-04-23 17:41:14,520 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:129510285393920] - 系统信息: Linux 6.8.0-57-generic - Python 3.10.13
+2025-04-23 17:41:14,520 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:129510285393920] - CodeInsight 启动于环境: default
+2025-04-23 17:41:14,520 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:129510285393920] - 调试模式: 开启
+2025-04-23 17:41:14,524 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:129510285393920] -  * Debugger is active!
+2025-04-23 20:30:27,887 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-23 20:30:29,675 - app - WARNING - /home/xiao/project/codeinsight/app/__init__.py:87 - [线程:129510223644224] - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-23 20:32:35,483 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510223644224] - 访问历史记录页面
+2025-04-23 20:32:43,398 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510234129984] - 访问报告页面: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 20:32:50,123 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510223644224] - 访问报告页面: 0e547c22-ade6-4af9-8b7f-ab6ca9f71875
+2025-04-23 20:36:42,373 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510234129984] - 收到分析请求: git@github.com:Lenaaa0/pingshi.git, 语言: auto, 协议: ssh
+2025-04-23 20:36:42,374 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510213158464] - 正在克隆仓库: git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:36:42,374 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510213158464] - 克隆仓库: git@github.com:Lenaaa0/pingshi.git 到 /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39, 协议: ssh
+2025-04-23 20:36:42,374 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510213158464] - 标准化仓库URL: git@github.com:Lenaaa0/pingshi.git, 协议: ssh
+2025-04-23 20:36:42,374 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510213158464] - URL标准化结果: git@github.com:Lenaaa0/pingshi -> git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:36:42,374 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510213158464] - 处理后的URL: git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:36:42,375 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510213158464] - 执行命令: git clone --depth=1 git@github.com:Lenaaa0/pingshi.git /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi
+2025-04-23 20:36:42,387 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510223644224] - 访问任务进度页面: 1be1f76c-bc4b-4a0b-ad62-4070a0c31d39
+2025-04-23 20:37:29,196 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:129510213158464] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi
+2025-04-23 20:37:29,196 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:129510213158464] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi
+2025-04-23 20:37:29,300 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:129510213158464] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 20:37:29,301 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:129510213158464] - 仓库克隆完成: git@github.com:Lenaaa0/pingshi.git -> /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi
+2025-04-23 20:37:29,575 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:129510213158464] - 规则集管理器初始化完成
+2025-04-23 20:37:29,925 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:129510213158464] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:129510213158464] - 找到 70 个查询套件文件
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: python-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: java-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: go-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510213158464] - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 20:37:29,926 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:129510213158464] - CodeQL分析器初始化完成
+2025-04-23 20:37:29,926 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:129510213158464] - 开始CodeQL分析: 1be1f76c-bc4b-4a0b-ad62-4070a0c31d39
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:129510213158464] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi, 语言: auto, 规则集: None
+2025-04-23 20:37:29,926 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:129510213158464] - 创建CodeQL数据库: /tmp/tmpjgwrm5rw/codeql_db
+2025-04-23 20:37:29,926 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:129510213158464] - 执行命令: codeql database create --source-root=/home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi /tmp/tmpjgwrm5rw/codeql_db
+2025-04-23 20:37:30,737 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:153 - [线程:129510213158464] - 数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+
+2025-04-23 20:37:30,737 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:117 - [线程:129510213158464] - 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 144, in _create_database
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['codeql', 'database', 'create', '--source-root=/home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi', '/tmp/tmpjgwrm5rw/codeql_db']' returned non-zero exit status 2.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 106, in analyze_repository
+    self._create_database(repo_path, db_path, language)
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 154, in _create_database
+    raise RuntimeError(f"CodeQL数据库创建失败: {e.stderr}")
+RuntimeError: CodeQL数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+
+2025-04-23 20:37:30,737 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:232 - [线程:129510213158464] - 分析失败: 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 144, in _create_database
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['codeql', 'database', 'create', '--source-root=/home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39/pingshi', '/tmp/tmpjgwrm5rw/codeql_db']' returned non-zero exit status 2.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 106, in analyze_repository
+    self._create_database(repo_path, db_path, language)
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 154, in _create_database
+    raise RuntimeError(f"CodeQL数据库创建失败: {e.stderr}")
+RuntimeError: CodeQL数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 197, in analysis_status
+    codeql_results = analyzer.analyze_repository(task_info['repo_path'], task_info['language'])
+  File "/home/xiao/project/codeinsight/app/codeql/analyzer.py", line 118, in analyze_repository
+    raise RuntimeError(f"仓库分析失败: {str(e)}")
+RuntimeError: 仓库分析失败: CodeQL数据库创建失败: Initializing database at /tmp/tmpjgwrm5rw/codeql_db.
+A fatal error occurred: No GitHub token was provided to auto-detect the repository's languages. Please either provide one or specify the languages manually using --language.
+(eventual cause: MissingTokenException "An operation was attempted that requires a GitHub token but one could not be fou...")
+
+2025-04-23 20:38:04,130 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510213158464] - 访问首页
+2025-04-23 20:38:12,377 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510223644224] - 收到分析请求: git@github.com:Lenaaa0/pingshi.git, 语言: python, 协议: http
+2025-04-23 20:38:12,378 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510234129984] - 正在克隆仓库: git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:38:12,378 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510234129984] - 克隆仓库: git@github.com:Lenaaa0/pingshi.git 到 /home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0, 协议: http
+2025-04-23 20:38:12,378 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510234129984] - 标准化仓库URL: git@github.com:Lenaaa0/pingshi.git, 协议: http
+2025-04-23 20:38:12,378 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510234129984] - URL标准化结果: git@github.com:Lenaaa0/pingshi -> https://github.com/Lenaaa0/pingshi.git
+2025-04-23 20:38:12,379 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510234129984] - 处理后的URL: https://github.com/Lenaaa0/pingshi.git
+2025-04-23 20:38:12,379 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510234129984] - 从URL提取仓库名: https://github.com/Lenaaa0/pingshi.git -> pingshi
+2025-04-23 20:38:12,379 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510234129984] - 执行命令: git clone --depth=1 https://github.com/Lenaaa0/pingshi.git /home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi
+2025-04-23 20:38:12,391 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510213158464] - 访问任务进度页面: 997d8b12-b7b9-47a2-ad57-14943f9f50c0
+2025-04-23 20:38:12,663 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510234129984] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/Lenaaa0/pingshi.git', '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi'...
+fatal: 无法访问 'https://github.com/Lenaaa0/pingshi.git/'：GnuTLS recv error (-54): Error in the pull function.
+
+2025-04-23 20:38:12,663 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510234129984] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/Lenaaa0/pingshi.git', '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi'...
+fatal: 无法访问 'https://github.com/Lenaaa0/pingshi.git/'：GnuTLS recv error (-54): Error in the pull function.
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'https://github.com/Lenaaa0/pingshi.git', '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/Lenaaa0/pingshi.git', '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0/pingshi'...
+fatal: 无法访问 'https://github.com/Lenaaa0/pingshi.git/'：GnuTLS recv error (-54): Error in the pull function.
+
+2025-04-23 20:38:39,380 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-23 20:38:50,058 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510213158464] - 收到分析请求: git@github.com:Lenaaa0/pingshi.git, 语言: python, 协议: ssh
+2025-04-23 20:38:50,058 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510223644224] - 正在克隆仓库: git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:38:50,059 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510223644224] - 克隆仓库: git@github.com:Lenaaa0/pingshi.git 到 /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186, 协议: ssh
+2025-04-23 20:38:50,059 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510223644224] - 标准化仓库URL: git@github.com:Lenaaa0/pingshi.git, 协议: ssh
+2025-04-23 20:38:50,059 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510223644224] - URL标准化结果: git@github.com:Lenaaa0/pingshi -> git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:38:50,059 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510223644224] - 处理后的URL: git@github.com:Lenaaa0/pingshi.git
+2025-04-23 20:38:50,059 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510223644224] - 执行命令: git clone --depth=1 git@github.com:Lenaaa0/pingshi.git /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi
+2025-04-23 20:38:50,067 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510234129984] - 访问任务进度页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 20:38:59,682 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:129510223644224] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi
+2025-04-23 20:38:59,682 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:129510223644224] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi
+2025-04-23 20:38:59,978 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:129510223644224] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 20:38:59,979 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:129510223644224] - 仓库克隆完成: git@github.com:Lenaaa0/pingshi.git -> /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi
+2025-04-23 20:39:00,507 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:129510223644224] - 规则集管理器初始化完成
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:129510223644224] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:129510223644224] - 找到 70 个查询套件文件
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: python-security-and-quality.qls
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: java-security-and-quality.qls
+2025-04-23 20:39:00,867 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 20:39:00,868 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 20:39:00,868 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: go-security-and-quality.qls
+2025-04-23 20:39:00,868 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510223644224] - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 20:39:00,868 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:129510223644224] - CodeQL分析器初始化完成
+2025-04-23 20:39:00,868 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:129510223644224] - 开始CodeQL分析: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 20:39:00,868 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:129510223644224] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi, 语言: python, 规则集: None
+2025-04-23 20:39:00,868 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:129510223644224] - 创建CodeQL数据库: /tmp/tmpyivrggtg/codeql_db
+2025-04-23 20:39:00,868 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:129510223644224] - 执行命令: codeql database create --language=python --source-root=/home/xiao/project/codeinsight/cache/repos/c629074c-3913-4563-9445-7fc7a10a8186/pingshi /tmp/tmpyivrggtg/codeql_db
+2025-04-23 20:39:07,605 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:129510223644224] - 数据库创建成功
+2025-04-23 20:39:07,605 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:129510223644224] - 运行CodeQL查询
+2025-04-23 20:39:07,605 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:129510223644224] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 20:39:07,606 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:129510223644224] - 运行标准查询包，共 1 个
+2025-04-23 20:39:07,606 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:129510223644224] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 20:39:07,606 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:129510223644224] - 执行命令: codeql database analyze --format=json --output=/tmp/tmp_5rgrgo0.json /tmp/tmpyivrggtg/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 20:39:07,908 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:129510223644224] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 20:39:07,908 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:129510223644224] - 运行自定义规则，共 2 条
+2025-04-23 20:39:07,908 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510223644224] - 运行自定义规则: sql_injection.ql
+2025-04-23 20:39:07,908 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510223644224] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpm0yrr1vv.json --ram=2000 --threads=2 /tmp/tmpyivrggtg/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/sql_injection.ql
+2025-04-23 20:39:08,210 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510223644224] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 20:39:08,210 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510223644224] - 规则 sql_injection.ql 未找到问题
+2025-04-23 20:39:08,210 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510223644224] - 运行自定义规则: missing_access_control.ql
+2025-04-23 20:39:08,211 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510223644224] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpxactcn6g.json --ram=2000 --threads=2 /tmp/tmpyivrggtg/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/missing_access_control.ql
+2025-04-23 20:39:08,527 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510223644224] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 20:39:08,528 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510223644224] - 规则 missing_access_control.ql 未找到问题
+2025-04-23 20:39:08,528 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:129510223644224] - 查询完成，共找到 0 条结果
+2025-04-23 20:39:08,528 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:129510223644224] - 处理查询结果
+2025-04-23 20:39:08,531 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:129510223644224] - 未设置LLM API密钥，将使用模拟增强模式
+2025-04-23 20:39:08,531 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:129510223644224] - LLM增强器初始化完成
+2025-04-23 20:39:08,532 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:129510223644224] - 开始LLM增强分析: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 20:39:08,532 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:129510223644224] - 开始增强分析结果
+2025-04-23 20:39:08,532 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:129510223644224] - 使用模拟增强模式
+2025-04-23 20:39:08,532 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:129510223644224] - 使用模拟方法增强结果
+2025-04-23 20:39:08,532 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:129510223644224] - 分析完成: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 20:39:10,741 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510223644224] - 访问报告页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 20:39:50,470 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510234129984] - 访问历史记录页面
+2025-04-23 20:39:54,974 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510223644224] - 删除任务: 997d8b12-b7b9-47a2-ad57-14943f9f50c0
+2025-04-23 20:39:54,974 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510223644224] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/997d8b12-b7b9-47a2-ad57-14943f9f50c0
+2025-04-23 20:39:54,984 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510234129984] - 访问历史记录页面
+2025-04-23 20:39:57,358 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510234129984] - 删除任务: 1be1f76c-bc4b-4a0b-ad62-4070a0c31d39
+2025-04-23 20:39:57,674 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510234129984] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/1be1f76c-bc4b-4a0b-ad62-4070a0c31d39
+2025-04-23 20:39:57,686 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510223644224] - 访问历史记录页面
+2025-04-23 20:41:38,294 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510223644224] - 访问首页
+2025-04-23 20:41:55,900 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510234129984] - 收到分析请求: git@github.com:Lenaaa0/proactive-ddos-defender.git, 语言: go, 协议: ssh
+2025-04-23 20:41:55,901 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510213158464] - 正在克隆仓库: git@github.com:Lenaaa0/proactive-ddos-defender.git
+2025-04-23 20:41:55,901 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510213158464] - 克隆仓库: git@github.com:Lenaaa0/proactive-ddos-defender.git 到 /home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea, 协议: ssh
+2025-04-23 20:41:55,901 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510213158464] - 标准化仓库URL: git@github.com:Lenaaa0/proactive-ddos-defender.git, 协议: ssh
+2025-04-23 20:41:55,901 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510213158464] - URL标准化结果: git@github.com:Lenaaa0/proactive-ddos-defender -> git@github.com:Lenaaa0/proactive-ddos-defender.git
+2025-04-23 20:41:55,901 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510213158464] - 处理后的URL: git@github.com:Lenaaa0/proactive-ddos-defender.git
+2025-04-23 20:41:55,901 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510213158464] - 执行命令: git clone --depth=1 git@github.com:Lenaaa0/proactive-ddos-defender.git /home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender
+2025-04-23 20:41:55,914 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510223644224] - 访问任务进度页面: 7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea
+2025-04-23 20:41:58,994 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510213158464] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'git@github.com:Lenaaa0/proactive-ddos-defender.git', '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender'...
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+ERROR: Repository not found.
+fatal: 无法读取远程仓库。
+
+请确认您有正确的访问权限并且仓库存在。
+
+2025-04-23 20:41:58,994 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:106 - [线程:129510213158464] - SSH克隆失败，但不是由于认证问题: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender'...
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+ERROR: Repository not found.
+fatal: 无法读取远程仓库。
+
+请确认您有正确的访问权限并且仓库存在。
+
+2025-04-23 20:41:58,994 - app.utils.git - WARNING - /home/xiao/project/codeinsight/app/utils/git.py:109 - [线程:129510213158464] - SSH克隆失败，记录相关信息
+2025-04-23 20:41:58,994 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:117 - [线程:129510213158464] - SSH环境变量: {"SSH_AUTH_SOCK": "/run/user/1000/keyring/ssh", "USER": "xiao", "HOME": "/home/xiao"}
+2025-04-23 20:42:02,243 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:130 - [线程:129510213158464] - SSH测试输出: OpenSSH_8.9p1 Ubuntu-3ubuntu0.11, OpenSSL 3.0.2 15 Mar 2022
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to github.com [20.205.243.166] port 22.
+debug1: Connection established.
+debug1: identity file /home/xiao/.ssh/id_rsa type 0
+debug1: identity file /home/xiao/.ssh/id_rsa-cert type -1
+debug1: identity file /home/xiao/.ssh/id_ecdsa type -1
+debug1: identity file /home/xiao/.ssh/id_ecdsa-cert type -1
+debug1: identity file /home/xiao/.ssh/id_ecdsa_sk type -1
+debug1: identity file /home/xiao/.ssh/id_ecdsa_sk-cert type -1
+debug1: identity file /home/xiao/.ssh/id_ed25519 type -1
+debug1: identity file /home/xiao/.ssh/id_ed25519-cert type -1
+debug1: identity file /home/xiao/.ssh/id_ed25519_sk type -1
+debug1: identity file /home/xiao/.ssh/id_ed25519_sk-cert type -1
+debug1: identity file /home/xiao/.ssh/id_xmss type -1
+debug1: identity file /home/xiao/.ssh/id_xmss-cert type -1
+debug1: identity file /home/xiao/.ssh/id_dsa type -1
+debug1: identity file /home/xiao/.ssh/id_dsa-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.11
+debug1: Remote protocol version 2.0, remote software version 93587f60
+debug1: compat_banner: no match: 93587f60
+debug1: Authenticating to github.com:22 as 'git'
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+debug1: ssh_packet_send2_wrapped: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: ssh_packet_read_poll2: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: get_agent_identities: bound agent to hostkey
+debug1: get_agent_identities: agent returned 1 keys
+debug1: Will attempt key: /home/xiao/.ssh/id_rsa RSA SHA256:PeumyoTqXRT0tk4lYKzUnCU0LfzeS8v/sPBb1IdDQ48 agent
+debug1: Will attempt key: /home/xiao/.ssh/id_ecdsa 
+debug1: Will attempt key: /home/xiao/.ssh/id_ecdsa_sk 
+debug1: Will attempt key: /home/xiao/.ssh/id_ed25519 
+debug1: Will attempt key: /home/xiao/.ssh/id_ed25519_sk 
+debug1: Will attempt key: /home/xiao/.ssh/id_xmss 
+debug1: Will attempt key: /home/xiao/.ssh/id_dsa 
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,ssh-ed25519,ecdsa-sha2-nistp521,ecdsa-sha2-nistp384,ecdsa-sha2-nistp256,rsa-sha2-512,rsa-sha2-256,ssh-rsa>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/xiao/.ssh/id_rsa RSA SHA256:PeumyoTqXRT0tk4lYKzUnCU0LfzeS8v/sPBb1IdDQ48 agent
+debug1: Server accepts key: /home/xiao/.ssh/id_rsa RSA SHA256:PeumyoTqXRT0tk4lYKzUnCU0LfzeS8v/sPBb1IdDQ48 agent
+Authenticated to github.com ([20.205.243.166]:22) using "publickey".
+debug1: channel 0: new [client-session]
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Sending environment.
+debug1: channel 0: setting env LANG = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_IDENTIFICATION = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_MEASUREMENT = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_NUMERIC = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_TIME = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_PAPER = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_MONETARY = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_TELEPHONE = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_NAME = "zh_CN.UTF-8"
+debug1: channel 0: setting env LC_ADDRESS = "zh_CN.UTF-8"
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+Hi Penniesaba! You've successfully authenticated, but GitHub does not provide shell access.
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 4088, received 3088 bytes, in 0.6 seconds
+Bytes per second: sent 6654.9, received 5027.0
+debug1: Exit status 1
+
+2025-04-23 20:42:02,243 - app.utils.git - WARNING - /home/xiao/project/codeinsight/app/utils/git.py:137 - [线程:129510213158464] - 尝试使用HTTP协议克隆
+2025-04-23 20:42:02,243 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510213158464] - 标准化仓库URL: git@github.com:Lenaaa0/proactive-ddos-defender.git, 协议: http
+2025-04-23 20:42:02,243 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510213158464] - URL标准化结果: git@github.com:Lenaaa0/proactive-ddos-defender -> https://github.com/Lenaaa0/proactive-ddos-defender.git
+2025-04-23 20:42:02,243 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:141 - [线程:129510213158464] - 尝试使用HTTP协议克隆: https://github.com/Lenaaa0/proactive-ddos-defender.git
+2025-04-23 20:42:02,366 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:163 - [线程:129510213158464] - 使用HTTP协议克隆也失败: Command '['git', 'clone', '--depth=1', 'https://github.com/Lenaaa0/proactive-ddos-defender.git', '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender'...
+fatal: 无法访问 'https://github.com/Lenaaa0/proactive-ddos-defender.git/'：gnutls_handshake() failed: Error in the pull function.
+
+2025-04-23 20:42:02,367 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510213158464] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'git@github.com:Lenaaa0/proactive-ddos-defender.git', '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender'...
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+ERROR: Repository not found.
+fatal: 无法读取远程仓库。
+
+请确认您有正确的访问权限并且仓库存在。
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'git@github.com:Lenaaa0/proactive-ddos-defender.git', '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'git@github.com:Lenaaa0/proactive-ddos-defender.git', '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea/proactive-ddos-defender'...
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+ERROR: Repository not found.
+fatal: 无法读取远程仓库。
+
+请确认您有正确的访问权限并且仓库存在。
+
+2025-04-23 20:42:20,271 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510213158464] - 访问历史记录页面
+2025-04-23 20:42:23,914 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510223644224] - 删除任务: 7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea
+2025-04-23 20:42:23,915 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510223644224] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/7e24d6e4-0ad6-4851-b9c3-32ed65f3aeea
+2025-04-23 20:42:23,926 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510223644224] - 访问历史记录页面
+2025-04-23 21:26:47,785 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510213158464] - 访问首页
+2025-04-23 21:27:09,075 - app - WARNING - /home/xiao/project/codeinsight/app/__init__.py:87 - [线程:129510223644224] - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-23 21:27:14,303 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510223644224] - 访问首页
+2025-04-23 21:30:44,842 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510213158464] - 收到分析请求: https://github.com/errbotio/errbot, 语言: python, 协议: http
+2025-04-23 21:30:44,843 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510234129984] - 正在克隆仓库: https://github.com/errbotio/errbot
+2025-04-23 21:30:44,843 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510234129984] - 克隆仓库: https://github.com/errbotio/errbot 到 /home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6, 协议: http
+2025-04-23 21:30:44,843 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510234129984] - 标准化仓库URL: https://github.com/errbotio/errbot, 协议: http
+2025-04-23 21:30:44,843 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510234129984] - URL标准化结果: https://github.com/errbotio/errbot -> https://github.com/errbotio/errbot.git
+2025-04-23 21:30:44,843 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510234129984] - 处理后的URL: https://github.com/errbotio/errbot.git
+2025-04-23 21:30:44,843 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510234129984] - 从URL提取仓库名: https://github.com/errbotio/errbot.git -> errbot
+2025-04-23 21:30:44,843 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510234129984] - 执行命令: git clone --depth=1 https://github.com/errbotio/errbot.git /home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot
+2025-04-23 21:30:44,852 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510223644224] - 访问任务进度页面: 898d25fd-b93e-4adb-adc6-2be9147ad5c6
+2025-04-23 21:30:58,023 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510223644224] - 访问历史记录页面
+2025-04-23 21:31:02,685 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510213158464] - 访问任务进度页面: 898d25fd-b93e-4adb-adc6-2be9147ad5c6
+2025-04-23 21:31:09,695 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510223644224] - 删除任务: 898d25fd-b93e-4adb-adc6-2be9147ad5c6
+2025-04-23 21:31:09,696 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510223644224] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6
+2025-04-23 21:31:09,704 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510213158464] - 访问历史记录页面
+2025-04-23 21:31:15,657 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510213158464] - 访问报告页面: be2ab2bc-e277-4c3d-a735-2ad07e93f1ac
+2025-04-23 21:31:43,409 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510223644224] - 访问报告页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-23 21:32:51,202 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510223644224] - 访问历史记录页面
+2025-04-23 21:32:52,305 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510213158464] - 访问首页
+2025-04-23 21:32:56,763 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-23 21:35:44,933 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510234129984] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/errbotio/errbot.git', '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot']' timed out after 300 seconds, 错误输出: b"\xe6\xad\xa3\xe5\x85\x8b\xe9\x9a\x86\xe5\x88\xb0 '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot'...\n"
+2025-04-23 21:35:44,933 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510234129984] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/errbotio/errbot.git', '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot']' timed out after 300 seconds, 错误输出: b"\xe6\xad\xa3\xe5\x85\x8b\xe9\x9a\x86\xe5\x88\xb0 '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot'...\n"
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2022, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.10/subprocess.py", line 1198, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['git', 'clone', '--depth=1', 'https://github.com/errbotio/errbot.git', '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot']' timed out after 300 seconds
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/errbotio/errbot.git', '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot']' timed out after 300 seconds, 错误输出: b"\xe6\xad\xa3\xe5\x85\x8b\xe9\x9a\x86\xe5\x88\xb0 '/home/xiao/project/codeinsight/cache/repos/898d25fd-b93e-4adb-adc6-2be9147ad5c6/errbot'...\n"
+2025-04-23 21:37:24,404 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510213158464] - 收到分析请求: https://github.com/errbotio/errbot, 语言: python, 协议: ssh
+2025-04-23 21:37:24,404 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510202672704] - 正在克隆仓库: https://github.com/errbotio/errbot
+2025-04-23 21:37:24,404 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510202672704] - 克隆仓库: https://github.com/errbotio/errbot 到 /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb, 协议: ssh
+2025-04-23 21:37:24,405 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510202672704] - 标准化仓库URL: https://github.com/errbotio/errbot, 协议: ssh
+2025-04-23 21:37:24,405 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510202672704] - URL标准化结果: https://github.com/errbotio/errbot -> git@github.com:errbotio/errbot.git
+2025-04-23 21:37:24,405 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510202672704] - 处理后的URL: git@github.com:errbotio/errbot.git
+2025-04-23 21:37:24,405 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510202672704] - 执行命令: git clone --depth=1 git@github.com:errbotio/errbot.git /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot
+2025-04-23 21:37:24,415 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510234129984] - 访问任务进度页面: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:30,526 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:129510202672704] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot
+2025-04-23 21:37:30,526 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:129510202672704] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot
+2025-04-23 21:37:30,537 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:129510202672704] - 仓库状态: 位于分支 master
+您的分支与上游分支 'origin/master' 一致。
+
+无文件要提交，干净的工作区
+2025-04-23 21:37:30,537 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:129510202672704] - 仓库克隆完成: https://github.com/errbotio/errbot -> /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot
+2025-04-23 21:37:30,659 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:129510202672704] - 规则集管理器初始化完成
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:129510202672704] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:129510202672704] - 找到 70 个查询套件文件
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: python-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: javascript-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: java-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: cpp-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: csharp-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: go-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: ruby-security-and-quality.qls
+2025-04-23 21:37:31,012 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:129510202672704] - CodeQL分析器初始化完成
+2025-04-23 21:37:31,012 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:129510202672704] - 开始CodeQL分析: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:31,012 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:129510202672704] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot, 语言: python, 规则集: None
+2025-04-23 21:37:31,013 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:129510202672704] - 创建CodeQL数据库: /tmp/tmpqg0oygw0/codeql_db
+2025-04-23 21:37:31,013 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:129510202672704] - 执行命令: codeql database create --language=python --source-root=/home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb/errbot /tmp/tmpqg0oygw0/codeql_db
+2025-04-23 21:37:35,619 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:129510202672704] - 数据库创建成功
+2025-04-23 21:37:35,619 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:129510202672704] - 运行CodeQL查询
+2025-04-23 21:37:35,619 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:129510202672704] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 21:37:35,619 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:129510202672704] - 运行标准查询包，共 1 个
+2025-04-23 21:37:35,619 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:129510202672704] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 21:37:35,620 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpmighdn_d.json /tmp/tmpqg0oygw0/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/python-security-and-quality.qls
+2025-04-23 21:37:35,918 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 21:37:35,919 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:129510202672704] - 运行自定义规则，共 2 条
+2025-04-23 21:37:35,919 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510202672704] - 运行自定义规则: sql_injection.ql
+2025-04-23 21:37:35,919 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpe1sdg6m9.json --ram=2000 --threads=2 /tmp/tmpqg0oygw0/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/sql_injection.ql
+2025-04-23 21:37:36,228 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 21:37:36,228 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510202672704] - 规则 sql_injection.ql 未找到问题
+2025-04-23 21:37:36,228 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510202672704] - 运行自定义规则: missing_access_control.ql
+2025-04-23 21:37:36,228 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpf1o852bc.json --ram=2000 --threads=2 /tmp/tmpqg0oygw0/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/python/missing_access_control.ql
+2025-04-23 21:37:36,531 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-23 21:37:36,531 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510202672704] - 规则 missing_access_control.ql 未找到问题
+2025-04-23 21:37:36,531 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:129510202672704] - 查询完成，共找到 0 条结果
+2025-04-23 21:37:36,531 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:129510202672704] - 处理查询结果
+2025-04-23 21:37:36,534 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:129510202672704] - 未设置LLM API密钥，将使用模拟增强模式
+2025-04-23 21:37:36,534 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:129510202672704] - LLM增强器初始化完成
+2025-04-23 21:37:36,535 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:129510202672704] - 开始LLM增强分析: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:36,535 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:129510202672704] - 开始增强分析结果
+2025-04-23 21:37:36,535 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:129510202672704] - 使用模拟增强模式
+2025-04-23 21:37:36,535 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:129510202672704] - 使用模拟方法增强结果
+2025-04-23 21:37:36,535 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:129510202672704] - 分析完成: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:38,606 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510234129984] - 访问报告页面: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:46,727 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-23 21:37:58,953 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510234129984] - 删除任务: 6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:58,953 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:753 - [线程:129510234129984] - 已删除分析结果目录: /home/xiao/project/codeinsight/cache/analysis/6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:58,963 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510234129984] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/6f5619e2-5f21-4372-9945-eeea3385dfcb
+2025-04-23 21:37:58,975 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-23 21:38:27,891 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510202672704] - 访问首页
+2025-04-23 21:38:38,439 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510202672704] - 访问首页
+2025-04-24 21:43:33,504 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-24 21:43:34,571 - app - WARNING - /home/xiao/project/codeinsight/app/__init__.py:87 - [线程:129510234129984] - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-24 21:43:35,697 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-24 21:43:36,993 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-24 21:43:44,170 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510234129984] - 访问报告页面: 0e547c22-ade6-4af9-8b7f-ab6ca9f71875
+2025-04-24 21:43:46,295 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510202672704] - 访问报告页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-24 21:43:53,897 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-24 22:44:51,485 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:16:08,963 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-25 15:16:11,790 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510234129984] - 访问历史记录页面
+2025-04-25 15:16:23,874 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510234129984] - 访问报告页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-04-25 15:17:53,066 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510234129984] - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-react, 语言: javascript, 协议: http
+2025-04-25 15:17:53,067 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510202672704] - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-react
+2025-04-25 15:17:53,067 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510202672704] - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-react 到 /home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9, 协议: http
+2025-04-25 15:17:53,067 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510202672704] - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-react, 协议: http
+2025-04-25 15:17:53,067 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510202672704] - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-react -> https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:17:53,067 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510202672704] - 处理后的URL: https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:17:53,067 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510202672704] - 从URL提取仓库名: https://github.com/lzy-2004/cryptographic-library-react.git -> cryptographic-library-react
+2025-04-25 15:17:53,067 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510202672704] - 执行命令: git clone --depth=1 https://github.com/lzy-2004/cryptographic-library-react.git /home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react
+2025-04-25 15:17:53,112 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510234129984] - 访问任务进度页面: 5755d6eb-a8ef-4afe-9946-07e66a0141f9
+2025-04-25 15:20:06,694 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510202672704] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133620 ms: 连接超时
+
+2025-04-25 15:20:06,694 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510202672704] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133620 ms: 连接超时
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133620 ms: 连接超时
+
+2025-04-25 15:21:24,622 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:21:26,977 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510202672704] - 删除任务: 5755d6eb-a8ef-4afe-9946-07e66a0141f9
+2025-04-25 15:21:26,977 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510202672704] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/5755d6eb-a8ef-4afe-9946-07e66a0141f9
+2025-04-25 15:21:27,032 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:23:25,134 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:23:39,161 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510202672704] - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-react, 语言: javascript, 协议: http
+2025-04-25 15:23:39,162 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510234129984] - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-react
+2025-04-25 15:23:39,162 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510234129984] - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-react 到 /home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863, 协议: http
+2025-04-25 15:23:39,162 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510234129984] - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-react, 协议: http
+2025-04-25 15:23:39,162 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510234129984] - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-react -> https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:23:39,162 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510234129984] - 处理后的URL: https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:23:39,162 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510234129984] - 从URL提取仓库名: https://github.com/lzy-2004/cryptographic-library-react.git -> cryptographic-library-react
+2025-04-25 15:23:39,162 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510234129984] - 执行命令: git clone --depth=1 https://github.com/lzy-2004/cryptographic-library-react.git /home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react
+2025-04-25 15:23:39,221 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510202672704] - 访问任务进度页面: 4aa431ce-028c-4dc2-92ce-5a9a5c52c863
+2025-04-25 15:25:12,465 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510202672704] - 访问首页
+2025-04-25 15:25:12,568 - app - WARNING - /home/xiao/project/codeinsight/app/__init__.py:87 - [线程:129510202672704] - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-25 15:25:13,997 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:25:17,991 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510202672704] - 删除任务: 4aa431ce-028c-4dc2-92ce-5a9a5c52c863
+2025-04-25 15:25:17,992 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510202672704] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863
+2025-04-25 15:25:18,032 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:25:54,853 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510234129984] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 135667 ms: 连接超时
+
+2025-04-25 15:25:54,854 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510234129984] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 135667 ms: 连接超时
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/4aa431ce-028c-4dc2-92ce-5a9a5c52c863/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 135667 ms: 连接超时
+
+2025-04-25 15:30:12,496 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-25 15:30:39,015 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510234129984] - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-react, 语言: javascript, 协议: http
+2025-04-25 15:30:39,016 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510202672704] - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-react
+2025-04-25 15:30:39,016 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510202672704] - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-react 到 /home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691, 协议: http
+2025-04-25 15:30:39,016 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510202672704] - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-react, 协议: http
+2025-04-25 15:30:39,016 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510202672704] - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-react -> https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:30:39,016 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510202672704] - 处理后的URL: https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 15:30:39,016 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510202672704] - 从URL提取仓库名: https://github.com/lzy-2004/cryptographic-library-react.git -> cryptographic-library-react
+2025-04-25 15:30:39,016 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510202672704] - 执行命令: git clone --depth=1 https://github.com/lzy-2004/cryptographic-library-react.git /home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react
+2025-04-25 15:30:39,056 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510234129984] - 访问任务进度页面: 16e24811-1e50-4a0d-ae3c-6e109cf22691
+2025-04-25 15:32:52,646 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510202672704] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133623 ms: 连接超时
+
+2025-04-25 15:32:52,646 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510202672704] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133623 ms: 连接超时
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133623 ms: 连接超时
+
+2025-04-25 15:33:35,153 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:33:38,421 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510202672704] - 删除任务: 16e24811-1e50-4a0d-ae3c-6e109cf22691
+2025-04-25 15:33:38,421 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510202672704] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/16e24811-1e50-4a0d-ae3c-6e109cf22691
+2025-04-25 15:33:38,464 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 15:51:19,499 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510202672704] - 访问首页
+2025-04-25 16:40:46,042 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510202672704] - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-react, 语言: javascript, 协议: http
+2025-04-25 16:40:46,042 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510234129984] - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-react
+2025-04-25 16:40:46,043 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510234129984] - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-react 到 /home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050, 协议: http
+2025-04-25 16:40:46,043 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510234129984] - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-react, 协议: http
+2025-04-25 16:40:46,043 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510234129984] - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-react -> https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 16:40:46,043 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510234129984] - 处理后的URL: https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 16:40:46,043 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510234129984] - 从URL提取仓库名: https://github.com/lzy-2004/cryptographic-library-react.git -> cryptographic-library-react
+2025-04-25 16:40:46,043 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510234129984] - 执行命令: git clone --depth=1 https://github.com/lzy-2004/cryptographic-library-react.git /home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react
+2025-04-25 16:40:46,112 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510202672704] - 访问任务进度页面: 541bc242-e825-49de-9859-84d9fe0a8050
+2025-04-25 16:40:49,414 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 16:42:59,238 - app.utils.git - ERROR - /home/xiao/project/codeinsight/app/utils/git.py:93 - [线程:129510234129984] - 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133189 ms: 连接超时
+
+2025-04-25 16:42:59,238 - app.routes - ERROR - /home/xiao/project/codeinsight/app/routes.py:134 - [线程:129510234129984] - 仓库克隆失败: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133189 ms: 连接超时
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 68, in clone_repository
+    process = subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react']' returned non-zero exit status 128.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/xiao/project/codeinsight/app/routes.py", line 122, in clone_repo_background
+    repo_path = clone_repository(repo_url, task_dir, protocol=clone_protocol)
+  File "/home/xiao/project/codeinsight/app/utils/git.py", line 167, in clone_repository
+    raise RuntimeError(error_msg)
+RuntimeError: 仓库克隆失败: Command '['git', 'clone', '--depth=1', 'https://github.com/lzy-2004/cryptographic-library-react.git', '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react']' returned non-zero exit status 128., 错误输出: 正克隆到 '/home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050/cryptographic-library-react'...
+fatal: 无法访问 'https://github.com/lzy-2004/cryptographic-library-react.git/'：Failed to connect to github.com port 443 after 133189 ms: 连接超时
+
+2025-04-25 16:43:37,244 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510234129984] - 访问首页
+2025-04-25 16:43:49,851 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:69 - [线程:129510234129984] - 收到分析请求: git@github.com:lzy-2004/cryptographic-library-react, 语言: javascript, 协议: http
+2025-04-25 16:43:49,852 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:121 - [线程:129510202672704] - 正在克隆仓库: git@github.com:lzy-2004/cryptographic-library-react
+2025-04-25 16:43:49,852 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:34 - [线程:129510202672704] - 克隆仓库: git@github.com:lzy-2004/cryptographic-library-react 到 /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01, 协议: http
+2025-04-25 16:43:49,852 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:218 - [线程:129510202672704] - 标准化仓库URL: git@github.com:lzy-2004/cryptographic-library-react, 协议: http
+2025-04-25 16:43:49,852 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:293 - [线程:129510202672704] - URL标准化结果: git@github.com:lzy-2004/cryptographic-library-react -> https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 16:43:49,852 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:42 - [线程:129510202672704] - 处理后的URL: https://github.com/lzy-2004/cryptographic-library-react.git
+2025-04-25 16:43:49,852 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:328 - [线程:129510202672704] - 从URL提取仓库名: https://github.com/lzy-2004/cryptographic-library-react.git -> cryptographic-library-react
+2025-04-25 16:43:49,852 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:62 - [线程:129510202672704] - 执行命令: git clone --depth=1 https://github.com/lzy-2004/cryptographic-library-react.git /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react
+2025-04-25 16:43:49,894 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:151 - [线程:129510234129984] - 访问任务进度页面: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:43:57,586 - app.utils.git - INFO - /home/xiao/project/codeinsight/app/utils/git.py:78 - [线程:129510202672704] - 仓库克隆成功: /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react
+2025-04-25 16:43:57,587 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:179 - [线程:129510202672704] - 检查仓库有效性: /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react
+2025-04-25 16:43:57,705 - app.utils.git - DEBUG - /home/xiao/project/codeinsight/app/utils/git.py:198 - [线程:129510202672704] - 仓库状态: 位于分支 main
+您的分支与上游分支 'origin/main' 一致。
+
+无文件要提交，干净的工作区
+2025-04-25 16:43:57,705 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:131 - [线程:129510202672704] - 仓库克隆完成: git@github.com:lzy-2004/cryptographic-library-react -> /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react
+2025-04-25 16:43:58,556 - app.codeql.rule_manager - DEBUG - /home/xiao/project/codeinsight/app/codeql/rule_manager.py:72 - [线程:129510202672704] - 规则集管理器初始化完成
+2025-04-25 16:43:58,932 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:60 - [线程:129510202672704] - CodeQL版本: CodeQL command-line toolchain release 2.20.7.
+Copyright (C) 2019-2025 GitHub, Inc.
+Unpacked in: /opt/codeql
+   Analysis results depend critically on separately distributed query and
+   extractor modules. To list modules that are visible to the toolchain,
+   use 'codeql resolve packs' and 'codeql resolve languages'.
+2025-04-25 16:43:58,932 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:72 - [线程:129510202672704] - 找到 70 个查询套件文件
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: python-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: javascript-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: java-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: cpp-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: csharp-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: go-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:80 - [线程:129510202672704] - 已验证规则库: ruby-security-and-quality.qls
+2025-04-25 16:43:58,933 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:49 - [线程:129510202672704] - CodeQL分析器初始化完成
+2025-04-25 16:43:58,933 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:196 - [线程:129510202672704] - 开始CodeQL分析: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:99 - [线程:129510202672704] - 开始分析仓库: /home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react, 语言: javascript, 规则集: None
+2025-04-25 16:43:58,933 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:129 - [线程:129510202672704] - 创建CodeQL数据库: /tmp/tmpd4uc2yli/codeql_db
+2025-04-25 16:43:58,933 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:143 - [线程:129510202672704] - 执行命令: codeql database create --language=javascript --source-root=/home/xiao/project/codeinsight/cache/repos/caf6d577-298a-403b-ada0-21b809b61f01/cryptographic-library-react /tmp/tmpd4uc2yli/codeql_db
+2025-04-25 16:44:05,204 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:151 - [线程:129510202672704] - 数据库创建成功
+2025-04-25 16:44:05,204 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:168 - [线程:129510202672704] - 运行CodeQL查询
+2025-04-25 16:44:05,204 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:420 - [线程:129510202672704] - 找到查询套件: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-04-25 16:44:05,204 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:193 - [线程:129510202672704] - 运行标准查询包，共 1 个
+2025-04-25 16:44:05,204 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:196 - [线程:129510202672704] - 运行查询包: /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-04-25 16:44:05,204 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:211 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpsf6e6jfm.json /tmp/tmpd4uc2yli/codeql_db /home/xiao/project/codeinsight/app/codeql/queries/ql/src/codeql-suites/javascript-security-and-quality.qls
+2025-04-25 16:44:05,517 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:226 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-25 16:44:05,517 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:235 - [线程:129510202672704] - 运行自定义规则，共 2 条
+2025-04-25 16:44:05,517 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510202672704] - 运行自定义规则: dom_xss.ql
+2025-04-25 16:44:05,518 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpflgqswsk.json --ram=2000 --threads=2 /tmp/tmpd4uc2yli/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/dom_xss.ql
+2025-04-25 16:44:05,831 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-25 16:44:05,831 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510202672704] - 规则 dom_xss.ql 未找到问题
+2025-04-25 16:44:05,831 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:239 - [线程:129510202672704] - 运行自定义规则: xss.ql
+2025-04-25 16:44:05,832 - app.codeql.analyzer - DEBUG - /home/xiao/project/codeinsight/app/codeql/analyzer.py:282 - [线程:129510202672704] - 执行命令: codeql database analyze --format=json --output=/tmp/tmpib_pqtz_.json --ram=2000 --threads=2 /tmp/tmpd4uc2yli/codeql_db /home/xiao/project/codeinsight/app/codeql/custom_rules/javascript/xss.ql
+2025-04-25 16:44:06,152 - app.codeql.analyzer - ERROR - /home/xiao/project/codeinsight/app/codeql/analyzer.py:308 - [线程:129510202672704] - 查询执行失败: Invalid value for option '--format': expected one of [csv, sarif-latest, sarifv1, sarifv2, sarifv2.1.0, graphtext, dot, dgml, lgtm] (case-sensitive) but was 'json'
+Try codeql database analyze --help for usage help.
+
+2025-04-25 16:44:06,153 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:248 - [线程:129510202672704] - 规则 xss.ql 未找到问题
+2025-04-25 16:44:06,153 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:253 - [线程:129510202672704] - 查询完成，共找到 0 条结果
+2025-04-25 16:44:06,153 - app.codeql.analyzer - INFO - /home/xiao/project/codeinsight/app/codeql/analyzer.py:440 - [线程:129510202672704] - 处理查询结果
+2025-04-25 16:44:06,156 - app.llm.enhancer - WARNING - /home/xiao/project/codeinsight/app/llm/enhancer.py:40 - [线程:129510202672704] - 未设置LLM API密钥，将使用模拟增强模式
+2025-04-25 16:44:06,156 - app.llm.enhancer - DEBUG - /home/xiao/project/codeinsight/app/llm/enhancer.py:42 - [线程:129510202672704] - LLM增强器初始化完成
+2025-04-25 16:44:06,156 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:209 - [线程:129510202672704] - 开始LLM增强分析: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:44:06,157 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:55 - [线程:129510202672704] - 开始增强分析结果
+2025-04-25 16:44:06,157 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:59 - [线程:129510202672704] - 使用模拟增强模式
+2025-04-25 16:44:06,157 - app.llm.enhancer - INFO - /home/xiao/project/codeinsight/app/llm/enhancer.py:454 - [线程:129510202672704] - 使用模拟方法增强结果
+2025-04-25 16:44:06,157 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:228 - [线程:129510202672704] - 分析完成: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:44:08,283 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510202672704] - 访问报告页面: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:44:20,199 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 16:44:22,209 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:703 - [线程:129510202672704] - 删除任务: 541bc242-e825-49de-9859-84d9fe0a8050
+2025-04-25 16:44:22,210 - app.routes - INFO - /home/xiao/project/codeinsight/app/routes.py:774 - [线程:129510202672704] - 已删除任务目录: /home/xiao/project/codeinsight/cache/repos/541bc242-e825-49de-9859-84d9fe0a8050
+2025-04-25 16:44:22,251 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 16:44:29,585 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510202672704] - 访问报告页面: caf6d577-298a-403b-ada0-21b809b61f01
+2025-04-25 16:46:00,214 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:129510202672704] - 访问首页
+2025-04-25 16:46:55,272 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:371 - [线程:129510202672704] - 访问历史记录页面
+2025-04-25 16:47:38,155 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:290 - [线程:129510202672704] - 访问报告页面: c629074c-3913-4563-9445-7fc7a10a8186
+2025-05-19 21:54:25,931 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:124043843235840] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 21:54:25,932 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:124043843235840] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 21:54:25,932 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:124043843235840] - CodeInsight 启动于环境: default
+2025-05-19 21:54:25,932 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:124043843235840] - 调试模式: 开启
+2025-05-19 21:54:26,089 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:123160145092608] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 21:54:26,089 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:123160145092608] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 21:54:26,089 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:123160145092608] - CodeInsight 启动于环境: default
+2025-05-19 21:54:26,090 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:123160145092608] - 调试模式: 开启
+2025-05-19 21:54:26,093 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:123160145092608] -  * Debugger is active!
+2025-05-19 21:54:56,951 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:123160094565952] - 访问首页
+2025-05-19 21:55:18,122 - app - WARNING - /home/xiao/project/codeinsight/app/__init__.py:87 - [线程:123160086173248] - 页面未找到: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-05-19 21:55:26,830 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:123160086173248] - 访问首页
+2025-05-19 21:56:03,388 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:123160094565952] - 访问首页
+2025-05-19 22:09:25,079 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:129554509688832] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:09:25,080 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:129554509688832] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:09:25,080 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:129554509688832] - CodeInsight 启动于环境: default
+2025-05-19 22:09:25,080 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:129554509688832] - 调试模式: 开启
+2025-05-19 22:09:25,237 - app - INFO - /home/xiao/project/codeinsight/run.py:109 - [线程:140555594665984] - 日志系统初始化完成 (级别: DEBUG)
+2025-05-19 22:09:25,237 - app - INFO - /home/xiao/project/codeinsight/run.py:110 - [线程:140555594665984] - 系统信息: Linux 6.8.0-59-generic - Python 3.10.13
+2025-05-19 22:09:25,237 - app - INFO - /home/xiao/project/codeinsight/run.py:118 - [线程:140555594665984] - CodeInsight 启动于环境: default
+2025-05-19 22:09:25,237 - app - INFO - /home/xiao/project/codeinsight/run.py:119 - [线程:140555594665984] - 调试模式: 开启
+2025-05-19 22:09:25,241 - werkzeug - WARNING - /home/xiao/.local/lib/python3.10/site-packages/werkzeug/_internal.py:187 - [线程:140555594665984] -  * Debugger is active!
+2025-05-19 22:09:29,588 - app.routes - DEBUG - /home/xiao/project/codeinsight/app/routes.py:51 - [线程:140555544684096] - 访问首页
