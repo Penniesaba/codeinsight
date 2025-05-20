@@ -73,6 +73,10 @@ class LLMEnhancer:
         # 检查API密钥是否可用
         if not self.api_key:
             logger.warning("未设置LLM API密钥，将使用模拟增强模式")
+            self.api_key = None  # 显式设置为None，确保使用模拟模式
+        else:
+            logger.info(f"检测到LLM API密钥: {self.api_key[:4]}***，API地址: {self.api_url}")
+            # 这里不再检查密钥是否为默认密钥，只要有值就认为是有效的
         
         logger.debug("LLM增强器初始化完成")
     
@@ -97,7 +101,12 @@ class LLMEnhancer:
             # 如果没有API密钥，使用模拟增强
             if not self.api_key:
                 logger.info("使用模拟增强模式分析SARIF文件")
-                return self._mock_sarif_analysis(sarif_content, task_id)
+                mock_result = self._mock_sarif_analysis(sarif_content, task_id)
+                # 添加说明，表明这是模拟数据
+                mock_result['is_mock'] = True
+                mock_result['overview'] = "# 安全分析概述 (模拟数据)\n\n" + mock_result['overview'].strip()
+                logger.warning("生成的结果为模拟数据，请配置有效的LLM API密钥以获取真实分析")
+                return mock_result
             
             # 解析SARIF内容
             sarif_data = json.loads(sarif_content)
@@ -328,404 +337,174 @@ class LLMEnhancer:
     
     def _mock_sarif_analysis(self, sarif_content, task_id=None):
         """
-        当无法使用LLM API时，使用模拟数据增强SARIF分析
+        模拟SARIF分析，用于测试或API不可用时
         
         参数:
-            sarif_content: SARIF文件内容
-            task_id: 任务ID，用于保存结果
+            sarif_content: SARIF内容（可能为空）
+            task_id: 任务ID
             
         返回:
-            模拟的SARIF分析结果
+            模拟的分析结果
         """
-        logger.info("使用模拟方法分析SARIF文件")
+        logger.info("使用模拟SARIF分析")
         
-        # 尝试解析SARIF内容
-        try:
-            sarif_data = json.loads(sarif_content)
-            # 提取基本信息
-            basic_info = self._extract_sarif_basic_info(sarif_data)
-        except:
-            # 如果解析失败，使用默认数据
-            basic_info = {
-                'total_results': 3,
-                'rule_counts': {
-                    'js/unsafe-error-handling': 3
-                },
-                'severity_counts': {
-                    'critical': 0,
-                    'high': 0,
-                    'medium': 3,
-                    'low': 0
-                },
-                'rules': {
-                    'js/unsafe-error-handling': {
-                        'name': 'Unsafe Error Handling',
-                        'description': 'Handling errors unsafely can lead to information leakage.',
-                        'severity': 'medium',
-                        'count': 3
-                    }
-                }
-            }
-        
-        # 构建模拟的结构化分析
-        mock_analysis = {
-            'summary': {
-                'total_vulnerabilities': sum(basic_info['severity_counts'].values()),
-                'vulnerability_types': len(basic_info['rule_counts']),
-                'severity_distribution': basic_info['severity_counts'],
-                'security_score': 7.5
+        # 基本信息
+        summary = {
+            'total_vulnerabilities': 12,
+            'vulnerability_types': 5,
+            'severity_distribution': {
+                'critical': 2,
+                'high': 4,
+                'medium': 4,
+                'low': 2
             },
-            'overview': """
-## 安全分析总览
-
-### 漏洞概述
-
-代码库中共发现 {total_vulnerabilities} 个漏洞，分布在 {vulnerability_types} 种漏洞类型中。其中最严重的问题是不安全的错误处理机制，可能导致敏感信息泄露。
-
-### 主要安全问题
-
-* **不安全的错误处理** - 错误消息可能包含敏感信息，被攻击者利用
-* **未经验证的用户输入** - 缺乏对用户输入的充分验证，可能导致多种安全风险
-* **密码安全问题** - 弱密码存储机制增加了凭证泄露的风险
-
-### 安全评分解析
-
-总体安全评分：**{security_score}/10**。评分主要受以下因素影响：
-
-1. 中危漏洞数量较多
-2. 存在改进应用程序安全设计的空间
-3. 基本安全实践已部分实施，但需要更全面的安全策略
-
-### 建议优先级
-
-1. 实施安全的错误处理机制，避免向用户返回详细的技术错误信息
-2. 对所有用户输入实施严格的验证和过滤
-3. 定期进行安全代码审查，尤其针对认证和授权模块
-            """.format(
-                total_vulnerabilities=sum(basic_info['severity_counts'].values()),
-                vulnerability_types=len(basic_info['rule_counts']),
-                security_score=7.5
-            ),
-            'vulnerabilities': []
+            'security_score': 7.5
         }
         
-        # 添加漏洞详情
-        for rule_id, rule_info in basic_info['rules'].items():
-            if rule_id == 'js/unsafe-error-handling' or 'error-handling' in rule_id.lower():
-                vuln = {
-                    'id': rule_id,
-                    'type': '不安全的错误处理',
-                    'severity': 'medium',
-                    'description': rule_info['description'],
-                    'count': rule_info['count'],
-                    'enhanced_description': """
-### 漏洞原理
-
-不安全的错误处理是指应用程序在处理异常或错误时，向用户暴露了过多的技术细节或敏感信息。这通常发生在:
-
-1. 直接将原始错误消息返回给用户
-2. 错误日志中包含敏感数据
-3. 缺少适当的错误分类和处理机制
-
-### 安全风险
-
-这种漏洞会导致以下风险:
-
-* **信息泄露** - 错误消息可能包含数据库结构、服务器路径等敏感信息
-* **攻击面扩大** - 攻击者可利用这些信息进行更精确的攻击
-* **隐私问题** - 可能无意中泄露用户数据或系统配置信息
-
-### OWASP分类
-
-* 对应OWASP Top 10中的A7类别 - 安全配置错误
-* CWE-209: 通过错误消息泄露信息
-                    """,
-                    'common_fixes': """
-## 修复建议
-
-### 最佳实践
-
-1. **实现通用错误处理机制**
-   * 使用全局错误处理器捕获所有未处理的异常
-   * 向用户返回友好的错误信息，不包含技术细节
-
-2. **分层错误处理**
-   * 内部系统可记录详细错误信息用于调试
-   * 外部用户界面只显示一般性错误信息
-   * 对错误使用唯一标识符以便技术团队定位问题
-
-3. **代码示例**:
-
-```javascript
-// 不安全的方式
-app.use((err, req, res, next) => {
-  res.status(500).send(`错误: ${err.stack}`);
-});
-
-// 安全的方式
-app.use((err, req, res, next) => {
-  // 记录详细错误以供内部使用
-  logger.error(`错误ID ${uuid()}: ${err.stack}`);
-  
-  // 向用户返回有限信息
-  res.status(500).send({
-    error: "服务器处理请求时遇到问题",
-    errorId: uuid()
-  });
-});
-```
-
-### 长期安全策略
-
-* 开发错误处理规范文档
-* 实施定期代码审查，专注于错误处理逻辑
-* 使用静态分析工具自动检测不安全的错误处理模式
-                    """,
-                    'owasp_category': 'A7:安全配置错误',
-                    'cwe_id': 'CWE-209',
-                    'owasp_link': 'https://owasp.org/Top10/A05_2021-Security_Misconfiguration/',
-                    'cwe_link': 'https://cwe.mitre.org/data/definitions/209.html',
-                    'cvss_score': 5.5,
-                    'affected_components': '错误处理模块, API接口'
-                }
-                mock_analysis['vulnerabilities'].append(vuln)
-            elif rule_id == 'js/unvalidated-data-passed-to-document-domain' or 'unvalidated' in rule_id.lower():
-                vuln = {
-                    'id': rule_id,
-                    'type': '未验证的用户输入',
-                    'severity': 'high',
-                    'description': '未经验证的用户输入被传递给敏感操作。',
-                    'count': basic_info['rule_counts'].get(rule_id, 2),
-                    'enhanced_description': """
-### 漏洞原理
-
-未验证的用户输入被传递给敏感操作是一种常见的安全缺陷，允许攻击者注入恶意数据。这种漏洞发生在:
-
-1. 用户提供的数据未经过滤直接用于敏感操作
-2. 缺少输入验证和清洁处理
-3. 对用户控制的数据过于信任
-
-### 安全风险
-
-这种漏洞会导致多种攻击，包括:
-
-* **跨站脚本攻击(XSS)** - 注入恶意客户端代码
-* **SQL注入** - 操纵后端数据库查询
-* **命令注入** - 在服务器上执行未授权命令
-* **服务器端请求伪造(SSRF)** - 通过操纵应用程序发起恶意请求
-
-### OWASP分类
-
-* 对应OWASP Top 10中的A3类别 - 注入
-* CWE-20: 不正确的输入验证
-                    """,
-                    'common_fixes': """
-## 修复建议
-
-### 最佳实践
-
-1. **实施输入验证和净化**
-   * 验证所有用户输入是否符合预期的格式和类型
-   * 使用白名单而非黑名单方法验证输入
-   * 对不同上下文采用适当的编码策略
-
-2. **遵循最小权限原则**
-   * 限制应用程序功能所需的最小权限
-   * 将敏感操作与用户输入处理分离
-
-3. **代码示例**:
-
-```javascript
-// 不安全的方式
-app.get('/profile', (req, res) => {
-  let userId = req.query.id;
-  let query = `SELECT * FROM users WHERE id = ${userId}`;
-  // 危险的SQL注入风险
-});
-
-// 安全的方式
-app.get('/profile', (req, res) => {
-  let userId = req.query.id;
-  
-  // 验证用户ID是否为数字
-  if (!/^\d+$/.test(userId)) {
-    return res.status(400).send('无效的用户ID');
-  }
-  
-  // 使用参数化查询
-  let query = 'SELECT * FROM users WHERE id = ?';
-  db.query(query, [userId], (err, results) => {
-    // 处理结果...
-  });
-});
-```
-
-### 长期安全策略
-
-* 建立编码规范和安全开发指南
-* 实施定期安全培训和代码审查
-* 使用动态应用程序安全测试(DAST)和静态应用程序安全测试(SAST)工具
-                    """,
-                    'owasp_category': 'A3:注入',
-                    'cwe_id': 'CWE-20',
-                    'owasp_link': 'https://owasp.org/Top10/A03_2021-Injection/',
-                    'cwe_link': 'https://cwe.mitre.org/data/definitions/20.html',
-                    'cvss_score': 7.2,
-                    'affected_components': '用户输入处理模块, 数据访问层'
-                }
-                mock_analysis['vulnerabilities'].append(vuln)
-            else:
-                # 通用漏洞信息
-                severity = rule_info.get('severity', 'medium')
-                severity_map = {
-                    'error': 'critical',    # 高危 → 严重
-                    'warning': 'high',      # 中危 → 高危
-                    'note': 'medium',       # 低危 → 中危
-                    'none': 'low'           # 无 → 低危
-                }
-                
-                vuln = {
-                    'id': rule_id,
-                    'type': rule_info.get('name', rule_id),
-                    'severity': severity_map.get(severity, 'medium'),
-                    'description': rule_info.get('description', '该漏洞可能导致安全问题。'),
-                    'count': rule_info.get('count', 1),
-                    'enhanced_description': f"""
-### 漏洞原理
-
-{rule_info.get('name', rule_id)}是一种常见的安全问题，可能导致多种安全风险。此类问题通常由以下原因造成：
-
-1. 开发人员对安全实践缺乏了解
-2. 过分注重功能实现而忽略安全考虑
-3. 缺少系统性的安全审查和测试
-
-### 安全风险
-
-根据漏洞严重程度，可能导致以下安全影响：
-
-* 数据泄露或污染
-* 未授权访问或操作
-* 拒绝服务攻击
-* 系统完整性受损
-
-### 技术影响
-
-* 可能导致业务逻辑出现错误
-* 系统稳定性和可用性降低
-* 用户体验受到影响
-                    """,
-                    'common_fixes': """
-## 修复建议
-
-### 最佳实践
-
-1. **遵循安全编码规范**
-   * 采用业界认可的安全开发框架和库
-   * 实施代码安全审查流程
-   * 定期更新依赖组件
-
-2. **建立全面安全测试**
-   * 集成安全测试到CI/CD流程中
-   * 定期进行渗透测试和漏洞扫描
-   * 建立安全事件响应机制
-
-3. **提高安全意识**
-   * 对开发团队进行安全培训
-   * 建立安全编码指南和最佳实践文档
-   * 鼓励安全问题的报告和讨论
-
-### 长期安全策略
-
-* 实施"安全左移"，在开发初期考虑安全因素
-* 建立安全度量和监控机制
-* 定期评估和更新安全控制措施
-                    """,
-                    'owasp_category': '常见安全问题',
-                    'cwe_id': '多种CWE',
-                    'cvss_score': 4.5,
-                    'affected_components': '应用程序多个组件'
-                }
-                mock_analysis['vulnerabilities'].append(vuln)
-        
-        # 添加至少一个漏洞
-        if not mock_analysis['vulnerabilities']:
-            vuln = {
-                'id': 'js/unsafe-error-handling',
-                'type': '不安全的错误处理',
-                'severity': 'medium',
-                'description': '不安全的错误处理可能导致信息泄露。',
+        # 漏洞列表
+        vulnerabilities = [
+            {
+                'type': 'SQL注入漏洞',
+                'severity': 'critical',
                 'count': 3,
-                'enhanced_description': """
-### 漏洞原理
-
-不安全的错误处理是指应用程序在处理异常或错误时，向用户暴露了过多的技术细节或敏感信息。这通常发生在:
-
-1. 直接将原始错误消息返回给用户
-2. 错误日志中包含敏感数据
-3. 缺少适当的错误分类和处理机制
-
-### 安全风险
-
-这种漏洞会导致以下风险:
-
-* **信息泄露** - 错误消息可能包含数据库结构、服务器路径等敏感信息
-* **攻击面扩大** - 攻击者可利用这些信息进行更精确的攻击
-* **隐私问题** - 可能无意中泄露用户数据或系统配置信息
-
-### OWASP分类
-
-* 对应OWASP Top 10中的A7类别 - 安全配置错误
-* CWE-209: 通过错误消息泄露信息
-                """,
-                'common_fixes': """
-## 修复建议
-
-### 最佳实践
-
-1. **实现通用错误处理机制**
-   * 使用全局错误处理器捕获所有未处理的异常
-   * 向用户返回友好的错误信息，不包含技术细节
-
-2. **分层错误处理**
-   * 内部系统可记录详细错误信息用于调试
-   * 外部用户界面只显示一般性错误信息
-   * 对错误使用唯一标识符以便技术团队定位问题
-
-3. **代码示例**:
-
-```javascript
-// 不安全的方式
-app.use((err, req, res, next) => {
-  res.status(500).send(`错误: ${err.stack}`);
-});
-
-// 安全的方式
-app.use((err, req, res, next) => {
-  // 记录详细错误以供内部使用
-  logger.error(`错误ID ${uuid()}: ${err.stack}`);
-  
-  // 向用户返回有限信息
-  res.status(500).send({
-    error: "服务器处理请求时遇到问题",
-    errorId: uuid()
-  });
-});
-```
-
-### 长期安全策略
-
-* 开发错误处理规范文档
-* 实施定期代码审查，专注于错误处理逻辑
-* 使用静态分析工具自动检测不安全的错误处理模式
-                """,
-                'owasp_category': 'A7:安全配置错误',
-                'cwe_id': 'CWE-209',
-                'owasp_link': 'https://owasp.org/Top10/A05_2021-Security_Misconfiguration/',
-                'cwe_link': 'https://cwe.mitre.org/data/definitions/209.html',
-                'cvss_score': 5.5,
-                'affected_components': '错误处理模块, API接口'
+                'owasp_category': 'A1:2021-注入',
+                'cwe_id': 'CWE-89',
+                'description': '## SQL注入漏洞描述\n\nSQL注入是一种代码注入技术，可能会破坏应用程序的安全性。它允许攻击者干扰应用程序与其数据库之间的查询，可能导致访问或修改未经授权的数据。\n\n### 漏洞原因\n\n* 用户输入未经验证就直接用于构建SQL查询\n* 使用字符串拼接而非参数化查询\n* 错误处理不当，泄露数据库信息',
+                'enhanced_description': '## SQL注入漏洞分析\n\nSQL注入是一种严重的安全漏洞，攻击者可以通过在应用程序输入点插入恶意SQL代码来操纵后端数据库。\n\n### 漏洞原理\n\n* 应用程序接收用户输入并将其直接拼接到SQL查询中\n* 缺少适当的输入验证和参数化查询\n* 使用动态SQL构造而不是预处理语句\n\n### 安全风险\n\n* 未经授权访问敏感数据\n* 绕过身份验证机制\n* 修改或删除数据库内容\n* 在某些情况下执行系统命令',
+                'security_impact': '## 安全影响\n\n此漏洞可导致以下严重后果：\n\n1. **数据泄露** - 攻击者可以从数据库中提取敏感信息\n2. **身份验证绕过** - 可以通过操纵登录查询获得未授权访问\n3. **数据完整性损坏** - 通过INSERT, UPDATE或DELETE操作修改数据\n4. **服务拒绝** - 可能通过破坏关键数据使应用程序不可用\n\n在严重情况下，攻击者可能利用高级技术（如堆叠查询）执行多个操作，甚至获取服务器访问权限。',
+                'common_fixes': '## 修复建议\n\n### 立即采取的措施\n\n1. **实施参数化查询/预处理语句**\n   ```java\n   // 不安全的方式\n   String query = "SELECT * FROM users WHERE username = \'" + username + "\'"; \n   \n   // 安全的方式\n   PreparedStatement stmt = connection.prepareStatement("SELECT * FROM users WHERE username = ?");\n   stmt.setString(1, username);\n   ```\n\n2. **使用ORM框架**\n   如Hibernate、Entity Framework等提供额外的SQL注入保护层\n\n3. **实施输入验证**\n   * 验证输入类型、长度、格式和范围\n   * 实施白名单而非黑名单策略\n\n4. **最小权限原则**\n   * 为应用程序使用最小权限数据库账户\n   * 限制对敏感表的访问',
+                'best_practices': '## 安全最佳实践\n\n1. **定期安全代码审查**\n   * 针对所有与数据库交互的代码\n   * 使用静态分析工具进行自动检测\n\n2. **防御纵深策略**\n   * 参数化查询（主要防御）\n   * 输入验证（附加保护层）\n   * 输出编码（减轻影响）\n   * WAF实施（外部保护）\n\n3. **安全测试**\n   * 实施自动化安全测试\n   * 包括SQL注入测试用例\n   * 定期进行渗透测试\n\n4. **监控与响应**\n   * 监控异常数据库查询\n   * 实施入侵检测系统\n   * 准备事件响应计划'
+            },
+            {
+                'type': '跨站脚本攻击(XSS)',
+                'severity': 'high',
+                'count': 5,
+                'owasp_category': 'A3:2021-注入和跨站脚本',
+                'cwe_id': 'CWE-79',
+                'description': '在网页应用中，未经处理的用户输入直接输出到页面，导致浏览器执行恶意脚本。',
+                'enhanced_description': '## 跨站脚本(XSS)漏洞\n\n跨站脚本是一种常见的网络安全漏洞，允许攻击者向网页注入客户端脚本。当其他用户浏览受影响的页面时，注入的恶意代码会在他们的浏览器中执行。\n\n### 漏洞类型\n\n* **存储型XSS** - 恶意脚本永久存储在目标服务器上(如数据库)\n* **反射型XSS** - 恶意脚本通过URL参数反射给用户\n* **DOM型XSS** - 漏洞存在于客户端代码而非服务器响应\n\n### 技术原因\n\n* 未对用户输入进行充分验证和净化\n* 未对输出到HTML页面的内容进行适当编码\n* 过度信任用户提供的内容',
+                'security_impact': '## 安全风险\n\n成功的XSS攻击可导致以下危害：\n\n1. **会话劫持** - 攻击者可窃取用户Cookie和会话令牌\n2. **凭证盗窃** - 可通过伪造登录表单获取用户凭证\n3. **恶意重定向** - 将用户引导至钓鱼站点\n4. **内容篡改** - 修改页面显示内容，损害品牌形象\n5. **浏览器控制** - 攻击者可获取完全的页面DOM访问权限\n\n在高权限用户受到攻击时，可能造成更严重的影响，包括敏感数据泄露和站点功能控制。',
+                'common_fixes': '## 修复建议\n\n1. **输出编码**\n   * 根据输出环境使用正确的编码函数\n   * HTML上下文: `htmlspecialchars()`或等效函数\n   * JavaScript上下文: 适当的JavaScript编码\n   * CSS和URL上下文: 专用编码函数\n\n2. **内容安全策略(CSP)**\n   * 实施严格的CSP头部，限制脚本来源\n   * 使用nonce或hash值来验证可信脚本\n\n3. **输入验证**\n   * 对所有用户输入实施严格验证\n   * 采用"接受已知良好"而非"拒绝已知恶意"的策略\n\n4. **使用现代框架**\n   * 利用自动转义功能的模板系统\n   * React、Vue等现代框架提供内置XSS保护',
+                'best_practices': '## 防御最佳实践\n\n1. **多层防御策略**\n   * 输入验证作为第一道防线\n   * 输出编码作为主要防御手段\n   * CSP作为额外保护层\n   * X-XSS-Protection头部提供浏览器保护\n\n2. **安全的API设计**\n   * 设计不易受XSS影响的API和组件\n   * 隔离不可信数据，避免直接插入DOM\n\n3. **定期安全测试**\n   * 自动化XSS扫描工具\n   * 渗透测试模拟真实攻击场景\n   * 代码审查识别潜在XSS向量\n\n4. **开发人员培训**\n   * 确保开发团队了解XSS风险\n   * 建立输出编码和安全实践指南'
+            },
+            {
+                'type': '敏感信息泄露',
+                'severity': 'medium',
+                'count': 2,
+                'owasp_category': 'A2:2021-加密缺陷',
+                'cwe_id': 'CWE-200',
+                'description': '敏感数据（如密码、个人信息）未经适当保护，可能导致未授权访问。',
+                'enhanced_description': '## 敏感信息泄露漏洞\n\n敏感信息泄露发生在应用程序意外向未授权方披露敏感信息时。这可能由不安全的数据存储、不适当的错误处理或配置错误引起。\n\n### 漏洞表现\n\n* 详细的错误消息泄露内部系统信息\n* 源代码中的硬编码凭证和密钥\n* 注释中包含敏感信息\n* 日志文件中的明文敏感数据\n* 不安全的文件或目录权限\n\n敏感信息可能包括：API密钥、数据库凭证、个人身份信息(PII)、会话标识符、加密密钥和业务敏感数据。',
+                'security_impact': '## 安全影响评估\n\n敏感信息泄露可能导致以下后果：\n\n1. **身份盗用** - 当个人身份信息泄露时\n2. **账户接管** - 如凭证或会话标识符被泄露\n3. **系统入侵** - 使用泄露的API密钥或内部系统详情\n4. **数据库攻击** - 利用连接字符串访问数据库\n5. **业务损失** - 商业秘密或专有算法泄露\n6. **合规违规** - GDPR、CCPA或行业特定法规的违规处罚\n\n此类漏洞通常构成更大攻击链的一部分，允许攻击者获取初始信息后进行深度渗透。',
+                'common_fixes': '## 修复策略\n\n1. **安全处理错误**\n   * 为生产环境实施通用错误消息\n   * 避免在错误响应中包含技术细节\n   * 使用适当的日志记录系统收集详细错误\n\n2. **保护敏感数据**\n   * 对存储的敏感数据进行加密\n   * 对传输中的数据使用TLS/HTTPS\n   * 实施适当的密钥管理策略\n\n3. **配置审查**\n   * 禁用调试功能和开发特性\n   * 检查并移除不必要的HEAD/OPTIONS响应信息\n   * 审查HTTP响应头，移除敏感信息\n\n4. **代码安全**\n   * 使用安全的环境变量存储密钥\n   * 从源代码中移除硬编码凭证\n   * 在提交前审查代码，移除敏感注释',
+                'best_practices': '## 最佳安全实践\n\n1. **分类和清单**\n   * 识别和分类所有敏感数据\n   * 维护应用程序处理的敏感数据清单\n   * 定期评估每类数据的保护需求\n\n2. **最小化暴露**\n   * 仅收集必要的敏感数据\n   * 按需访问敏感信息\n   * 尽快匿名化或删除不再需要的数据\n\n3. **安全开发流程**\n   * 使用安全编码指南\n   * 实施敏感数据处理策略\n   * 使用专门的工具扫描源代码中的密钥和凭证\n\n4. **监控与审计**\n   * 监控敏感数据访问\n   * 保留访问日志供审计\n   * 定期漏洞扫描测试信息泄露问题'
+            },
+            {
+                'type': '不安全的密码存储',
+                'severity': 'medium',
+                'count': 1,
+                'owasp_category': 'A2:2021-加密缺陷',
+                'cwe_id': 'CWE-256',
+                'description': '密码使用不安全的哈希算法存储，或密码强度策略不足。',
+                'enhanced_description': '## 不安全的密码存储\n\n此漏洞涉及使用不安全的方法存储或处理用户密码，如果认证系统被攻击，可能导致凭证泄露。当应用程序使用弱哈希算法、没有使用盐值、直接使用明文存储密码或加密而非哈希处理密码时，就会出现此问题。\n\n### 常见问题模式\n\n* 使用过时/弱哈希算法(MD5, SHA1)\n* 没有应用加盐处理\n* 使用可逆加密而非单向哈希\n* 密码重置流程中的薄弱环节\n* 应用于哈希的迭代次数不足',
+                'security_impact': '## 安全威胁分析\n\n不安全的密码存储会导致严重后果：\n\n1. **凭证泄露** - 数据库泄露时密码容易被恢复\n2. **账户接管** - 攻击者获取用户密码后可接管账户\n3. **密码重用问题** - 用户跨站点重用密码，导致其他系统遭受威胁\n4. **身份盗窃** - 结合其他泄露数据进行身份欺诈\n5. **声誉损害** - 密码泄露事件可能损害公司形象和用户信任\n\n密码一旦泄露，攻击者可以进行凭证填充攻击或暴力破解，影响范围可能超出被入侵的系统。',
+                'common_fixes': '## 密码安全修复方案\n\n1. **使用强哈希算法**\n   * 采用专门设计的密码哈希函数:\n     - Argon2 (推荐首选)\n     - bcrypt\n     - PBKDF2\n   * 避免使用一般用途哈希(MD5, SHA系列)\n\n2. **正确实施盐值**\n   * 为每个密码使用唯一随机盐值\n   * 使用密码学安全的随机数生成器\n   * 将盐值与哈希一起存储\n\n3. **增加算法工作因子**\n   * 根据硬件能力调整工作因子\n   * 随着计算能力增长定期提高工作因子\n\n4. **安全实施示例**\n   ```java\n   // 使用bcrypt的示例(Java)\n   String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));\n   ```',
+                'best_practices': '## 密码处理最佳实践\n\n1. **密码策略和管理**\n   * 实施强密码策略(长度、复杂性)\n   * 检查常见/已泄露密码\n   * 定期提示密码更新\n   * 实施账户锁定政策防止暴力破解\n\n2. **多因素认证**\n   * 将MFA作为密码保护的补充措施\n   * 为高权限账户强制使用MFA\n\n3. **零知识证明方法**\n   * 可能时考虑使用零知识验证技术\n   * 实施安全远程密码(SRP)等协议\n\n4. **安全编码与审计**\n   * 定期审查认证系统代码\n   * 使用专业库而非自行实现密码学\n   * 测试密码恢复过程的安全性'
+            },
+            {
+                'type': '不安全的直接对象引用(IDOR)',
+                'severity': 'low',
+                'count': 1,
+                'owasp_category': 'A1:2021-失效的访问控制',
+                'cwe_id': 'CWE-639',
+                'description': '系统通过可预测的对象引用直接暴露内部资源，未进行充分的访问控制验证。',
+                'enhanced_description': '## 不安全的直接对象引用(IDOR)\n\n不安全的直接对象引用是一种访问控制漏洞，发生在应用程序使用用户提供的输入直接访问对象但未进行充分授权检查时。这可能允许攻击者访问或修改他们本不应有权限操作的资源。\n\n### 漏洞原理\n\n* 应用程序根据用户控制的参数检索对象\n* 缺少适当的访问控制验证\n* 过度依赖隐藏或模糊处理而非访问控制\n* 信任前端提供的对象标识符',
+                'security_impact': '## 安全影响和风险\n\n不安全的直接对象引用可导致以下安全问题：\n\n1. **未授权数据访问** - 用户可访问他人的敏感信息和记录\n2. **水平权限提升** - 攻击者可执行同级别其他用户的操作\n3. **数据操纵** - 可能修改、删除不属于攻击者的数据\n4. **隐私泄露** - 个人信息可能被未授权方访问\n\n漏洞通常利用简单(更改URL参数或表单字段)，但影响可能严重，特别是涉及财务或医疗数据时。',
+                'common_fixes': '## IDOR漏洞修复\n\n1. **基于用户实现访问控制**\n   * 在服务器端验证用户是否有权访问所请求资源\n   * 将用户会话与允许访问的数据关联\n   * 实例代码：\n   ```java\n   // 不安全示例\n   Record getRecord(int recordId) {\n       return recordRepository.findById(recordId);\n   }\n   \n   // 安全示例\n   Record getRecord(int recordId, int userId) {\n       Record record = recordRepository.findById(recordId);\n       if (record.getOwnerId() != userId) {\n           throw new AccessDeniedException();\n       }\n       return record;\n   }\n   ```\n\n2. **使用间接引用**\n   * 使用服务器端映射将公开标识符转换为实际数据库键\n   * 限制可在单个会话中访问的记录\n\n3. **实现基于属性的访问控制**\n   * 定义明确的访问控制策略\n   * 使用专门的访问控制框架',
+                'best_practices': '## 安全最佳实践\n\n1. **深度防御策略**\n   * 在API和控制器级别实施统一的访问控制\n   * 对所有非公共资源的访问进行授权检查\n   * 实施最小权限原则\n\n2. **安全架构设计**\n   * 在应用程序设计阶段考虑访问控制\n   * 创建详细的授权矩阵，明确定义谁可以访问什么\n   * 使用基于访问控制列表(ACL)或基于角色的访问控制(RBAC)模型\n\n3. **测试方法**\n   * 执行授权测试，验证访问控制\n   * 实现自动化测试以验证权限边界\n   * 包括水平权限提升测试用例\n\n4. **日志与监控**\n   * 记录所有资源访问尝试\n   * 监控异常访问模式\n   * 建立资源访问基线和异常检测机制'
             }
-            mock_analysis['vulnerabilities'].append(vuln)
+        ]
+        
+        # 基于实际分析结果生成概述
+        critical_count = summary['severity_distribution'].get('critical', 0)
+        high_count = summary['severity_distribution'].get('high', 0)
+        medium_count = summary['severity_distribution'].get('medium', 0)
+        low_count = summary['severity_distribution'].get('low', 0)
+        
+        # 找出最严重的几类漏洞
+        top_vulns = sorted(
+            vulnerabilities, 
+            key=lambda x: {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'warning': 4, 'note': 5}.get(x['severity'].lower(), 999)
+        )[:3]
+        
+        # 确定风险级别
+        risk_level = "低"
+        score = 90
+        if critical_count > 0:
+            risk_level = "严重"
+            score = 60 - (critical_count * 5)
+        elif high_count > 0:
+            risk_level = "高"
+            score = 75 - (high_count * 2)
+        elif medium_count > 3:
+            risk_level = "中"
+            score = 85 - (medium_count * 1)
+        
+        score = max(min(score, 95), 30)  # 限制评分范围在30-95之间
+        
+        # 提取漏洞类型名称
+        vuln_names = [v['type'] for v in top_vulns]
+        
+        # 自动生成概述
+        overview = f"""
+# 代码安全分析概述
+
+通过对代码库的安全分析，我们发现了{summary['vulnerability_types']}类安全漏洞，总计{summary['total_vulnerabilities']}个问题。{'其中包含严重级别漏洞，需要立即修复。' if critical_count > 0 else ''}
+
+## 主要发现
+
+"""
+        # 动态添加主要漏洞
+        for i, vuln in enumerate(top_vulns[:3]):
+            if i < len(top_vulns):
+                vuln_desc = vuln.get('description', '')
+                # 截取简短描述，避免过长
+                short_desc = vuln_desc[:100] + '...' if len(vuln_desc) > 100 else vuln_desc
+                overview += f"{i+1}. **{vuln['type']}** - {short_desc}\n"
+        
+        if not top_vulns:
+            overview += "未发现重大安全漏洞。\n"
+            
+        overview += f"""
+## 风险评估
+
+总体安全评分为{score}分（满分100分），表示代码库存在{risk_level}风险。我们发现了{critical_count}个严重漏洞、{high_count}个高危漏洞、{medium_count}个中危漏洞和{low_count}个低危漏洞。
+
+## 主要建议
+
+"""
+        # 根据发现的问题类型生成相应建议
+        if critical_count > 0 or high_count > 0:
+            overview += f"1. **立即修复所有严重和高危漏洞**，特别是{', '.join(vuln_names[:2]) if vuln_names else '已发现的安全问题'}\n"
+        
+        overview += """2. 实施安全编码实践，包括输入验证、输出编码和参数化查询
+3. 建立安全代码审查流程，防止类似问题再次出现
+4. 对开发团队进行安全编码培训
+
+修复这些问题将显著提高应用程序的总体安全性，并减少被成功攻击的风险。
+"""
+        
+        # 构建完整报告
+        result = {
+            'summary': summary,
+            'vulnerabilities': vulnerabilities,
+            'overview': overview,
+            # 添加可能的其他部分
+            'recommendations': {
+                'immediate_actions': '优先修复所有严重和高危漏洞，特别是SQL注入和XSS问题。',
+                'long_term': '实施安全开发生命周期(SDLC)，并定期进行安全培训和代码审查。'
+            }
+        }
         
         # 保存分析结果
         if task_id:
@@ -734,11 +513,11 @@ app.use((err, req, res, next) => {
             
             analysis_path = os.path.join(results_dir, 'sarif_analysis.json')
             with open(analysis_path, 'w', encoding='utf-8') as f:
-                json.dump(mock_analysis, f, ensure_ascii=False, indent=2)
-                
+                json.dump(result, f, ensure_ascii=False, indent=2)
+            
             logger.info(f"模拟SARIF分析结果已保存至: {analysis_path}")
         
-        return mock_analysis
+        return result
     
     def enhance_results(self, analysis_results, repo_path):
         """
@@ -1008,11 +787,17 @@ app.use((err, req, res, next) => {
         vuln_types = [v['type'] for v in vulnerabilities]
         severity_dist = summary['severity_distribution']
         
+        # 准备漏洞数据详情
+        vuln_details = []
+        for v in vulnerabilities[:5]:  # 只取前5个最严重的漏洞
+            vuln_details.append(f"- {v['type']}: {v['count']}个实例, 严重度:{v['severity']}, 描述:{v['description'][:100]}...")
+            
         prompt = f"""
-        请根据以下软件安全分析结果，生成一个全面的安全评估总结报告：
+        请根据以下软件安全分析结果，生成一个全面且具体的安全评估总结报告，针对发现的实际问题提供深入分析：
 
         总计发现的漏洞数量: {summary['total_vulnerabilities']}
         漏洞类型数量: {summary['vulnerability_types']}
+        
         严重程度分布:
         - 严重: {severity_dist.get('critical', 0)}
         - 高危: {severity_dist.get('high', 0)}
@@ -1020,16 +805,17 @@ app.use((err, req, res, next) => {
         - 低危: {severity_dist.get('low', 0)}
         - 警告: {severity_dist.get('warning', 0)}
 
-        发现的漏洞类型:
-        {", ".join(vuln_types)}
+        主要漏洞类型及详情:
+        {chr(10).join(vuln_details)}
 
         请提供:
-        1. 安全状况总体评估
-        2. 重点关注的高危漏洞分析
-        3. 安全改进的优先级建议
-        4. 如何进行持续的安全监控
+        1. 安全状况总体评估 - 基于发现的实际问题，评估代码库的安全风险水平(1-100分)
+        2. 各主要漏洞的详细分析 - 重点关注高危漏洞的原理、危害和影响范围
+        3. 具体的修复建议 - 针对发现的每类问题提供明确、可操作的修复方案
+        4. 安全改进的优先级建议 - 根据风险级别提出合理的修复顺序
+        5. 长期安全策略建议 - 如何从流程和技术层面预防类似问题
 
-        请以中文回答，语言专业、客观，针对研发和安全团队提供有价值的见解。
+        请以中文回答，以Markdown格式组织内容，确保分析专业、具体、针对实际发现的问题，避免泛泛而谈。使用清晰的标题结构和要点，方便阅读理解。
         """
         
         try:

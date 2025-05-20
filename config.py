@@ -21,9 +21,13 @@ class Config:
     GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN') or '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' 
     
     # 大语言模型配置
-    LLM_API_KEY = os.environ.get('DASHSCOPE_API_KEY') or 'sk-c9416c5d823540e0a56b80a98684e8fe'
-    LLM_MODEL = 'qwen-plus'  # 默认使用通义千问(qwen-plus)
-    LLM_API_URL ='https://dashscope.aliyuncs.com/compatible-mode/v1'
+    # 直接在配置文件中设置API密钥，不依赖环境变量
+    # 注意：在实际部署时，建议使用环境变量存储密钥
+    # 阿里云通义千问示例: sk-xxxx...
+    # OpenAI示例: sk-xxxx...
+    LLM_API_KEY = 'sk-c9416c5d823540e0a56b80a98684e8fe'  # 请将这里替换为您真实的API密钥
+    LLM_MODEL = 'qwen-plus'  # 默认使用通义千问(qwen-plus)，也可以使用'gpt-3.5-turbo'或其他
+    LLM_API_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1'  # 使用通义千问API接口
     LLM_USE_OPENAI_COMPATIBLE = True  # 使用OpenAI兼容模式
     
     # 缓存配置（替代数据库）

@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}SARIF安全分析报告 - CodeInsight{% endblock %}
+{% block title %}安全分析报告 - CodeInsight{% endblock %}
 
 {% block content %}
 <div class="container">
     <!-- 报告头部 -->
     <div class="row mb-4">
         <div class="col-md-8">
-            <h2 class="mb-3">SARIF安全分析报告</h2>
+            <h2 class="mb-3">安全分析报告</h2>
             <div class="d-flex align-items-center mb-2">
                 <div class="me-3"><strong>仓库：</strong> {{ task_info.repo_url }}</div>
                 <div><strong>语言：</strong> {{ task_info.language }}</div>
             </div>
             <div class="d-flex align-items-center">
-                <div class="me-3"><strong>分析时间：</strong> {{ task_info.completed_at | default('未完成') }}</div>
+                <div class="me-3"><strong>分析时间：</strong> {{ task_info.completed_at | datetime_format('%Y-%m-%d %H:%M') }}</div>
             </div>
         </div>
         <div class="col-md-4 text-end">
@@ -211,12 +211,22 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="mb-0">安全分析概述</h5>
-                    <span class="badge bg-primary">大语言模型SARIF增强分析</span>
+                    <span class="badge bg-primary">大语言模型增强分析</span>
                 </div>
                 <div class="card-body">
                     <div class="overview-box markdown-content">
                         {{ report.overview|safe }}
                     </div>
+                    {% if report.is_mock %}
+                    <div class="alert alert-warning mt-3">
+                        <strong>注意：</strong> 当前显示的是模拟数据。要获取真实的LLM增强分析，请配置有效的API密钥：
+                        <ol>
+                            <li>在环境变量中设置 <code>DASHSCOPE_API_KEY</code> 或 <code>OPENAI_API_KEY</code></li>
+                            <li>重启应用程序</li>
+                            <li>重新运行安全分析</li>
+                        </ol>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -244,12 +254,12 @@
                                         aria-controls="collapse{{ vuln_id }}">
                                     <div class="d-flex justify-content-between align-items-center w-100 me-3">
                                         <div>
-                                            <span class="badge bg-{{ 'danger' if vuln.severity == 'high' or vuln.severity == 'critical' else 'warning' if vuln.severity == 'medium' else 'info' if vuln.severity == 'low' else 'success' }} me-2">
-                                                {% if vuln.severity == 'critical' or vuln.severity == 'high' %}
+                                            <span class="badge bg-{{ 'danger' if vuln.severity == 'critical' else 'warning' if vuln.severity == 'high' else 'info' if vuln.severity == 'medium' else 'success' }} me-2">
+                                                {% if vuln.severity == 'critical' %}
                                                 严重
-                                                {% elif vuln.severity == 'medium' %}
+                                                {% elif vuln.severity == 'high' %}
                                                 高危
-                                                {% elif vuln.severity == 'low' %}
+                                                {% elif vuln.severity == 'medium' %}
                                                 中危
                                                 {% else %}
                                                 低危
@@ -270,7 +280,7 @@
                                     <!-- 漏洞详情 -->
                                     <div class="mb-4">
                                         <h5>漏洞描述</h5>
-                                        <div class="mb-3">
+                                        <div class="mb-3 markdown-content">
                                             {% if vuln.enhanced_description %}
                                                 {{ vuln.enhanced_description|safe }}
                                             {% else %}
@@ -327,7 +337,7 @@
                                     <div class="mb-4">
                                         <h5>安全影响</h5>
                                         <div class="card bg-light mb-3 vuln-card">
-                                            <div class="card-body">
+                                            <div class="card-body markdown-content">
                                                 {% if vuln.security_impact %}
                                                     {{ vuln.security_impact|safe }}
                                                 {% else %}
@@ -347,7 +357,7 @@
                                     <div class="mb-4">
                                         <h5>通用修复建议</h5>
                                         <div class="card bg-light vuln-card">
-                                            <div class="card-body">
+                                            <div class="card-body markdown-content">
                                                 {{ vuln.common_fixes|safe }}
                                             </div>
                                         </div>
@@ -358,7 +368,7 @@
                                     <div class="mb-4">
                                         <h5>安全最佳实践</h5>
                                         <div class="card border-info vuln-card">
-                                            <div class="card-body">
+                                            <div class="card-body markdown-content">
                                                 {% if vuln.best_practices %}
                                                     {{ vuln.best_practices|safe }}
                                                 {% else %}
@@ -760,15 +770,43 @@
             let html = element.innerHTML;
             
             // 添加对Markdown标记和原始文本的预处理
-            html = html.replace(/###\s+/g, '<h3>').replace(/##\s+/g, '<h2>').replace(/#\s+/g, '<h1>');
+            // 标题处理
+            html = html.replace(/^###\s+([^\n]+)/gm, '<h3>$1</h3>');
+            html = html.replace(/^##\s+([^\n]+)/gm, '<h2>$1</h2>');
+            html = html.replace(/^#\s+([^\n]+)/gm, '<h1>$1</h1>');
+            
+            // 文本样式处理
             html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
             html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            html = html.replace(/\_\_([^_]+)\_\_/g, '<strong>$1</strong>');
+            html = html.replace(/\_([^_]+)\_/g, '<em>$1</em>');
+            
+            // 列表处理
+            html = html.replace(/^\s*\*\s+([^\n]+)/gm, '<li>$1</li>');
+            html = html.replace(/^\s*\-\s+([^\n]+)/gm, '<li>$1</li>');
+            html = html.replace(/^\s*\d+\.\s+([^\n]+)/gm, '<li>$1</li>');
+            
+            // 将连续的<li>元素包装在<ul>或<ol>中
+            html = html.replace(/(<li>.*?<\/li>)(\s*\n\s*<li>)/g, '$1$2');
+            html = html.replace(/(?<!<\/ul>|<\/ol>)(\s*\n\s*)(<li>)/g, '<ul>$1$2');
+            html = html.replace(/(<\/li>)(?!\s*\n\s*<li>|<\/ul>|<\/ol>)/g, '$1</ul>');
+            
+            // 代码块处理
+            html = html.replace(/```([^`]+)```/g, '<pre><code>$1</code></pre>');
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
             
             // 处理误识别的Markdown分隔符
             html = html.replace(/\s+---\s+/g, '<hr>');
             
             element.innerHTML = html;
+        });
+        
+        // 确保所有漏洞描述区域都有markdown-content类
+        document.querySelectorAll('.accordion-body .mb-3:has(> p, > ul, > ol, > h1, > h2, > h3)').forEach(function(el) {
+            if (!el.classList.contains('markdown-content')) {
+                el.classList.add('markdown-content');
+            }
         });
     });
 </script>
