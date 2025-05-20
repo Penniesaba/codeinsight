@@ -1184,3 +1184,139 @@ class LLMEnhancer:
         
         4. **建立安全响应流程**：制定明确的安全漏洞响应流程，确保发现安全问题时能够快速响应和修固。
         """
+    
+    def analyze_multiple_sarif_files(self, sarif_file_paths, task_id=None):
+        """
+        分析多个SARIF文件并合并结果
+        
+        参数:
+            sarif_file_paths: SARIF文件路径列表
+            task_id: 任务ID，用于保存结果
+            
+        返回:
+            合并后的增强分析结果
+        """
+        logger.info(f"开始分析多个SARIF文件: {len(sarif_file_paths)}个文件")
+        
+        if not sarif_file_paths:
+            logger.warning("没有提供SARIF文件路径")
+            return self._mock_sarif_analysis("", task_id)
+        
+        # 如果只有一个文件，直接使用单文件分析
+        if len(sarif_file_paths) == 1:
+            return self.analyze_sarif_file(sarif_file_paths[0], task_id)
+        
+        try:
+            # 合并SARIF数据结构
+            merged_sarif = {
+                'version': '2.1.0',
+                'runs': [{
+                    'tool': {
+                        'driver': {
+                            'name': 'CodeQL',
+                            'rules': []
+                        }
+                    },
+                    'results': [],
+                    'artifacts': []
+                }]
+            }
+            
+            # 读取并合并所有SARIF文件
+            rules_set = set()
+            for file_path in sarif_file_paths:
+                logger.info(f"处理SARIF文件: {file_path}")
+                
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        sarif_content = f.read()
+                    
+                    sarif_data = json.loads(sarif_content)
+                    
+                    # 合并结果
+                    for run in sarif_data.get('runs', []):
+                        # 合并规则
+                        for rule in run.get('tool', {}).get('driver', {}).get('rules', []):
+                            rule_id = rule.get('id')
+                            if rule_id and rule_id not in rules_set:
+                                rules_set.add(rule_id)
+                                merged_sarif['runs'][0]['tool']['driver']['rules'].append(rule)
+                        
+                        # 合并结果
+                        merged_sarif['runs'][0]['results'].extend(run.get('results', []))
+                        
+                        # 合并artifacts（可选）
+                        if 'artifacts' in run:
+                            merged_sarif['runs'][0]['artifacts'].extend(run.get('artifacts', []))
+                
+                except Exception as e:
+                    logger.error(f"处理SARIF文件 {file_path} 失败: {str(e)}")
+                    continue
+            
+            # 如果没有合并到任何结果，返回模拟数据
+            if not merged_sarif['runs'][0]['results']:
+                logger.warning("合并后的SARIF文件没有结果")
+                return self._mock_sarif_analysis("", task_id)
+            
+            # 提取基本信息
+            basic_info = self._extract_sarif_basic_info(merged_sarif)
+            
+            # 构建提示 - 限制内容大小以防止超出API限制
+            merged_sarif_content = json.dumps(merged_sarif, ensure_ascii=False)
+            
+            # 如果内容太大，可能需要截断
+            max_content_size = 20000  # 根据实际API限制调整
+            if len(merged_sarif_content) > max_content_size:
+                logger.warning(f"SARIF内容过大({len(merged_sarif_content)}字节)，将被截断")
+                # 创建一个截断版本，保留关键信息
+                truncated_sarif = {
+                    'version': merged_sarif['version'],
+                    'runs': [{
+                        'tool': merged_sarif['runs'][0]['tool'],
+                        'results': merged_sarif['runs'][0]['results'][:100]  # 只保留前100个结果
+                    }]
+                }
+                merged_sarif_content = json.dumps(truncated_sarif, ensure_ascii=False)
+                logger.info(f"截断后的SARIF内容大小: {len(merged_sarif_content)}字节")
+            
+            prompt = self.sarif_analysis_prompt.format(sarif_content=merged_sarif_content)
+            
+            # 调用LLM API
+            if not self.api_key:
+                logger.info("使用模拟增强模式分析合并的SARIF文件")
+                mock_result = self._mock_sarif_analysis(merged_sarif_content, task_id)
+                mock_result['is_mock'] = True
+                mock_result['overview'] = "# 安全分析概述 (模拟数据)\n\n" + mock_result['overview'].strip()
+                logger.warning("生成的结果为模拟数据，请配置有效的LLM API密钥以获取真实分析")
+                return mock_result
+                
+            llm_analysis = self._call_llm_api(prompt)
+            
+            # 解析LLM响应，构建结构化报告
+            structured_analysis = self._structure_sarif_analysis(llm_analysis, basic_info)
+            
+            # 保存分析结果
+            if task_id:
+                results_dir = os.path.join(self.config['ANALYSIS_CACHE_DIR'], task_id)
+                os.makedirs(results_dir, exist_ok=True)
+                
+                analysis_path = os.path.join(results_dir, 'sarif_analysis.json')
+                with open(analysis_path, 'w', encoding='utf-8') as f:
+                    json.dump(structured_analysis, f, ensure_ascii=False, indent=2)
+                
+                # 也保存一份合并后的SARIF文件
+                merged_sarif_path = os.path.join(results_dir, 'merged_sarif.json')
+                with open(merged_sarif_path, 'w', encoding='utf-8') as f:
+                    json.dump(merged_sarif, f, ensure_ascii=False, indent=2)
+                
+                llm_response_path = os.path.join(results_dir, 'llm_sarif_response.txt')
+                with open(llm_response_path, 'w', encoding='utf-8') as f:
+                    f.write(llm_analysis)
+                    
+                logger.info(f"合并的SARIF分析结果已保存至: {analysis_path}")
+            
+            return structured_analysis
+            
+        except Exception as e:
+            logger.error(f"分析多个SARIF文件失败: {str(e)}", exc_info=True)
+            return self._mock_sarif_analysis("", task_id)

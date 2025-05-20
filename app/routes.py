@@ -262,12 +262,11 @@ def _run_code_analysis(task_id, task_info, task_info_path, app):
             sarif_files = glob.glob(os.path.join(qlresults_dir, '*.sarif'))
             
             if sarif_files:
-                # 选择最大的SARIF文件
-                sarif_file = max(sarif_files, key=os.path.getsize)
+                # 处理所有SARIF文件
+                logger.info(f"开始LLM分析所有SARIF文件: {task_id}，共{len(sarif_files)}个文件")
                 
-                # 直接分析SARIF文件
-                logger.info(f"开始LLM分析SARIF文件: {task_id}")
-                sarif_analysis = enhancer.analyze_sarif_file(sarif_file, task_id)
+                # 直接分析所有SARIF文件
+                sarif_analysis = enhancer.analyze_multiple_sarif_files(sarif_files, task_id)
                 
                 # 将SARIF分析结果作为标准报告
                 with open(os.path.join(results_dir, 'enhanced_report.json'), 'w', encoding='utf-8') as f:
@@ -894,22 +893,35 @@ def analyze_sarif(task_id):
         if not sarif_files:
             return jsonify({'error': '找不到SARIF结果文件'}), 404
         
-        # 选择最大的SARIF文件（通常包含最多结果）
-        sarif_file = max(sarif_files, key=os.path.getsize)
-        logger.info(f"选择SARIF文件进行分析: {sarif_file}")
-        
         # 创建LLM增强器
         enhancer = LLMEnhancer(current_app.config)
         
-        # 直接分析SARIF文件
-        logger.info(f"开始LLM分析SARIF文件: {task_id}")
-        llm_analysis = enhancer.analyze_sarif_file(sarif_file, task_id)
+        # 直接分析所有SARIF文件
+        logger.info(f"开始LLM分析所有SARIF文件: {task_id}")
+        sarif_analysis = enhancer.analyze_multiple_sarif_files(sarif_files, task_id)
         
-        # 返回分析结果
+        # 保存分析结果
+        results_dir = os.path.join(current_app.config['ANALYSIS_CACHE_DIR'], task_id)
+        os.makedirs(results_dir, exist_ok=True)
+        
+        with open(os.path.join(results_dir, 'enhanced_report.json'), 'w', encoding='utf-8') as f:
+            json.dump(sarif_analysis, f, ensure_ascii=False, indent=2)
+        
+        # 更新任务状态为'completed'
+        with open(task_info_path, 'r', encoding='utf-8') as f:
+            task_info = json.load(f)
+            
+        task_info['status'] = 'completed'
+        task_info['completed_at'] = datetime.now().isoformat()
+        with open(task_info_path, 'w', encoding='utf-8') as f:
+            json.dump(task_info, f, ensure_ascii=False, indent=2)
+            
+        logger.info(f"分析完成: {task_id}")
+        
         return jsonify({
             'success': True,
-            'message': 'SARIF文件分析完成',
-            'analysis': llm_analysis
+            'message': '所有SARIF文件分析完成',
+            'analysis': sarif_analysis
         })
         
     except Exception as e:
