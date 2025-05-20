@@ -100,7 +100,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
                                     <span class="severity-indicator high me-2"></span>
-                                    <span class="fw-bold">严重</span>
+                                    <span class="fw-bold">高危</span>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="fw-bold text-warning me-2">{{ report.summary.severity_distribution.high|default(0) }}</span>
@@ -121,7 +121,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
                                     <span class="severity-indicator medium me-2"></span>
-                                    <span class="fw-bold">高危</span>
+                                    <span class="fw-bold">中危</span>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="fw-bold text-info me-2">{{ report.summary.severity_distribution.medium|default(0) }}</span>
@@ -142,7 +142,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
                                     <span class="severity-indicator low me-2"></span>
-                                    <span class="fw-bold">中危</span>
+                                    <span class="fw-bold">低危</span>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="fw-bold text-success me-2">{{ report.summary.severity_distribution.low|default(0) }}</span>

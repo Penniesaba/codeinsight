@@ -188,6 +188,48 @@ def analysis_status(task_id):
         with open(task_info_path, 'w', encoding='utf-8') as f:
             json.dump(task_info, f, ensure_ascii=False, indent=2)
         
+        # 保存app引用以在线程中使用
+        app = current_app._get_current_object()
+        
+        # 开启一个新线程执行后续分析
+        threading.Thread(
+            target=_run_code_analysis,
+            args=(task_id, task_info, task_info_path, app)
+        ).start()
+    
+    # 返回当前状态
+    phase_message = {
+        'initializing': '正在初始化分析环境...',
+        'cloning': '正在克隆仓库...',
+        'cloned': '仓库已克隆，准备分析...',
+        'analyzing': '正在进行CodeQL分析...',
+        'enhancing': '正在通过AI增强分析结果...',
+        'completed': '分析完成',
+        'failed': '分析失败'
+    }
+    
+    return jsonify({
+        'status': task_info['status'],
+        'message': phase_message.get(task_info['status'], _get_status_message(task_info['status'])),
+        'progress': _calculate_progress(task_info['status']),
+        'redirect': url_for('main.report', task_id=task_id) if task_info['status'] == 'completed' else None,
+        'error': task_info.get('error'),
+        # 添加时间信息用于前端显示
+        'created_at': task_info.get('created_at'),
+        'clone_started_at': task_info.get('clone_started_at'),
+        'clone_completed_at': task_info.get('clone_completed_at'),
+        'analyze_started_at': task_info.get('analyze_started_at'),
+        'codeql_completed_at': task_info.get('codeql_completed_at'),
+        'completed_at': task_info.get('completed_at')
+    })
+
+# 添加一个新函数来处理代码分析
+def _run_code_analysis(task_id, task_info, task_info_path, app):
+    """
+    执行代码分析的后台线程函数
+    """
+    # 使用应用上下文，确保current_app可用
+    with app.app_context():
         try:
             # 创建分析器
             analyzer = CodeQLAnalyzer(current_app.config)
@@ -197,6 +239,9 @@ def analysis_status(task_id):
             codeql_results = analyzer.analyze_repository(task_info['repo_path'], task_info['language'])
             
             # 更新状态为'enhancing'
+            with open(task_info_path, 'r', encoding='utf-8') as f:
+                task_info = json.load(f)
+            
             task_info['status'] = 'enhancing'
             task_info['codeql_completed_at'] = datetime.now().isoformat()
             with open(task_info_path, 'w', encoding='utf-8') as f:
@@ -235,6 +280,9 @@ def analysis_status(task_id):
                     json.dump(enhanced_report, f, ensure_ascii=False, indent=2)
             
             # 更新任务状态为'completed'
+            with open(task_info_path, 'r', encoding='utf-8') as f:
+                task_info = json.load(f)
+                
             task_info['status'] = 'completed'
             task_info['completed_at'] = datetime.now().isoformat()
             with open(task_info_path, 'w', encoding='utf-8') as f:
@@ -245,36 +293,14 @@ def analysis_status(task_id):
         except Exception as e:
             # 分析失败
             logger.error(f"分析失败: {str(e)}", exc_info=True)
+            
+            with open(task_info_path, 'r', encoding='utf-8') as f:
+                task_info = json.load(f)
+                
             task_info['status'] = 'failed'
             task_info['error'] = str(e)
             with open(task_info_path, 'w', encoding='utf-8') as f:
                 json.dump(task_info, f, ensure_ascii=False, indent=2)
-    
-    # 返回当前状态
-    phase_message = {
-        'initializing': '正在初始化分析环境...',
-        'cloning': '正在克隆仓库...',
-        'cloned': '仓库已克隆，准备分析...',
-        'analyzing': '正在进行CodeQL分析...',
-        'enhancing': '正在通过AI增强分析结果...',
-        'completed': '分析完成',
-        'failed': '分析失败'
-    }
-    
-    return jsonify({
-        'status': task_info['status'],
-        'message': phase_message.get(task_info['status'], _get_status_message(task_info['status'])),
-        'progress': _calculate_progress(task_info['status']),
-        'redirect': url_for('main.report', task_id=task_id) if task_info['status'] == 'completed' else None,
-        'error': task_info.get('error'),
-        # 添加时间信息用于前端显示
-        'created_at': task_info.get('created_at'),
-        'clone_started_at': task_info.get('clone_started_at'),
-        'clone_completed_at': task_info.get('clone_completed_at'),
-        'analyze_started_at': task_info.get('analyze_started_at'),
-        'codeql_completed_at': task_info.get('codeql_completed_at'),
-        'completed_at': task_info.get('completed_at')
-    })
 
 @main_bp.route('/api/task/<task_id>/info', methods=['GET'])
 def task_info(task_id):
@@ -491,9 +517,9 @@ def _calculate_progress(status):
     progress_map = {
         'initializing': 5,
         'cloning': 10,
-        'cloned': 20,
-        'analyzing': 50,
-        'enhancing': 80,
+        'cloned': 15,   # 减少这个阶段的百分比，避免从克隆直接跳到100%
+        'analyzing': 50, # 增加分析阶段的进度值
+        'enhancing': 80, # 增加增强阶段的进度值
         'completed': 100,
         'failed': 100
     }
