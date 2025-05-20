@@ -603,6 +603,18 @@
         font-weight: 600;
     }
     
+    .markdown-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .markdown-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .markdown-content h3 {
+        font-size: 1.25rem;
+    }
+    
     .markdown-content ul, 
     .markdown-content ol {
         padding-left: 2rem;
@@ -623,6 +635,97 @@
     .markdown-content pre code {
         display: block;
         padding: 1rem;
+    }
+    
+    /* 增强的Markdown样式 */
+    .markdown-content strong,
+    .markdown-content b {
+        font-weight: 600;
+    }
+    
+    .markdown-content em,
+    .markdown-content i {
+        font-style: italic;
+    }
+    
+    .markdown-content blockquote {
+        border-left: 4px solid #dee2e6;
+        padding-left: 1rem;
+        margin-left: 0;
+        color: #6c757d;
+    }
+    
+    /* 处理特殊Markdown标记 */
+    .markdown-content p:has(> strong:only-child) {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* 修复Markdown中的表格样式 */
+    .markdown-content table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+    
+    .markdown-content table th,
+    .markdown-content table td {
+        padding: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+    
+    .markdown-content table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+    
+    /* 修复误识别的Markdown标记 */
+    .markdown-content .md-asterisk {
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    /* 严重性指示器样式 */
+    .severity-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    
+    .severity-indicator.critical {
+        background-color: #dc3545;
+    }
+    
+    .severity-indicator.high {
+        background-color: #fd7e14;
+    }
+    
+    .severity-indicator.medium {
+        background-color: #0dcaf0;
+    }
+    
+    .severity-indicator.low {
+        background-color: #198754;
+    }
+    
+    /* 安全性分隔线 */
+    .security-divider {
+        height: 60px;
+        width: 1px;
+        background-color: #dee2e6;
+    }
+    
+    /* 安全评分圆圈 */
+    .security-score-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
     }
 </style>
 {% endblock %}
@@ -650,8 +753,23 @@
             const percent = progressBar.getAttribute('data-percent');
             progressBar.querySelector('.progress-bar').style.width = percent + '%';
         });
+        
+        // 处理Markdown文本中的特殊字符
+        document.querySelectorAll('.markdown-content').forEach(function(element) {
+            // 替换未处理的Markdown标记
+            let html = element.innerHTML;
+            
+            // 添加对Markdown标记和原始文本的预处理
+            html = html.replace(/###\s+/g, '<h3>').replace(/##\s+/g, '<h2>').replace(/#\s+/g, '<h1>');
+            html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            
+            // 处理误识别的Markdown分隔符
+            html = html.replace(/\s+---\s+/g, '<hr>');
+            
+            element.innerHTML = html;
+        });
     });
-    
-
 </script>
 {% endblock %} 

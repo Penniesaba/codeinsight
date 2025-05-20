@@ -96,7 +96,7 @@
                                 {% set high_percent = analysis.summary.severity_distribution.high|default(0) / analysis.summary.total_vulnerabilities * 100 if analysis.summary.total_vulnerabilities else 0 %}
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <div><span class="badge bg-warning text-dark">严重</span></div>
+                                        <div><span class="badge bg-warning text-dark">高危</span></div>
                                         <div>{{ analysis.summary.severity_distribution.high|default(0) }}</div>
                                     </div>
                                     <div class="progress progress-high" data-percent="{{ high_percent|round(2) }}">
@@ -111,7 +111,7 @@
                                 {% set medium_percent = analysis.summary.severity_distribution.medium|default(0) / analysis.summary.total_vulnerabilities * 100 if analysis.summary.total_vulnerabilities else 0 %}
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <div><span class="badge bg-info">高危</span></div>
+                                        <div><span class="badge bg-info">中危</span></div>
                                         <div>{{ analysis.summary.severity_distribution.medium|default(0) }}</div>
                                     </div>
                                     <div class="progress progress-medium" data-percent="{{ medium_percent|round(2) }}">
@@ -126,7 +126,7 @@
                                 {% set low_percent = analysis.summary.severity_distribution.low|default(0) / analysis.summary.total_vulnerabilities * 100 if analysis.summary.total_vulnerabilities else 0 %}
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <div><span class="badge bg-success">中危</span></div>
+                                        <div><span class="badge bg-success">低危</span></div>
                                         <div>{{ analysis.summary.severity_distribution.low|default(0) }}</div>
                                     </div>
                                     <div class="progress progress-low" data-percent="{{ low_percent|round(2) }}">
@@ -338,6 +338,53 @@
         overflow-x: auto;
     }
     
+    /* 增强的Markdown样式 */
+    .markdown-content strong,
+    .markdown-content b {
+        font-weight: 600;
+    }
+    
+    .markdown-content em,
+    .markdown-content i {
+        font-style: italic;
+    }
+    
+    .markdown-content blockquote {
+        border-left: 4px solid #dee2e6;
+        padding-left: 1rem;
+        margin-left: 0;
+        color: #6c757d;
+    }
+    
+    /* 处理特殊Markdown标记 */
+    .markdown-content p:has(> strong:only-child) {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* 修复Markdown中的表格样式 */
+    .markdown-content table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+    }
+    
+    .markdown-content table th,
+    .markdown-content table td {
+        padding: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+    
+    .markdown-content table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+    
+    /* 修复误识别的Markdown标记 */
+    .markdown-content .md-asterisk {
+        font-weight: normal;
+        font-style: normal;
+    }
+    
     /* 进度条样式 */
     .progress {
         height: 10px;
@@ -379,6 +426,23 @@
         document.querySelectorAll('.progress[data-percent]').forEach(function(progressBar) {
             const percent = progressBar.getAttribute('data-percent');
             progressBar.querySelector('.progress-bar').style.width = percent + '%';
+        });
+        
+        // 处理Markdown文本中的特殊字符
+        document.querySelectorAll('.markdown-content').forEach(function(element) {
+            // 替换未处理的Markdown标记
+            let html = element.innerHTML;
+            
+            // 添加对Markdown标记和原始文本的预处理
+            html = html.replace(/###\s+/g, '<h3>').replace(/##\s+/g, '<h2>').replace(/#\s+/g, '<h1>');
+            html = html.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            
+            // 处理误识别的Markdown分隔符
+            html = html.replace(/\s+---\s+/g, '<hr>');
+            
+            element.innerHTML = html;
         });
     });
 </script>
