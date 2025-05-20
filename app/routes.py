@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 # 添加日期格式化过滤器
 @main_bp.app_template_filter('datetime_format')
-def datetime_format(value, format='%Y-%m-%d %H:%M:%S'):
+def datetime_format(value, format='%Y-%m-%d %H:%M'):
     """格式化日期时间"""
     if value is None:
         return ""
@@ -205,19 +205,34 @@ def analysis_status(task_id):
             # 创建LLM增强器
             enhancer = LLMEnhancer(current_app.config)
             
-            # 生成增强报告
-            logger.info(f"开始LLM增强分析: {task_id}")
-            enhanced_report = enhancer.enhance_results(codeql_results, task_info['repo_path'])
-            
-            # 保存分析结果
+            # 保存原始分析结果
             results_dir = os.path.join(current_app.config['ANALYSIS_CACHE_DIR'], task_id)
             os.makedirs(results_dir, exist_ok=True)
             
             with open(os.path.join(results_dir, 'codeql_results.json'), 'w', encoding='utf-8') as f:
                 json.dump(codeql_results, f, ensure_ascii=False, indent=2)
+            
+            # 获取SARIF文件路径并直接进行SARIF分析
+            qlresults_dir = os.path.join(current_app.config['CACHE_DIR'], 'qlresults', task_id)
+            sarif_files = glob.glob(os.path.join(qlresults_dir, '*.sarif'))
+            
+            if sarif_files:
+                # 选择最大的SARIF文件
+                sarif_file = max(sarif_files, key=os.path.getsize)
                 
-            with open(os.path.join(results_dir, 'enhanced_report.json'), 'w', encoding='utf-8') as f:
-                json.dump(enhanced_report, f, ensure_ascii=False, indent=2)
+                # 直接分析SARIF文件
+                logger.info(f"开始LLM分析SARIF文件: {task_id}")
+                sarif_analysis = enhancer.analyze_sarif_file(sarif_file, task_id)
+                
+                # 将SARIF分析结果作为标准报告
+                with open(os.path.join(results_dir, 'enhanced_report.json'), 'w', encoding='utf-8') as f:
+                    json.dump(sarif_analysis, f, ensure_ascii=False, indent=2)
+            else:
+                # 如果找不到SARIF文件，回退到传统的增强方式
+                logger.warning(f"未找到SARIF文件，使用传统方式增强: {task_id}")
+                enhanced_report = enhancer.enhance_results(codeql_results, task_info['repo_path'])
+                with open(os.path.join(results_dir, 'enhanced_report.json'), 'w', encoding='utf-8') as f:
+                    json.dump(enhanced_report, f, ensure_ascii=False, indent=2)
             
             # 更新任务状态为'completed'
             task_info['status'] = 'completed'
@@ -328,6 +343,7 @@ def export_report(task_id):
     将报告导出为JSON或PDF格式
     """
     format_type = request.args.get('format', 'json')
+    source = request.args.get('source', 'standard')  # 新增: 报告来源参数，标准报告或SARIF分析报告
     
     # 获取任务信息
     task_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id)
@@ -339,7 +355,17 @@ def export_report(task_id):
     
     # 加载分析报告
     results_dir = os.path.join(current_app.config['ANALYSIS_CACHE_DIR'], task_id)
-    report_path = os.path.join(results_dir, 'enhanced_report.json')
+    
+    if source == 'sarif':
+        # 导出SARIF分析报告
+        report_path = os.path.join(results_dir, 'sarif_analysis.json')
+        file_name = 'sarif_analysis.json'
+        download_name = f'sarif_analysis_{task_id}.json'
+    else:
+        # 导出标准分析报告
+        report_path = os.path.join(results_dir, 'enhanced_report.json')
+        file_name = 'enhanced_report.json'
+        download_name = f'codeql_report_{task_id}.json'
     
     if not os.path.exists(report_path):
         flash('报告文件不存在', 'danger')
@@ -349,18 +375,24 @@ def export_report(task_id):
         # 直接返回JSON文件
         return send_from_directory(
             results_dir, 
-            'enhanced_report.json', 
+            file_name, 
             as_attachment=True,
-            download_name=f'codeql_report_{task_id}.json'
+            download_name=download_name
         )
     elif format_type == 'pdf':
         # 生成PDF并返回
         # 这里需要实现PDF生成逻辑
         flash('PDF导出功能正在开发中', 'warning')
-        return redirect(url_for('main.report', task_id=task_id))
+        if source == 'sarif':
+            return redirect(url_for('main.sarif_analysis_view', task_id=task_id))
+        else:
+            return redirect(url_for('main.report', task_id=task_id))
     else:
         flash('不支持的导出格式', 'danger')
-        return redirect(url_for('main.report', task_id=task_id))
+        if source == 'sarif':
+            return redirect(url_for('main.sarif_analysis_view', task_id=task_id))
+        else:
+            return redirect(url_for('main.report', task_id=task_id))
 
 @main_bp.route('/history', methods=['GET'])
 def history():
@@ -755,6 +787,16 @@ def delete_task():
                 logger.error(f"删除分析结果目录失败: {str(e)}")
                 # 继续执行，尝试删除其他内容
         
+        # 删除查询结果目录
+        qlresults_dir = os.path.join(current_app.config['CACHE_DIR'], 'qlresults', task_id)
+        if os.path.exists(qlresults_dir):
+            try:
+                shutil.rmtree(qlresults_dir)
+                logger.info(f"已删除查询结果目录: {qlresults_dir}")
+            except (PermissionError, OSError) as e:
+                logger.error(f"删除查询结果目录失败: {str(e)}")
+                # 继续执行，尝试删除其他内容
+        
         # 使用更健壮的方式删除任务目录（仓库缓存）
         if os.path.exists(task_dir):
             try:
@@ -790,4 +832,95 @@ def delete_task():
         logger.error(f"删除任务失败: {str(e)}", exc_info=True)
         flash(f'删除失败: {str(e)}', 'danger')
     
-    return redirect(url_for('main.history')) 
+    return redirect(url_for('main.history'))
+
+@main_bp.route('/api/analyze-sarif/<task_id>', methods=['GET'])
+def analyze_sarif(task_id):
+    """
+    使用LLM分析SARIF文件API
+    直接分析任务对应的SARIF文件，生成增强报告
+    """
+    logger.info(f"收到SARIF文件分析请求: {task_id}")
+    
+    try:
+        # 获取任务信息
+        task_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id)
+        task_info_path = os.path.join(task_dir, 'task_info.json')
+        
+        if not os.path.exists(task_info_path):
+            return jsonify({'error': '无效的任务ID'}), 404
+        
+        with open(task_info_path, 'r', encoding='utf-8') as f:
+            task_info = json.load(f)
+        
+        # 检查任务状态
+        if task_info['status'] != 'completed':
+            return jsonify({'error': '任务尚未完成，无法分析SARIF文件'}), 400
+        
+        # 获取qlresults目录路径
+        qlresults_dir = os.path.join(current_app.config['CACHE_DIR'], 'qlresults', task_id)
+        if not os.path.exists(qlresults_dir):
+            return jsonify({'error': '找不到SARIF结果文件'}), 404
+        
+        # 获取所有SARIF文件
+        sarif_files = glob.glob(os.path.join(qlresults_dir, '*.sarif'))
+        
+        if not sarif_files:
+            return jsonify({'error': '找不到SARIF结果文件'}), 404
+        
+        # 选择最大的SARIF文件（通常包含最多结果）
+        sarif_file = max(sarif_files, key=os.path.getsize)
+        logger.info(f"选择SARIF文件进行分析: {sarif_file}")
+        
+        # 创建LLM增强器
+        enhancer = LLMEnhancer(current_app.config)
+        
+        # 直接分析SARIF文件
+        logger.info(f"开始LLM分析SARIF文件: {task_id}")
+        llm_analysis = enhancer.analyze_sarif_file(sarif_file, task_id)
+        
+        # 返回分析结果
+        return jsonify({
+            'success': True,
+            'message': 'SARIF文件分析完成',
+            'analysis': llm_analysis
+        })
+        
+    except Exception as e:
+        logger.error(f"SARIF文件分析失败: {str(e)}", exc_info=True)
+        return jsonify({'error': f'分析失败: {str(e)}'}), 500
+
+@main_bp.route('/analysis/sarif/<task_id>', methods=['GET'])
+def sarif_analysis_view(task_id):
+    """
+    SARIF分析结果页面
+    显示LLM对SARIF文件的分析结果
+    """
+    logger.debug(f"访问SARIF分析页面: {task_id}")
+    
+    # 获取任务信息
+    task_dir = os.path.join(current_app.config['REPO_CACHE_DIR'], task_id)
+    task_info_path = os.path.join(task_dir, 'task_info.json')
+    
+    if not os.path.exists(task_info_path):
+        flash('无效的任务ID', 'danger')
+        return redirect(url_for('main.index'))
+    
+    with open(task_info_path, 'r', encoding='utf-8') as f:
+        task_info = json.load(f)
+    
+    # 检查是否已有分析结果
+    analysis_dir = os.path.join(current_app.config['ANALYSIS_CACHE_DIR'], task_id)
+    sarif_analysis_path = os.path.join(analysis_dir, 'sarif_analysis.json')
+    
+    if os.path.exists(sarif_analysis_path):
+        # 读取分析结果
+        with open(sarif_analysis_path, 'r', encoding='utf-8') as f:
+            analysis = json.load(f)
+            
+        # 渲染分析页面
+        return render_template('sarif_analysis.html', task_id=task_id, task_info=task_info, analysis=analysis)
+    else:
+        # 没有现成的分析结果，提示用户触发分析
+        flash('找不到SARIF分析结果，请先分析SARIF文件', 'info')
+        return redirect(url_for('main.report', task_id=task_id)) 

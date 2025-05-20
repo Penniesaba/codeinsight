@@ -1,0 +1,6 @@
+name: codeinsight-js-security-rules
+version: 0.0.1
+library: false
+extractor: javascript
+dependencies:
+  codeql/javascript-all: "*"

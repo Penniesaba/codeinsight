@@ -1,0 +1,6 @@
+# JavaScript 安全规则套件
+
+- import codeinsight-js-security-rules/unsafe-input.ql
+- import codeinsight-js-security-rules/unsafe-error-handling.ql
+- import codeinsight-js-security-rules/xss.ql
+- import codeinsight-js-security-rules/dom_xss.ql

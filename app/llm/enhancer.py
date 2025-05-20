@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -35,11 +35,430 @@ class LLMEnhancer:
         self.model = config['LLM_MODEL']
         self.api_url = config['LLM_API_URL']
         
+        # 定义SARIF分析的提示模板
+        self.sarif_analysis_prompt = """
+        你是一个专业的代码安全专家，请对以下CodeQL生成的SARIF格式安全分析结果进行全面分析，以中文详细输出：
+
+        ```json
+        {sarif_content}
+        ```
+
+        请提供以下内容（全部使用中文回答）：
+
+        1. 漏洞总体分析：
+           a. 发现的漏洞类型及总数
+           b. 最严重的漏洞类别及其影响
+           c. 代码库的总体安全评分（1-10分）
+
+        2. 详细漏洞分析：针对每种漏洞类型提供：
+           a. 漏洞名称和OWASP/CWE分类
+           b. 漏洞原理和成因
+           c. 安全风险和潜在影响
+           d. 典型攻击场景
+           e. CVSS评分和严重性级别
+
+        3. 修复建议：针对每种漏洞提供：
+           a. 具体的修复方法
+           b. 最佳安全实践
+           c. 安全编码指南
+
+        4. 安全增强建议：
+           a. 代码审查重点
+           b. 安全测试策略
+           c. 长期安全改进计划
+
+        请以结构化的方式组织你的回答，使用markdown格式，确保内容专业、全面且有针对性。
+        """
+        
         # 检查API密钥是否可用
         if not self.api_key:
             logger.warning("未设置LLM API密钥，将使用模拟增强模式")
         
         logger.debug("LLM增强器初始化完成")
+    
+    def analyze_sarif_file(self, sarif_file_path, task_id=None):
+        """
+        直接分析SARIF文件并生成增强报告
+        
+        参数:
+            sarif_file_path: SARIF文件路径
+            task_id: 任务ID，用于保存结果
+            
+        返回:
+            基于SARIF的增强分析结果
+        """
+        logger.info(f"开始分析SARIF文件: {sarif_file_path}")
+        
+        try:
+            # 读取SARIF文件
+            with open(sarif_file_path, 'r', encoding='utf-8') as f:
+                sarif_content = f.read()
+            
+            # 如果没有API密钥，使用模拟增强
+            if not self.api_key:
+                logger.info("使用模拟增强模式分析SARIF文件")
+                return self._mock_sarif_analysis(sarif_content, task_id)
+            
+            # 解析SARIF内容
+            sarif_data = json.loads(sarif_content)
+            
+            # 提取基本信息
+            basic_info = self._extract_sarif_basic_info(sarif_data)
+            
+            # 构建提示
+            prompt = self.sarif_analysis_prompt.format(sarif_content=sarif_content)
+            
+            # 调用LLM API
+            llm_analysis = self._call_llm_api(prompt)
+            
+            # 解析LLM响应，构建结构化报告
+            structured_analysis = self._structure_sarif_analysis(llm_analysis, basic_info)
+            
+            # 保存分析结果
+            if task_id:
+                results_dir = os.path.join(self.config['ANALYSIS_CACHE_DIR'], task_id)
+                os.makedirs(results_dir, exist_ok=True)
+                
+                analysis_path = os.path.join(results_dir, 'sarif_analysis.json')
+                with open(analysis_path, 'w', encoding='utf-8') as f:
+                    json.dump(structured_analysis, f, ensure_ascii=False, indent=2)
+                
+                llm_response_path = os.path.join(results_dir, 'llm_sarif_response.txt')
+                with open(llm_response_path, 'w', encoding='utf-8') as f:
+                    f.write(llm_analysis)
+                    
+                logger.info(f"SARIF分析结果已保存至: {analysis_path}")
+            
+            return structured_analysis
+            
+        except Exception as e:
+            logger.error(f"SARIF文件分析失败: {str(e)}", exc_info=True)
+            return self._mock_sarif_analysis("", task_id)
+    
+    def _extract_sarif_basic_info(self, sarif_data):
+        """
+        从SARIF数据中提取基本信息
+        
+        参数:
+            sarif_data: 解析后的SARIF数据
+            
+        返回:
+            基本信息字典
+        """
+        basic_info = {
+            'total_results': 0,
+            'rule_counts': {},
+            'severity_counts': {
+                'critical': 0,
+                'high': 0,
+                'medium': 0,
+                'low': 0
+            },
+            'rules': {}
+        }
+        
+        # 处理每一个run
+        for run in sarif_data.get('runs', []):
+            # 获取driver信息
+            driver = run.get('tool', {}).get('driver', {})
+            
+            # 获取规则信息
+            rules = {}
+            for rule in driver.get('rules', []):
+                rule_id = rule.get('id', 'unknown')
+                rules[rule_id] = {
+                    'name': rule.get('name', rule_id),
+                    'description': rule.get('shortDescription', {}).get('text', '') or rule.get('fullDescription', {}).get('text', ''),
+                    'severity': rule.get('defaultConfiguration', {}).get('level', 'warning'),
+                    'count': 0
+                }
+            
+            # 处理结果
+            for result in run.get('results', []):
+                basic_info['total_results'] += 1
+                
+                rule_id = result.get('ruleId', 'unknown')
+                
+                # 更新规则计数
+                if rule_id in basic_info['rule_counts']:
+                    basic_info['rule_counts'][rule_id] += 1
+                else:
+                    basic_info['rule_counts'][rule_id] = 1
+                
+                # 更新规则信息中的计数
+                if rule_id in rules:
+                    rules[rule_id]['count'] += 1
+                
+                # 更新严重性计数
+                severity = rules.get(rule_id, {}).get('severity', 'warning')
+                if severity == 'error':
+                    basic_info['severity_counts']['high'] += 1
+                elif severity == 'warning':
+                    basic_info['severity_counts']['medium'] += 1
+                elif severity == 'note':
+                    basic_info['severity_counts']['low'] += 1
+        
+        # 合并规则信息
+        basic_info['rules'] = rules
+        
+        return basic_info
+    
+    def _structure_sarif_analysis(self, llm_response, basic_info):
+        """
+        将LLM的分析响应结构化为增强报告格式
+        
+        参数:
+            llm_response: LLM的分析响应
+            basic_info: 从SARIF提取的基本信息
+            
+        返回:
+            结构化的报告
+        """
+        # 提取重要部分
+        sections = self._extract_analysis_sections(llm_response)
+        
+        # 构建报告结构
+        structured_analysis = {
+            'summary': {
+                'total_vulnerabilities': basic_info['total_results'],
+                'vulnerability_types': len(basic_info['rule_counts']),
+                'severity_distribution': basic_info['severity_counts']
+            },
+            'overview': sections.get('overview', ''),
+            'vulnerabilities': []
+        }
+        
+        # 处理漏洞
+        vulnerabilities = sections.get('vulnerabilities', [])
+        if not vulnerabilities:
+            # 基于规则创建默认漏洞信息
+            for rule_id, rule_info in basic_info['rules'].items():
+                vuln_type = rule_info['name'].replace('_', ' ').title()
+                
+                vulnerability = {
+                    'type': vuln_type,
+                    'description': rule_info['description'],
+                    'severity': self._map_severity(rule_info['severity']),
+                    'count': rule_info['count'],
+                    'instances': [],
+                    'enhanced_description': sections.get('general_description', ''),
+                    'common_fixes': sections.get('general_fixes', '')
+                }
+                
+                structured_analysis['vulnerabilities'].append(vulnerability)
+        else:
+            # 使用LLM分析的漏洞信息
+            for vuln in vulnerabilities:
+                structured_analysis['vulnerabilities'].append(vuln)
+        
+        return structured_analysis
+    
+    def _extract_analysis_sections(self, llm_response):
+        """
+        从LLM响应中提取各部分内容
+        
+        参数:
+            llm_response: LLM的分析响应
+            
+        返回:
+            分析部分字典
+        """
+        sections = {
+            'overview': '',
+            'vulnerabilities': [],
+            'general_description': '',
+            'general_fixes': ''
+        }
+        
+        # 简单划分响应内容
+        parts = llm_response.split("\n## ")
+        
+        # 第一部分通常是总体分析
+        if parts and parts[0]:
+            sections['overview'] = parts[0].replace("# ", "")
+        
+        # 查找漏洞分析部分
+        vuln_analysis = None
+        fixes = None
+        
+        for part in parts:
+            if part.startswith("详细漏洞分析") or "漏洞分析" in part.lower():
+                vuln_analysis = part
+            elif part.startswith("修复建议") or "修复" in part.lower():
+                fixes = part
+            elif part.startswith("安全增强建议") or "安全建议" in part.lower():
+                sections['general_fixes'] += "\n" + part
+        
+        # 提取一般描述
+        if vuln_analysis:
+            sections['general_description'] = vuln_analysis
+            
+            # TODO: 进一步解析漏洞分析，将每种漏洞提取为单独条目
+            # 这需要更复杂的文本解析，暂时使用整体描述
+        
+        # 提取修复建议
+        if fixes:
+            if sections['general_fixes']:
+                sections['general_fixes'] += "\n" + fixes
+            else:
+                sections['general_fixes'] = fixes
+        
+        return sections
+    
+    def _map_severity(self, codeql_severity):
+        """
+        将CodeQL严重性映射到标准严重性级别
+        
+        参数:
+            codeql_severity: CodeQL的严重性
+            
+        返回:
+            标准严重性
+        """
+        severity_map = {
+            'error': 'high',
+            'warning': 'medium',
+            'note': 'low',
+            'recommendation': 'info'
+        }
+        return severity_map.get(codeql_severity, 'medium')
+    
+    def _mock_sarif_analysis(self, sarif_content, task_id=None):
+        """
+        生成模拟的SARIF分析结果
+        
+        参数:
+            sarif_content: SARIF内容
+            task_id: 任务ID
+            
+        返回:
+            模拟分析结果
+        """
+        # 尝试解析SARIF内容计数
+        result_count = 0
+        rule_count = 0
+        
+        try:
+            if sarif_content:
+                sarif_data = json.loads(sarif_content)
+                for run in sarif_data.get('runs', []):
+                    result_count += len(run.get('results', []))
+                    rule_count += len(run.get('tool', {}).get('driver', {}).get('rules', []))
+        except:
+            result_count = 3  # 默认值
+            rule_count = 2
+        
+        # 构建模拟分析结果
+        mock_analysis = {
+            'summary': {
+                'total_vulnerabilities': result_count or 3,
+                'vulnerability_types': rule_count or 2,
+                'severity_distribution': {
+                    'critical': 0,
+                    'high': 1,
+                    'medium': result_count - 1 if result_count > 1 else 1,
+                    'low': 1
+                }
+            },
+            'overview': """
+            ## 安全分析概述
+            
+            本次分析发现了多个安全漏洞，主要集中在输入验证和错误处理方面。
+            建议优先修复高风险漏洞，并进行全面的安全测试。
+            """,
+            'vulnerabilities': [
+                {
+                    'type': '不安全的输入处理',
+                    'description': '应用程序未正确验证或过滤用户输入，可能导致注入攻击',
+                    'severity': 'high',
+                    'count': 1,
+                    'enhanced_description': """
+                    ## 不安全的输入处理
+                    
+                    应用程序接受用户输入后直接用于构建SQL查询、命令执行或HTML输出，
+                    没有进行充分的验证和过滤，攻击者可以注入恶意代码。
+                    
+                    这种漏洞可能导致：
+                    - SQL注入攻击
+                    - 命令注入攻击
+                    - 跨站脚本攻击(XSS)
+                    """,
+                    'common_fixes': """
+                    ## 修复建议
+                    
+                    ### 预防措施
+                    1. 对所有外部输入进行严格验证
+                    2. 使用参数化查询而非字符串拼接
+                    3. 对输出进行编码和转义
+                    4. 实施最小权限原则
+                    
+                    ### 代码示例
+                    ```javascript
+                    // 不安全的代码
+                    const query = "SELECT * FROM users WHERE id = " + userInput;
+                    
+                    // 安全的代码
+                    const query = "SELECT * FROM users WHERE id = ?";
+                    db.query(query, [userInput]);
+                    ```
+                    """
+                },
+                {
+                    'type': '错误的异常处理',
+                    'description': '应用程序错误处理机制不当，可能泄露敏感信息',
+                    'severity': 'medium',
+                    'count': result_count - 1 if result_count > 1 else 1,
+                    'enhanced_description': """
+                    ## 错误的异常处理
+                    
+                    应用程序在处理异常时直接将错误细节暴露给用户，
+                    这可能泄露系统路径、SQL查询、API密钥等敏感信息，
+                    帮助攻击者构建更精确的攻击。
+                    
+                    这种漏洞可能导致：
+                    - 信息泄露
+                    - 攻击面扩大
+                    - 攻击者获取系统信息
+                    """,
+                    'common_fixes': """
+                    ## 修复建议
+                    
+                    ### 预防措施
+                    1. 实现集中式的错误处理机制
+                    2. 向用户显示通用错误消息
+                    3. 详细错误信息只记录到日志
+                    4. 确保生产环境禁用调试模式
+                    
+                    ### 代码示例
+                    ```javascript
+                    // 不安全的代码
+                    app.use((err, req, res, next) => {
+                      res.status(500).send(err.stack);
+                    });
+                    
+                    // 安全的代码
+                    app.use((err, req, res, next) => {
+                      console.error(err.stack);
+                      res.status(500).send('服务器内部错误');
+                    });
+                    ```
+                    """
+                }
+            ]
+        }
+        
+        # 保存分析结果
+        if task_id:
+            results_dir = os.path.join(self.config['ANALYSIS_CACHE_DIR'], task_id)
+            os.makedirs(results_dir, exist_ok=True)
+            
+            analysis_path = os.path.join(results_dir, 'sarif_analysis.json')
+            with open(analysis_path, 'w', encoding='utf-8') as f:
+                json.dump(mock_analysis, f, ensure_ascii=False, indent=2)
+                
+            logger.info(f"模拟SARIF分析结果已保存至: {analysis_path}")
+        
+        return mock_analysis
     
     def enhance_results(self, analysis_results, repo_path):
         """
@@ -348,6 +767,67 @@ class LLMEnhancer:
     def _call_llm_api(self, prompt):
         """
         调用LLM API
+        
+        参数:
+            prompt: 提示文本
+            
+        返回:
+            API响应
+        """
+        # 检查是否使用OpenAI兼容模式
+        use_openai_compatible = self.config.get('LLM_USE_OPENAI_COMPATIBLE', False)
+        
+        if use_openai_compatible:
+            return self._call_openai_compatible_api(prompt)
+        else:
+            return self._call_standard_api(prompt)
+    
+    def _call_openai_compatible_api(self, prompt):
+        """
+        使用OpenAI兼容模式调用API
+        
+        参数:
+            prompt: 提示文本
+            
+        返回:
+            API响应
+        """
+        try:
+            # 动态导入OpenAI库
+            from openai import OpenAI
+            
+            # 创建客户端
+            client = OpenAI(
+                api_key=self.api_key,
+                base_url=self.api_url
+            )
+            
+            # 调用API
+            logger.debug(f"使用OpenAI兼容模式发送请求: {self.api_url}, 模型: {self.model}")
+            
+            completion = client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "你是一个专业的代码安全分析助手，擅长解释和提供安全漏洞的修复方案。请用中文回复。"},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            
+            # 提取回复内容
+            return completion.choices[0].message.content
+            
+        except ImportError:
+            logger.error("未安装OpenAI库，无法使用OpenAI兼容模式")
+            logger.info("请使用pip install openai安装OpenAI库")
+            # 回退到标准模式
+            return self._call_standard_api(prompt)
+        except Exception as e:
+            logger.error(f"OpenAI兼容模式API调用失败: {str(e)}", exc_info=True)
+            raise
+    
+    def _call_standard_api(self, prompt):
+        """
+        使用标准方式调用API
         
         参数:
             prompt: 提示文本

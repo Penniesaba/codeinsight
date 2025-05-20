@@ -54,7 +54,8 @@ def _ensure_directories(app):
         app.config['CACHE_DIR'],
         app.config['LOG_DIR'],
         app.config['REPO_CACHE_DIR'],
-        app.config['ANALYSIS_CACHE_DIR']
+        app.config['ANALYSIS_CACHE_DIR'],
+        os.path.join(app.config['CACHE_DIR'], 'qlresults')
     ]
     
     for directory in directories:

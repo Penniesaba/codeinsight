@@ -21,9 +21,10 @@ class Config:
     GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN') or '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' 
     
     # 大语言模型配置
-    LLM_API_KEY = os.environ.get('LLM_API_KEY') or ''
-    LLM_MODEL = os.environ.get('LLM_MODEL') or 'qwen-max'  # 默认使用通义千问
-    LLM_API_URL = os.environ.get('LLM_API_URL') or 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation'
+    LLM_API_KEY = os.environ.get('DASHSCOPE_API_KEY') or 'sk-c9416c5d823540e0a56b80a98684e8fe'
+    LLM_MODEL = 'qwen-plus'  # 默认使用通义千问(qwen-plus)
+    LLM_API_URL ='https://dashscope.aliyuncs.com/compatible-mode/v1'
+    LLM_USE_OPENAI_COMPATIBLE = True  # 使用OpenAI兼容模式
     
     # 缓存配置（替代数据库）
     CACHE_LIFETIME = timedelta(days=7)  # 缓存有效期
