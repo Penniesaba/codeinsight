@@ -118,16 +118,108 @@ class CodeQLAnalyzer:
                 self._create_database(repo_path, db_path, language)
                 
                 # 2. 运行查询
-                query_results = self._run_queries(db_path, language, rule_set, task_id)
+                all_results = []
+                
+                try:
+                    # 首先尝试使用标准方式运行查询
+                    query_results = self._run_queries(db_path, language, rule_set, task_id)
+                    all_results.extend(query_results)
+                except subprocess.TimeoutExpired as e:
+                    logger.warning(f"标准查询执行超时: {str(e)}")
+                    
+                    # 超时后，尝试拆分规则包，逐个运行规则
+                    logger.info("尝试拆分规则包，逐个运行规则...")
+                    
+                    # 获取所有单个规则文件
+                    if language == 'auto':
+                        detected_language = self._detect_database_language(db_path)
+                    else:
+                        detected_language = language
+                    
+                    # 获取单个规则文件列表
+                    individual_rules = self._get_individual_rules(detected_language)
+                    logger.info(f"找到 {len(individual_rules)} 个单独规则文件")
+                    
+                    # 逐个运行规则
+                    for rule_path in individual_rules:
+                        try:
+                            rule_name = os.path.basename(rule_path)
+                            logger.info(f"运行单独规则: {rule_name}")
+                            
+                            result = self._run_single_query(db_path, rule_path, task_id)
+                            if result:
+                                all_results.append(result)
+                                logger.info(f"规则 {rule_name} 分析完成")
+                        except Exception as rule_error:
+                            logger.error(f"规则 {os.path.basename(rule_path)} 执行失败: {str(rule_error)}")
+                            # 继续执行下一个规则
+                except Exception as e:
+                    logger.error(f"查询执行失败: {str(e)}")
+                    # 如果是其他异常，尝试继续处理可能已经存在的结果
                 
                 # 3. 处理结果
-                analysis_results = self._process_results(query_results, repo_path)
-                
-                return analysis_results
-                
+                if all_results:
+                    analysis_results = self._process_results(all_results, repo_path)
+                    return analysis_results
+                else:
+                    # 如果没有结果，返回空结果
+                    return {
+                        "summary": {
+                            "total_vulnerabilities": 0,
+                            "vulnerability_types": 0,
+                            "severity_distribution": {}
+                        },
+                        "vulnerabilities": []
+                    }
+                    
             except Exception as e:
                 logger.error(f"仓库分析失败: {str(e)}", exc_info=True)
                 raise RuntimeError(f"仓库分析失败: {str(e)}")
+    
+    def analyze_repository_single_rule(self, repo_path, rule_path, language='auto'):
+        """
+        使用单个规则分析代码仓库
+        
+        参数:
+            repo_path: 代码仓库路径
+            rule_path: 规则文件的路径
+            language: 代码语言，如auto, javascript, python等
+            
+        返回:
+            分析结果字典
+        """
+        logger.info(f"开始使用单个规则分析仓库: {repo_path}, 规则: {rule_path}")
+        
+        # 提取任务ID
+        task_id = self._extract_task_id(repo_path)
+        
+        # 创建临时目录存放数据库
+        with tempfile.TemporaryDirectory() as db_dir:
+            try:
+                # 1. 创建CodeQL数据库
+                db_path = os.path.join(db_dir, 'codeql_db')
+                self._create_database(repo_path, db_path, language)
+                
+                # 2. 运行单个查询
+                result = self._run_single_query(db_path, rule_path, task_id)
+                
+                # 3. 处理结果
+                if result:
+                    analysis_results = self._process_results([result], repo_path)
+                    return analysis_results
+                else:
+                    return {
+                        "summary": {
+                            "total_vulnerabilities": 0,
+                            "vulnerability_types": 0,
+                            "severity_distribution": {}
+                        },
+                        "vulnerabilities": []
+                    }
+                    
+            except Exception as e:
+                logger.error(f"使用单个规则分析仓库失败: {str(e)}", exc_info=True)
+                raise RuntimeError(f"使用单个规则分析仓库失败: {str(e)}")
     
     def _extract_task_id(self, repo_path):
         """
@@ -214,11 +306,14 @@ class CodeQLAnalyzer:
         else:
             query_packs = self._get_query_packs(language)
 
-        # 无论如何都加载自定义规则
-            custom_rules = self.rule_manager._get_custom_rules(language)
-            custom_rules = [rule['path'] for rule in custom_rules]
-            
-        logger.debug(f"自定义规则路径: {custom_rules}")
+        # 加载自定义规则
+        try:
+            # 直接获取自定义规则路径列表
+            custom_rules = self._get_custom_rules(language)
+            logger.debug(f"自定义规则路径: {custom_rules}")
+        except Exception as e:
+            logger.error(f"加载自定义规则出错: {str(e)}")
+            custom_rules = []
         
         results = []
         
@@ -227,9 +322,23 @@ class CodeQLAnalyzer:
             logger.info(f"运行标准查询包，共 {len(query_packs)} 个")
             
             for query_pack in query_packs:
-
-
                 logger.info(f"运行查询包: {query_pack}")
+                
+                # 判断是否为单个.ql文件或者查询包
+                is_single_query = query_pack.endswith('.ql')
+                
+                if is_single_query:
+                    # 如果是单个查询文件，使用单个查询执行方法
+                    rule_results = self._run_single_query(db_path, query_pack, task_id)
+                    if rule_results:
+                        if isinstance(rule_results, list):
+                            results.extend(rule_results)
+                        else:
+                            results.append(rule_results)
+                        logger.info(f"查询 {os.path.basename(query_pack)} 找到问题")
+                    else:
+                        logger.info(f"查询 {os.path.basename(query_pack)} 未找到问题")
+                    continue
                 
                 # 确定结果文件路径
                 timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
@@ -253,6 +362,8 @@ class CodeQLAnalyzer:
                         self.codeql_path, 'database', 'analyze',
                         '--format=sarif-latest',
                         f'--output={results_path}',
+                        '--threads=2',  # 限制线程数
+                        '--ram=2000',   # 限制内存使用
                         db_path, query_pack
                     ]
                     
@@ -262,7 +373,8 @@ class CodeQLAnalyzer:
                         check=True,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
-                        text=True
+                        text=True,
+                        timeout=1800  # 增加超时时间到30分钟
                     )
                     
                     # 读取结果
@@ -374,7 +486,7 @@ class CodeQLAnalyzer:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                timeout=300  # 设置超时时间
+                timeout=600  # 增加单个查询超时时间到10分钟
             )
             
             # 保存命令输出到日志文件
@@ -1025,14 +1137,47 @@ class CodeQLAnalyzer:
         返回:
             规则文件路径列表
         """
-        custom_rules_dir = os.path.join(os.path.dirname(self.queries_path), 'custom_rules', language)
         rules = []
         
-        if os.path.exists(custom_rules_dir):
-            for file_name in os.listdir(custom_rules_dir):
-                if file_name.endswith('.ql'):
-                    rule_path = os.path.join(custom_rules_dir, file_name)
-                    rules.append(rule_path)
+        # 定义可能的自定义规则目录
+        custom_rule_dirs = [
+            # 当前项目中的自定义规则
+            os.path.join(os.path.dirname(self.queries_path), 'custom_rules', language),
+            # 用户指定路径
+            f"/home/xiao/project/condeinsight/codeql/{language}/custom_rules",
+            f"/home/xiao/project/codeinsight/codeql/{language}/custom_rules"
+            # 移除experimental目录，不再将其作为自定义规则加载
+            # f"/home/xiao/project/condeinsight/codeql/{language}/ql/src/experimental",
+            # f"/home/xiao/project/codeinsight/codeql/{language}/ql/src/experimental"
+        ]
+        
+        # 遍历所有可能的目录
+        for custom_rules_dir in custom_rule_dirs:
+            if os.path.exists(custom_rules_dir):
+                logger.debug(f"搜索自定义规则目录: {custom_rules_dir}")
+                # 递归遍历目录
+                for root, _, files in os.walk(custom_rules_dir):
+                    for file_name in files:
+                        if file_name.endswith('.ql'):
+                            rule_path = os.path.join(root, file_name)
+                            rules.append(rule_path)
+                            logger.debug(f"添加自定义规则: {rule_path}")
+        
+        # 检查规则管理器的特定方法，避免递归调用
+        try:
+            # 只有当self.rule_manager不是self自身时才调用，避免递归
+            if hasattr(self.rule_manager, 'get_custom_rules_paths') and self.rule_manager != self:
+                manager_rules = self.rule_manager.get_custom_rules_paths(language)
+                if isinstance(manager_rules, list):
+                    for rule_path in manager_rules:
+                        # 排除含有experimental目录的规则
+                        if isinstance(rule_path, str) and rule_path.endswith('.ql') and "/experimental/" not in rule_path:
+                            rules.append(rule_path)
+        except Exception as e:
+            logger.warning(f"从规则管理器获取规则失败: {str(e)}")
+        
+        # 去重
+        rules = list(set(rules))
         
         logger.info(f"找到 {language} 语言的自定义规则 {len(rules)} 条")
         return rules
@@ -1108,17 +1253,141 @@ class CodeQLAnalyzer:
         standard = standard_packs.get(language, [])
         standard_pack_paths = []
         
-        for pack in standard:
-            # 首先尝试从 codeql-suites 目录获取查询包
-            suite_path = os.path.join(self.queries_path, 'ql', 'src', 'codeql-suites', pack)
-            
-            if os.path.exists(suite_path):
-                standard_pack_paths.append(suite_path)
-                logger.debug(f"找到查询套件: {suite_path}")
-            else:
-                # 如果找不到，使用原有路径格式
-                alt_path = f"codeql/{language}/ql/src/Security/{pack}"
-                standard_pack_paths.append(alt_path)
-                logger.debug(f"使用替代查询套件路径: {alt_path}")
+        # 定义可能的官方路径
+        official_base_dirs = [
+            f"/home/xiao/project/condeinsight/codeql/{language}",  # 用户指定的官方路径
+            f"/home/xiao/project/codeinsight/codeql/{language}",   # 修正的路径
+            self.queries_path                                      # 配置的路径
+        ]
         
-        return standard_pack_paths 
+        # 直接使用单个规则文件，避免使用规则包
+        # 规则包容易超时，所以我们改为收集单个规则文件
+        for base_dir in official_base_dirs:
+            security_dir = os.path.join(base_dir, 'ql', 'src', 'Security')
+            if os.path.exists(security_dir):
+                logger.info(f"搜索 {security_dir} 目录下的规则文件...")
+                
+                # 只搜索最常见的漏洞规则目录，避免加载所有规则
+                priority_dirs = [
+                    'CWE-020',  # 输入验证
+                    'CWE-022',  # 路径遍历
+                    'CWE-079',  # XSS
+                    'CWE-089',  # SQL注入
+                    'CWE-094',  # 代码注入
+                    'CWE-352',  # CSRF
+                    'CWE-400',  # 资源消耗
+                    'CWE-502',  # 不安全反序列化
+                    'CWE-611',  # XXE
+                    'CWE-798',  # 硬编码凭证
+                ]
+                
+                # 首先添加优先级目录中的规则
+                for subdir in priority_dirs:
+                    dir_path = os.path.join(security_dir, subdir)
+                    if os.path.exists(dir_path):
+                        for root, _, files in os.walk(dir_path):
+                            for file in files:
+                                if file.endswith('.ql'):
+                                    ql_path = os.path.join(root, file)
+                                    standard_pack_paths.append(ql_path)
+                                    logger.debug(f"添加高优先级QL文件: {ql_path}")
+                
+                # 继续搜索整个Security目录
+                for root, _, files in os.walk(security_dir):
+                    # 跳过experimental目录
+                    if 'experimental' in root:
+                        continue
+                    
+                    for file in files:
+                        if file.endswith('.ql') and os.path.join(root, file) not in standard_pack_paths:
+                            ql_path = os.path.join(root, file)
+                            standard_pack_paths.append(ql_path)
+                            logger.debug(f"添加QL文件: {ql_path}")
+                
+                # 如果找到了规则，跳出循环
+                if standard_pack_paths:
+                    logger.info(f"在 {security_dir} 中找到 {len(standard_pack_paths)} 个规则文件")
+                    break
+        
+        # 如果没有找到任何规则文件，使用传统方法寻找规则包
+        if not standard_pack_paths:
+            logger.warning("未找到单个规则文件，尝试使用规则包")
+            for pack in standard:
+                found = False
+                
+                # 尝试所有可能的官方路径
+                for base_dir in official_base_dirs:
+                    if not os.path.exists(base_dir):
+                        continue
+                    
+                    # 路径1: 在Security目录下
+                    path1 = os.path.join(base_dir, 'ql', 'src', 'Security', pack)
+                    # 路径2: 直接在src目录下
+                    path2 = os.path.join(base_dir, 'ql', 'src', pack)
+                    # 路径3: 在codeql-suites目录下
+                    path3 = os.path.join(base_dir, 'ql', 'src', 'codeql-suites', pack)
+                    
+                    for path in [path1, path2, path3]:
+                        if os.path.exists(path):
+                            logger.warning(f"使用规则包: {path} (注意: 可能需要较长时间执行)")
+                            standard_pack_paths.append(path)
+                            found = True
+                            break
+                    
+                    if found:
+                        break
+                
+                # 如果所有路径都不存在，使用原有的替代路径
+                if not found:
+                    alt_path = f"codeql/{language}/ql/src/Security/{pack}"
+                    logger.warning(f"使用替代规则包路径: {alt_path} (注意: 可能需要较长时间执行)")
+                    standard_pack_paths.append(alt_path)
+        
+        logger.info(f"找到 {len(standard_pack_paths)} 个规则文件")
+        return standard_pack_paths
+    
+    def _get_individual_rules(self, language):
+        """
+        获取指定语言的所有单独规则文件路径
+        
+        参数:
+            language: 代码语言
+            
+        返回:
+            规则文件路径列表
+        """
+        rules = []
+        
+        # 定义可能的规则目录
+        rule_directories = [
+            # 标准安全规则路径
+            f"/home/xiao/project/condeinsight/codeql/{language}/ql/src/Security",
+            f"/home/xiao/project/codeinsight/codeql/{language}/ql/src/Security",
+            f"/home/xiao/project/codeinsight/app/codeql/queries/{language}/ql/src/Security"
+        ]
+        
+        # 查找所有.ql文件
+        for directory in rule_directories:
+            if not os.path.exists(directory):
+                continue
+                
+            logger.debug(f"搜索规则目录: {directory}")
+            for root, _, files in os.walk(directory):
+                # 排除experimental目录
+                if 'experimental' in root:
+                    continue
+                    
+                for file_name in files:
+                    if file_name.endswith('.ql'):
+                        rule_path = os.path.join(root, file_name)
+                        rules.append(rule_path)
+                        logger.debug(f"添加单独规则: {rule_path}")
+        
+        # 添加自定义规则
+        custom_rules = self._get_custom_rules(language)
+        rules.extend(custom_rules)
+        
+        # 去重
+        rules = list(set(rules))
+        
+        return rules 
