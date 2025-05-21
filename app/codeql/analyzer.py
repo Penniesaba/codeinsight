@@ -363,7 +363,7 @@ class CodeQLAnalyzer:
                         '--format=sarif-latest',
                         f'--output={results_path}',
                         '--threads=2',  # 限制线程数
-                        '--ram=2000',   # 限制内存使用
+                        '--ram=4000', # 限制内存使用
                         db_path, query_pack
                     ]
                     
