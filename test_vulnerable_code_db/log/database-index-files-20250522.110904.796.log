@@ -1,0 +1,10 @@
+[2025-05-22 11:09:04] This is codeql database index-files --include-extension=.yaml --include-extension=.yml --size-limit=5m --language yaml -- /home/xiao/project/codeinsight/test_vulnerable_code_db
+[2025-05-22 11:09:04] Log file was started late.
+[2025-05-22 11:09:04] Using index-files script /opt/codeql/yaml/tools/index-files.sh.
+[2025-05-22 11:09:04] [PROGRESS] database index-files> Scanning for files in /home/xiao/project/codeinsight/test_vulnerable_code...
+[2025-05-22 11:09:04] Calling plumbing command: codeql resolve files --include-extension=.yaml --include-extension=.yml --size-limit=5m /home/xiao/project/codeinsight/test_vulnerable_code --format=json
+[2025-05-22 11:09:04] [PROGRESS] resolve files> Scanning /home/xiao/project/codeinsight/test_vulnerable_code...
+[2025-05-22 11:09:04] Plumbing command codeql resolve files completed:
+                      [ ]
+[2025-05-22 11:09:04] [DETAILS] database index-files> Found 0 files.
+[2025-05-22 11:09:04] Terminating normally.

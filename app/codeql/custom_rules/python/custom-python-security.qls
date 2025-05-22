@@ -1,0 +1,12 @@
+- description: "自定义Python安全规则"
+- queries: .
+- include:
+    kind:
+    - path-problem
+    - problem
+    precision:
+    - high
+    - medium
+    - low
+    tags contain:
+    - security 

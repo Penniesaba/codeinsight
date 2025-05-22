@@ -467,15 +467,49 @@ class CodeQLAnalyzer:
                 results_path = temp_file.name
         
         try:
+            # 确定查询目录路径，用于qlpack解析
+            query_dir = os.path.dirname(query_path)
+            
+            # 检查是否有qlpack.yml文件
+            has_qlpack = os.path.exists(os.path.join(query_dir, "qlpack.yml"))
+            logger.debug(f"查询目录 {query_dir} {'包含' if has_qlpack else '不包含'} qlpack.yml")
+            
             # 构建命令
             cmd = [
                 self.codeql_path, 'database', 'analyze',
                 '--format=sarif-latest',
                 f'--output={results_path}',
-                '--ram=2000',  # 设置内存限制，避免大型代码库分析时内存溢出
+                '--ram=4000',  # 设置内存限制，避免大型代码库分析时内存溢出
                 '--threads=2',  # 设置线程数
-                db_path, query_path
             ]
+            
+            # 如果是Python查询且没有qlpack.yml，添加库路径参数
+            if "python" in query_path and not has_qlpack:
+                # 首先尝试查找系统中的Python库路径
+                python_library_path = None
+                try:
+                    # 获取CodeQL查询包路径
+                    packs_cmd = [self.codeql_path, 'resolve', 'qlpacks']
+                    packs_result = subprocess.run(
+                        packs_cmd, 
+                        capture_output=True, 
+                        text=True,
+                        check=False
+                    )
+                    if packs_result.returncode == 0:
+                        for line in packs_result.stdout.splitlines():
+                            if "codeql/python-all" in line:
+                                python_library_path = line.split(':')[1].strip()
+                                break
+                except Exception as e:
+                    logger.warning(f"解析Python库路径失败: {str(e)}")
+                
+                if python_library_path:
+                    cmd.append(f"--library-path={python_library_path}")
+                    logger.debug(f"添加Python库路径: {python_library_path}")
+                
+            # 添加数据库和查询文件路径
+            cmd.extend([db_path, query_path])
             
             logger.debug(f"执行命令: {' '.join(cmd)}")
             
@@ -1139,6 +1173,10 @@ class CodeQLAnalyzer:
         """
         rules = []
         
+        # Python规则可能需要特殊处理
+        if language == 'python':
+            logger.info("加载Python自定义规则...")
+        
         # 定义可能的自定义规则目录
         custom_rule_dirs = [
             # 当前项目中的自定义规则
@@ -1343,7 +1381,13 @@ class CodeQLAnalyzer:
                     logger.warning(f"使用替代规则包路径: {alt_path} (注意: 可能需要较长时间执行)")
                     standard_pack_paths.append(alt_path)
         
-        logger.info(f"找到 {len(standard_pack_paths)} 个规则文件")
+        # 限制最多返回60个规则文件
+        if len(standard_pack_paths) > 60:
+            # 如果超过60个，保留前60个
+            logger.warning(f"限制规则数量：从 {len(standard_pack_paths)} 个限制为60个")
+            standard_pack_paths = standard_pack_paths[:60]
+        
+        logger.info(f"最终使用 {len(standard_pack_paths)} 个规则文件")
         return standard_pack_paths
     
     def _get_individual_rules(self, language):

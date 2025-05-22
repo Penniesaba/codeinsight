@@ -1,0 +1,10 @@
+---
+sourceLocationPrefix: /home/xiao/project/codeinsight/test_vulnerable_code
+baselineLinesOfCode: 56
+unicodeNewlines: false
+columnKind: utf32
+primaryLanguage: python
+creationMetadata:
+  cliVersion: 2.20.7
+  creationTime: 2025-05-22T03:12:25.297797345Z
+finalised: true
