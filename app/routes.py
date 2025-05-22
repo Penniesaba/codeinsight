@@ -12,10 +12,14 @@ import uuid
 import logging
 import json
 import glob
+import time
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, send_from_directory
 import threading
 import shutil
+import re
+from queue import Queue, Empty
+from flask import Response, stream_with_context
 
 # 创建蓝图
 main_bp = Blueprint('main', __name__)
@@ -961,4 +965,226 @@ def sarif_analysis_view(task_id):
     else:
         # 没有现成的分析结果，提示用户触发分析
         flash('找不到SARIF分析结果，请先分析SARIF文件', 'info')
-        return redirect(url_for('main.report', task_id=task_id)) 
+        return redirect(url_for('main.report', task_id=task_id))
+
+@main_bp.route('/api/logs/info', methods=['GET'])
+def get_info_logs():
+    """获取系统的INFO级别日志"""
+    try:
+        # 获取最近的日志文件
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+        log_files = [f for f in os.listdir(log_dir) if f.endswith('.log')]
+        
+        if not log_files:
+            return jsonify({'logs': [], 'error': '未找到日志文件'})
+        
+        # 按时间排序，获取最新的日志文件
+        log_files.sort(reverse=True)
+        latest_log = os.path.join(log_dir, log_files[0])
+        
+        # 读取日志文件并提取INFO级别的日志
+        info_logs = []
+        with open(latest_log, 'r', encoding='utf-8') as f:
+            for line in f:
+                # 只保留INFO级别的日志
+                if " INFO " in line:
+                    # 解析日志时间
+                    try:
+                        timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})', line)
+                        timestamp = timestamp_match.group(1) if timestamp_match else ""
+                        
+                        # 提取日志内容
+                        content = line.strip()
+                        
+                        info_logs.append({
+                            'timestamp': timestamp,
+                            'content': content
+                        })
+                    except Exception as e:
+                        continue
+        
+        # 返回最多100条最新的日志
+        return jsonify({'logs': info_logs[-100:]})
+    
+    except Exception as e:
+        return jsonify({'logs': [], 'error': str(e)})
+
+# 全局日志订阅队列字典，每个任务ID对应一个队列
+log_subscribers = {}
+
+@main_bp.route('/api/logs/stream/<task_id>', methods=['GET'])
+def stream_logs(task_id):
+    """流式传输日志的SSE端点"""
+    def generate():
+        # 为这个客户端创建一个队列
+        queue = Queue()
+        
+        # 注册到全局订阅字典
+        if task_id not in log_subscribers:
+            log_subscribers[task_id] = []
+        log_subscribers[task_id].append(queue)
+        
+        try:
+            # 发送初始连接成功消息
+            yield "event: connected\ndata: {\"status\": \"connected\"}\n\n"
+            
+            # 初始加载最近的日志
+            logs = get_recent_logs(50)  # 获取最近50条日志
+            for log in logs:
+                yield f"event: log\ndata: {json.dumps(log)}\n\n"
+            
+            # 启动日志监听线程
+            if not hasattr(stream_logs, 'monitor_started'):
+                threading.Thread(target=monitor_log_file, daemon=True).start()
+                stream_logs.monitor_started = True
+            
+            # 持续从队列接收新日志
+            while True:
+                try:
+                    # 非阻塞方式获取队列消息，超时30秒
+                    log = queue.get(timeout=30)
+                    if log is None:  # None表示关闭信号
+                        break
+                    yield f"event: log\ndata: {json.dumps(log)}\n\n"
+                except Empty:
+                    # 发送保持连接的消息
+                    yield "event: ping\ndata: {}\n\n"
+        except GeneratorExit:
+            # 客户端断开连接
+            pass
+        finally:
+            # 清理：从订阅者列表中移除
+            if task_id in log_subscribers and queue in log_subscribers[task_id]:
+                log_subscribers[task_id].remove(queue)
+                if not log_subscribers[task_id]:  # 如果没有订阅者了，删除任务ID键
+                    del log_subscribers[task_id]
+    
+    # 返回SSE响应
+    response = Response(stream_with_context(generate()), mimetype="text/event-stream")
+    response.headers["Cache-Control"] = "no-cache"
+    response.headers["X-Accel-Buffering"] = "no"  # 禁用Nginx缓冲
+    return response
+
+def get_recent_logs(count=50):
+    """获取最近的日志条目"""
+    try:
+        # 获取最近的日志文件
+        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+        log_files = [f for f in os.listdir(log_dir) if f.endswith('.log')]
+        
+        if not log_files:
+            return []
+        
+        # 按时间排序，获取最新的日志文件
+        log_files.sort(reverse=True)
+        latest_log = os.path.join(log_dir, log_files[0])
+        
+        # 读取日志文件并提取INFO级别的日志
+        info_logs = []
+        with open(latest_log, 'r', encoding='utf-8') as f:
+            for line in f:
+                # 只保留INFO级别的日志
+                if " INFO " in line:
+                    # 解析日志时间
+                    try:
+                        timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})', line)
+                        timestamp = timestamp_match.group(1) if timestamp_match else ""
+                        
+                        # 提取日志内容
+                        content = line.strip()
+                        
+                        info_logs.append({
+                            'timestamp': timestamp,
+                            'content': content
+                        })
+                    except Exception:
+                        continue
+        
+        # 返回最新的日志
+        return info_logs[-count:]
+    
+    except Exception as e:
+        logger.error(f"获取最近日志失败: {str(e)}")
+        return []
+
+def monitor_log_file():
+    """持续监控日志文件并向所有订阅者推送新日志"""
+    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+    
+    # 获取最新的日志文件
+    def get_latest_log_file():
+        log_files = [f for f in os.listdir(log_dir) if f.endswith('.log')]
+        if not log_files:
+            return None
+        log_files.sort(reverse=True)
+        return os.path.join(log_dir, log_files[0])
+    
+    current_log_file = get_latest_log_file()
+    if not current_log_file:
+        logger.error("没有找到日志文件")
+        return
+    
+    # 获取文件大小，从文件末尾开始监听
+    file_size = os.path.getsize(current_log_file)
+    
+    # 持续监听日志文件
+    while True:
+        try:
+            # 检查是否有新的日志文件
+            latest_log = get_latest_log_file()
+            if latest_log != current_log_file:
+                # 日志文件已更新，重置状态
+                current_log_file = latest_log
+                file_size = 0
+            
+            # 获取当前文件大小
+            current_size = os.path.getsize(current_log_file)
+            
+            # 如果文件大小变化，读取新内容
+            if current_size > file_size:
+                with open(current_log_file, 'r', encoding='utf-8') as f:
+                    # 移动到上次读取的位置
+                    f.seek(file_size)
+                    
+                    # 读取新日志
+                    new_lines = f.readlines()
+                    
+                    # 更新文件大小
+                    file_size = current_size
+                    
+                    # 处理新的日志行
+                    for line in new_lines:
+                        if " INFO " in line:
+                            try:
+                                timestamp_match = re.match(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3})', line)
+                                timestamp = timestamp_match.group(1) if timestamp_match else ""
+                                
+                                # 创建日志对象
+                                log_entry = {
+                                    'timestamp': timestamp,
+                                    'content': line.strip()
+                                }
+                                
+                                # 向所有订阅者发送新日志
+                                broadcast_log(log_entry)
+                            except Exception as e:
+                                logger.error(f"处理日志行时出错: {str(e)}")
+                                continue
+            
+            # 等待一小段时间再检查
+            time.sleep(0.5)
+            
+        except Exception as e:
+            logger.error(f"监控日志文件时出错: {str(e)}")
+            time.sleep(5)  # 发生错误时等待更长时间
+
+def broadcast_log(log_entry):
+    """向所有订阅者广播日志条目"""
+    # 遍历所有任务的订阅者队列
+    for task_id, queues in list(log_subscribers.items()):
+        # 遍历任务的所有订阅者
+        for queue in queues:
+            try:
+                queue.put(log_entry)
+            except Exception as e:
+                logger.error(f"向队列发送日志时出错: {str(e)}") 

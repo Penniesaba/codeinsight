@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">代码分析进度</h5>
@@ -125,6 +125,40 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 系统日志组件 -->
+        <div class="col-md-6 d-flex">
+            <div class="card w-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">系统日志</h5>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-logs">
+                        <i class="bi bi-arrow-clockwise"></i> 刷新
+                    </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div id="log-container" class="log-viewer flex-grow-1">
+                        <div class="text-center p-3" id="log-loading">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">加载中...</span>
+                            </div>
+                            <p class="mt-2">正在加载日志...</p>
+                        </div>
+                        <div id="log-content" class="d-none">
+                            <!-- 日志将动态添加到这里 -->
+                        </div>
+                        <div id="log-empty" class="text-center p-3 d-none">
+                            <i class="bi bi-journal-text" style="font-size: 2rem;"></i>
+                            <p class="mt-2">暂无INFO级别日志</p>
+                        </div>
+                        <div id="log-error" class="text-center p-3 d-none">
+                            <i class="bi bi-exclamation-triangle" style="font-size: 2rem;"></i>
+                            <p class="mt-2">加载日志时出错</p>
+                            <p id="log-error-message" class="text-danger"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -147,6 +181,43 @@
     }
     .step-failed {
         background-color: #fff8f8;
+    }
+    
+    /* 日志查看器样式 */
+    .log-viewer {
+        height: 348px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+    }
+    
+    .log-entry {
+        padding: 4px 8px;
+        border-bottom: 1px solid #e9ecef;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    
+    .log-timestamp {
+        color: #6c757d;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+    
+    .log-content {
+        color: #212529;
+    }
+    
+    /* 新增日志动画 */
+    @keyframes newLog {
+        from {background-color: rgba(25, 135, 84, 0.2);}
+        to {background-color: transparent;}
+    }
+    
+    .new-log {
+        animation: newLog 2s ease-out;
     }
 </style>
 {% endblock %}
@@ -204,6 +275,14 @@
                 progressIcon: document.getElementById('icon-enhance-progress'),
                 pendingIcon: document.getElementById('icon-enhance-pending'),
                 timeLabel: document.getElementById('step-enhance-time')
+            },
+            'reporting': {
+                step: document.getElementById('step-report'),
+                detail: document.getElementById('step-report-detail'),
+                doneIcon: document.getElementById('icon-report-done'),
+                progressIcon: document.getElementById('icon-report-progress'),
+                pendingIcon: document.getElementById('icon-report-pending'),
+                timeLabel: document.getElementById('step-report-time')
             },
             'completed': {
                 step: document.getElementById('step-report'),
@@ -359,9 +438,9 @@
                 steps.enhancing.doneIcon.classList.remove('d-none');
                 steps.enhancing.pendingIcon.classList.add('d-none');
                 
-                steps.completed.step.classList.add('step-active');
-                steps.completed.doneIcon.classList.remove('d-none');
-                steps.completed.pendingIcon.classList.add('d-none');
+                steps.reporting.step.classList.add('step-active');
+                steps.reporting.doneIcon.classList.remove('d-none');
+                steps.reporting.pendingIcon.classList.add('d-none');
                 
                 // 显示时间
                 if (taskInfo) {
@@ -378,7 +457,7 @@
                         steps.enhancing.timeLabel.textContent = formatTime(taskInfo.codeql_completed_at);
                     }
                     if (taskInfo.completed_at) {
-                        steps.completed.timeLabel.textContent = formatTime(taskInfo.completed_at);
+                        steps.reporting.timeLabel.textContent = formatTime(taskInfo.completed_at);
                     }
                 }
             }
@@ -396,7 +475,7 @@
                 } else if (taskInfo.status === 'enhancing') {
                     failedStep = steps.enhancing;
                 } else {
-                    failedStep = steps.completed;
+                    failedStep = steps.reporting;
                 }
                 
                 // 将失败步骤标记为红色
@@ -525,6 +604,168 @@
         
         // 开始轮询
         checkStatus();
+        
+        // 日志相关元素
+        const logContainer = document.getElementById('log-container');
+        const logContent = document.getElementById('log-content');
+        const logLoading = document.getElementById('log-loading');
+        const logEmpty = document.getElementById('log-empty');
+        const logError = document.getElementById('log-error');
+        const logErrorMessage = document.getElementById('log-error-message');
+        const refreshLogsBtn = document.getElementById('refresh-logs');
+        
+        // 初始化日志查看器
+        function initLogViewer() {
+            // 初始加载一次日志
+            loadLogs();
+            
+            // 连接SSE事件流
+            connectToLogStream();
+            
+            // 手动刷新日志按钮
+            refreshLogsBtn.addEventListener('click', loadLogs);
+        }
+        
+        // 加载日志函数
+        function loadLogs() {
+            // 显示加载中状态
+            logLoading.classList.remove('d-none');
+            logContent.classList.add('d-none');
+            logEmpty.classList.add('d-none');
+            logError.classList.add('d-none');
+            
+            fetch('/api/logs/info')
+                .then(response => response.json())
+                .then(data => {
+                    // 隐藏加载中状态
+                    logLoading.classList.add('d-none');
+                    
+                    if (data.error) {
+                        // 显示错误信息
+                        logError.classList.remove('d-none');
+                        logErrorMessage.textContent = data.error;
+                        return;
+                    }
+                    
+                    const logs = data.logs || [];
+                    
+                    if (logs.length === 0) {
+                        // 显示无日志信息
+                        logEmpty.classList.remove('d-none');
+                        return;
+                    }
+                    
+                    // 清空并添加日志内容
+                    logContent.innerHTML = '';
+                    logs.forEach(log => {
+                        addLogEntry(log);
+                    });
+                    
+                    // 显示日志内容
+                    logContent.classList.remove('d-none');
+                    
+                    // 滚动到底部
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                })
+                .catch(error => {
+                    // 隐藏加载中状态
+                    logLoading.classList.add('d-none');
+                    
+                    // 显示错误信息
+                    logError.classList.remove('d-none');
+                    logErrorMessage.textContent = '无法加载日志: ' + error.message;
+                });
+        }
+        
+        // 添加日志条目
+        function addLogEntry(log, isNew = false) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            if (isNew) {
+                logEntry.classList.add('new-log');
+            }
+            
+            const timestamp = document.createElement('span');
+            timestamp.className = 'log-timestamp';
+            timestamp.textContent = log.timestamp;
+            
+            const content = document.createElement('span');
+            content.className = 'log-content';
+            content.textContent = log.content;
+            
+            logEntry.appendChild(timestamp);
+            logEntry.appendChild(content);
+            logContent.appendChild(logEntry);
+            
+            // 如果是新日志，滚动到底部
+            if (isNew) {
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+        }
+        
+        // 连接到SSE日志流
+        function connectToLogStream() {
+            if (typeof EventSource === "undefined") {
+                console.warn("浏览器不支持SSE，回退到轮询模式");
+                // 如果浏览器不支持SSE，回退到轮询模式
+                setInterval(loadLogs, 3000);
+                return;
+            }
+            
+            // 创建SSE连接
+            const source = new EventSource(`/api/logs/stream/${taskId}`);
+            
+            // 连接打开
+            source.onopen = function(event) {
+                console.log("SSE连接已建立");
+                // 连接成功后可以隐藏加载中状态
+                logLoading.classList.add('d-none');
+                
+                // 如果还没有日志内容，显示空内容提示
+                if (logContent.children.length === 0) {
+                    logEmpty.classList.remove('d-none');
+                } else {
+                    logContent.classList.remove('d-none');
+                }
+            };
+            
+            // 接收日志消息
+            source.addEventListener('log', function(event) {
+                try {
+                    const log = JSON.parse(event.data);
+                    
+                    // 如果日志区域是空的，先隐藏空提示
+                    if (logContent.children.length === 0) {
+                        logEmpty.classList.add('d-none');
+                        logContent.classList.remove('d-none');
+                    }
+                    
+                    // 添加新日志
+                    addLogEntry(log, true);
+                } catch (error) {
+                    console.error("解析日志数据失败:", error);
+                }
+            });
+            
+            // 错误处理
+            source.onerror = function(event) {
+                console.error("SSE连接错误:", event);
+                
+                // 如果连接关闭，尝试重新连接
+                if (event.target.readyState === EventSource.CLOSED) {
+                    console.log("SSE连接已关闭，尝试重新连接...");
+                    setTimeout(connectToLogStream, 3000);
+                }
+            };
+            
+            // 页面卸载时关闭连接
+            window.addEventListener('beforeunload', function() {
+                source.close();
+            });
+        }
+        
+        // 初始化日志查看器
+        initLogViewer();
     });
 </script>
 {% endblock %} 
