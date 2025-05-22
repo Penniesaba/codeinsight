@@ -480,6 +480,81 @@
         </div>
     </div>
 
+    <!-- 问题代码位置信息 -->
+    {% if report.code_locations and report.code_locations|length > 0 %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">问题代码位置</h5>
+                    <span class="badge bg-secondary">共 {{ report.code_locations|length }} 处</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>规则名称</th>
+                                    <th>文件路径</th>
+                                    <th>行号</th>
+                                    <th>严重程度</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for location in report.code_locations %}
+                                <tr>
+                                    <td>{{ location.rule_name }}</td>
+                                    <td>
+                                        <div class="text-truncate" style="max-width: 300px;">{{ location.file_path }}</div>
+                                    </td>
+                                    <td>{{ location.start_line }}{% if location.end_line != location.start_line %}-{{ location.end_line }}{% endif %}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'danger' if location.severity == 'error' else 'warning' if location.severity == 'warning' else 'info' if location.severity == 'note' else 'secondary' }}">
+                                            {% if location.severity == 'error' %}
+                                            严重
+                                            {% elif location.severity == 'warning' %}
+                                            高危
+                                            {% elif location.severity == 'note' %}
+                                            中危
+                                            {% else %}
+                                            低危
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" type="button" 
+                                                data-bs-toggle="collapse" 
+                                                data-bs-target="#snippet-{{ loop.index }}" 
+                                                aria-expanded="false">
+                                            查看代码
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="collapse" id="snippet-{{ loop.index }}">
+                                    <td colspan="5" class="p-0">
+                                        <div class="code-block bg-light p-3">
+                                            <div class="mb-2 small text-muted">
+                                                <strong>文件:</strong> {{ location.file_path }} <br>
+                                                <strong>位置:</strong> {{ location.start_line }}:{{ location.start_column }} - {{ location.end_line }}:{{ location.end_column }}
+                                                {% if location.is_enhanced %}
+                                                <span class="badge bg-info ms-2">增强显示</span>
+                                                {% endif %}
+                                            </div>
+                                            <pre class="mb-0 p-3 bg-white border rounded"><code class="code-with-lines">{{ location.snippet }}</code></pre>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- 底部操作区 -->
     <div class="row mb-4">
         <div class="col-12 text-center">
@@ -531,15 +606,15 @@
     }
     
     .code-block pre {
-        padding: 1rem;
-        margin-bottom: 0;
+        margin: 0;
+        border-radius: 4px;
         overflow-x: auto;
     }
     
-    .code-block pre code {
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.875rem;
-        color: #212529;
+    .code-block code {
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
     
     .code-block .line {
@@ -549,6 +624,23 @@
     
     .code-block .line:hover {
         background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    /* 代码行号和高亮样式 */
+    .code-with-lines {
+        counter-reset: line;
+        white-space: pre;
+    }
+    
+    .code-with-lines .line-highlight {
+        background-color: rgba(255, 220, 220, 0.5);
+        display: block;
+    }
+    
+    /* 箭头高亮样式 */
+    .code-with-lines .arrow-line {
+        color: #dc3545;
+        font-weight: bold;
     }
     
     /* 漏洞信息卡片样式 */
@@ -737,6 +829,12 @@
         font-weight: bold;
         margin: 0 auto 1rem;
     }
+
+    /* 表格自适应 */
+    .table-responsive {
+        max-height: 600px;
+        overflow-y: auto;
+    }
 </style>
 {% endblock %}
 
@@ -756,6 +854,14 @@
             });
             
             el.innerHTML = numberedLines;
+        });
+
+        // 处理增强代码片段中的箭头标记
+        document.querySelectorAll('.code-with-lines').forEach(function(el) {
+            const html = el.innerHTML;
+            // 替换带有箭头的行
+            const processedHtml = html.replace(/(→\s+\d+:)/g, '<span class="arrow-line">$1</span>');
+            el.innerHTML = processedHtml;
         });
 
         // 设置进度条宽度

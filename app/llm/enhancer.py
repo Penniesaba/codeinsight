@@ -111,8 +111,20 @@ class LLMEnhancer:
             # 解析SARIF内容
             sarif_data = json.loads(sarif_content)
             
+            # 获取仓库路径（如果有）
+            repo_path = None
+            if task_id:
+                repo_path = os.path.join(self.config['REPO_CACHE_DIR'], task_id)
+                if not os.path.exists(repo_path):
+                    logger.warning(f"仓库路径不存在: {repo_path}，无法提取完整代码片段")
+                    repo_path = None
+            
             # 提取基本信息
             basic_info = self._extract_sarif_basic_info(sarif_data)
+            
+            # 如果有仓库路径，尝试从源文件中提取完整代码片段
+            if repo_path:
+                self._enhance_code_snippets(basic_info, repo_path)
             
             # 构建提示
             prompt = self.sarif_analysis_prompt.format(sarif_content=sarif_content)
@@ -163,7 +175,8 @@ class LLMEnhancer:
                 'medium': 0,
                 'low': 0
             },
-            'rules': {}
+            'rules': {},
+            'code_locations': []  # 新增：存储有问题的代码位置信息
         }
         
         # 处理每一个run
@@ -209,6 +222,40 @@ class LLMEnhancer:
                     basic_info['severity_counts']['medium'] += 1    # 低危→中危
                 else:
                     basic_info['severity_counts']['low'] += 1       # 其他→低危
+                
+                # 提取代码位置信息
+                if 'locations' in result:
+                    for location in result.get('locations', []):
+                        physical_location = location.get('physicalLocation', {})
+                        artifact_location = physical_location.get('artifactLocation', {})
+                        region = physical_location.get('region', {})
+                        
+                        if artifact_location and region:
+                            file_path = artifact_location.get('uri', '')
+                            start_line = region.get('startLine', 0)
+                            end_line = region.get('endLine', start_line)
+                            start_column = region.get('startColumn', 1)
+                            end_column = region.get('endColumn', 1)
+                            
+                            # 提取代码片段
+                            snippet = physical_location.get('contextRegion', {}).get('snippet', {}).get('text', '')
+                            if not snippet:
+                                snippet = region.get('snippet', {}).get('text', '')
+                            
+                            # 添加到位置列表
+                            code_location = {
+                                'rule_id': rule_id,
+                                'rule_name': rules.get(rule_id, {}).get('name', rule_id),
+                                'severity': severity,
+                                'file_path': file_path,
+                                'start_line': start_line,
+                                'end_line': end_line,
+                                'start_column': start_column,
+                                'end_column': end_column,
+                                'snippet': snippet,
+                                'is_enhanced': False
+                            }
+                            basic_info['code_locations'].append(code_location)
         
         # 合并规则信息
         basic_info['rules'] = rules
@@ -217,19 +264,22 @@ class LLMEnhancer:
     
     def _structure_sarif_analysis(self, llm_response, basic_info):
         """
-        将LLM的分析响应结构化为增强报告格式
+        将LLM响应结构化为分析报告
         
         参数:
             llm_response: LLM的分析响应
             basic_info: 从SARIF提取的基本信息
             
         返回:
-            结构化的报告
+            结构化的分析报告
         """
-        # 提取重要部分
+        # 提取分析部分
         sections = self._extract_analysis_sections(llm_response)
         
-        # 构建报告结构
+        # 提取LLM识别的漏洞
+        vulnerabilities = []
+        
+        # 构建结构化分析结果
         structured_analysis = {
             'summary': {
                 'total_vulnerabilities': basic_info['total_results'],
@@ -237,16 +287,28 @@ class LLMEnhancer:
                 'severity_distribution': basic_info['severity_counts']
             },
             'overview': sections.get('overview', ''),
-            'vulnerabilities': []
+            'vulnerabilities': [],
+            'code_locations': basic_info.get('code_locations', [])  # 添加代码位置信息
         }
         
-        # 处理漏洞
-        vulnerabilities = sections.get('vulnerabilities', [])
+        # 如果没有从LLM提取到漏洞，使用基本信息构建
         if not vulnerabilities:
-            # 基于规则创建默认漏洞信息
-            for rule_id, rule_info in basic_info['rules'].items():
-                vuln_type = rule_info['name'].replace('_', ' ').title()
+            # 按严重性对规则排序
+            severity_order = {'error': 0, 'warning': 1, 'note': 2, 'recommendation': 3}
+            sorted_rules = sorted(
+                basic_info['rules'].items(),
+                key=lambda x: (severity_order.get(x[1]['severity'], 999), -x[1]['count'])
+            )
+            
+            # 为每个规则创建漏洞条目
+            for rule_id, rule_info in sorted_rules:
+                if rule_info['count'] == 0:
+                    continue
+                    
+                # 获取漏洞类型
+                vuln_type = rule_info['name']
                 
+                # 创建漏洞条目
                 vulnerability = {
                     'type': vuln_type,
                     'description': rule_info['description'],
@@ -1320,3 +1382,76 @@ class LLMEnhancer:
         except Exception as e:
             logger.error(f"分析多个SARIF文件失败: {str(e)}", exc_info=True)
             return self._mock_sarif_analysis("", task_id)
+    
+    def _extract_code_from_file(self, repo_path, file_path, start_line, end_line, context_lines=5):
+        """
+        从仓库文件中提取完整代码片段
+        
+        参数:
+            repo_path: 仓库路径
+            file_path: 文件路径
+            start_line: 开始行号
+            end_line: 结束行号
+            context_lines: 上下文行数
+            
+        返回:
+            代码片段
+        """
+        try:
+            full_path = os.path.join(repo_path, file_path)
+            
+            # 检查文件是否存在
+            if not os.path.exists(full_path):
+                logger.warning(f"文件不存在: {full_path}")
+                return None
+                
+            # 读取文件内容
+            with open(full_path, 'r', encoding='utf-8', errors='replace') as f:
+                lines = f.readlines()
+                
+            # 计算要提取的行范围
+            extract_start = max(1, start_line - context_lines)
+            extract_end = min(len(lines), end_line + context_lines)
+            
+            # 提取代码片段
+            snippet_lines = lines[extract_start-1:extract_end]
+            snippet = ''.join(snippet_lines)
+            
+            # 添加行号前缀
+            numbered_lines = []
+            for i, line in enumerate(snippet_lines):
+                line_num = i + extract_start
+                # 高亮显示问题代码行
+                if line_num >= start_line and line_num <= end_line:
+                    numbered_lines.append(f"→ {line_num}: {line}")
+                else:
+                    numbered_lines.append(f"  {line_num}: {line}")
+            
+            return ''.join(numbered_lines)
+            
+        except Exception as e:
+            logger.error(f"提取代码片段失败: {str(e)}", exc_info=True)
+            return None
+    
+    def _enhance_code_snippets(self, basic_info, repo_path):
+        """
+        增强代码片段，从仓库文件中提取更多上下文
+        
+        参数:
+            basic_info: 基本信息字典
+            repo_path: 仓库路径
+        """
+        for location in basic_info.get('code_locations', []):
+            # 尝试从仓库文件中提取更完整的代码片段
+            enhanced_snippet = self._extract_code_from_file(
+                repo_path,
+                location['file_path'],
+                location['start_line'],
+                location['end_line']
+            )
+            
+            # 如果成功提取到代码，更新snippet
+            if enhanced_snippet:
+                location['original_snippet'] = location['snippet']  # 保留原始片段
+                location['snippet'] = enhanced_snippet
+                location['is_enhanced'] = True
