@@ -124,7 +124,14 @@ class LLMEnhancer:
             
             # 如果有仓库路径，尝试从源文件中提取完整代码片段
             if repo_path:
+                logger.info(f"尝试从仓库提取代码片段: {repo_path}")
                 self._enhance_code_snippets(basic_info, repo_path)
+            else:
+                logger.warning("仓库路径不可用，将使用SARIF提供的代码片段")
+                # 确保每个代码位置都有snippet字段
+                for location in basic_info.get('code_locations', []):
+                    if not location.get('snippet'):
+                        location['snippet'] = f"// 无代码片段可用\n// 文件: {location.get('file_path')}\n// 行: {location.get('start_line')}-{location.get('end_line')}"
             
             # 构建提示
             prompt = self.sarif_analysis_prompt.format(sarif_content=sarif_content)
@@ -241,6 +248,13 @@ class LLMEnhancer:
                             snippet = physical_location.get('contextRegion', {}).get('snippet', {}).get('text', '')
                             if not snippet:
                                 snippet = region.get('snippet', {}).get('text', '')
+                            
+                            # 如果还是没有片段，尝试从result的message中提取
+                            if not snippet and 'message' in result:
+                                message_text = result.get('message', {}).get('text', '')
+                                if message_text:
+                                    # 有些SARIF文件在消息中包含代码片段
+                                    snippet = f"// 从消息中提取的代码:\n{message_text}"
                             
                             # 添加到位置列表
                             code_location = {
@@ -1398,16 +1412,36 @@ class LLMEnhancer:
             代码片段
         """
         try:
-            full_path = os.path.join(repo_path, file_path)
+            # 尝试不同的路径组合
+            possible_paths = [
+                os.path.join(repo_path, file_path),  # 标准路径
+                os.path.join(repo_path, os.path.basename(file_path)),  # 只使用文件名
+                file_path if os.path.isabs(file_path) else os.path.join(repo_path, file_path)  # 尝试绝对路径
+            ]
             
-            # 检查文件是否存在
-            if not os.path.exists(full_path):
-                logger.warning(f"文件不存在: {full_path}")
-                return None
+            # 找到第一个存在的文件路径
+            full_path = None
+            for path in possible_paths:
+                if os.path.exists(path):
+                    full_path = path
+                    logger.info(f"找到文件: {full_path}")
+                    break
+            
+            # 如果所有路径都不存在
+            if not full_path:
+                logger.warning(f"无法找到文件, 尝试的路径: {possible_paths}")
+                # 如果找不到文件，返回一个提示信息而不是None
+                return f"// 无法找到文件: {file_path}\n// 开始行: {start_line}, 结束行: {end_line}"
                 
             # 读取文件内容
             with open(full_path, 'r', encoding='utf-8', errors='replace') as f:
                 lines = f.readlines()
+                
+            # 检查行号是否有效
+            if start_line < 1:
+                start_line = 1
+            if end_line > len(lines):
+                end_line = len(lines)
                 
             # 计算要提取的行范围
             extract_start = max(1, start_line - context_lines)
@@ -1415,7 +1449,6 @@ class LLMEnhancer:
             
             # 提取代码片段
             snippet_lines = lines[extract_start-1:extract_end]
-            snippet = ''.join(snippet_lines)
             
             # 添加行号前缀
             numbered_lines = []
@@ -1427,11 +1460,14 @@ class LLMEnhancer:
                 else:
                     numbered_lines.append(f"  {line_num}: {line}")
             
-            return ''.join(numbered_lines)
+            snippet = ''.join(numbered_lines)
+            logger.info(f"成功提取代码片段, 文件: {full_path}, 行: {extract_start}-{extract_end}")
+            return snippet
             
         except Exception as e:
             logger.error(f"提取代码片段失败: {str(e)}", exc_info=True)
-            return None
+            # 返回错误信息而不是None
+            return f"// 提取代码失败: {str(e)}\n// 文件: {file_path}\n// 开始行: {start_line}, 结束行: {end_line}"
     
     def _enhance_code_snippets(self, basic_info, repo_path):
         """

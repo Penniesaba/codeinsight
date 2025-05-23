@@ -541,7 +541,13 @@
                                                 <span class="badge bg-info ms-2">增强显示</span>
                                                 {% endif %}
                                             </div>
+                                            {% if location.snippet %}
                                             <pre class="mb-0 p-3 bg-white border rounded"><code class="code-with-lines">{{ location.snippet }}</code></pre>
+                                            {% else %}
+                                            <div class="alert alert-warning">
+                                                无法显示代码片段。可能是文件路径不正确或文件不存在。
+                                            </div>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>

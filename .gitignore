@@ -3,3 +3,4 @@
 .cursorignore
 /logs
 /_pycache
+/test
